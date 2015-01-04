@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
 
-    <persistence-unit name="NewPersistenceUnit">
+    <persistence-unit name="XmasCalendar">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <properties>
+        <jta-data-source>java:/jdbc/XmasCalendar</jta-data-source>
+        <class></class><!-- Each entity class needs to specified here? One class tag per entity I think-->
+        <properties> <!-- Are any of these properties needed? Compare with backend project -->
             <property name="hibernate.connection.url" value=""/>
             <property name="hibernate.connection.driver_class" value=""/>
             <property name="hibernate.connection.username" value=""/>
@@ -12,6 +14,7 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hbm2ddl.auto" value="update"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/>
         </properties>
     </persistence-unit>
 </persistence>

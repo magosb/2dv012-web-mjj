@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="christmas-calendar">
+    <output-path>$PROJECT_DIR$/out/artifacts/christmas-calendar.war</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="christmas-calendar/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="christmas-calendar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
