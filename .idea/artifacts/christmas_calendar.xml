@@ -7,9 +7,7 @@
         <element id="directory" name="classes">
           <element id="module-output" name="christmas-calendar" />
         </element>
-        <element id="directory" name="lib">
-          <element id="library" level="project" name="JPA 2.1-JPA 2.1" />
-        </element>
+        <element id="directory" name="lib" />
       </element>
     </root>
   </artifact>
