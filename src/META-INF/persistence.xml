@@ -4,17 +4,17 @@
     <persistence-unit name="XmasCalendar">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:/jdbc/XmasCalendar</jta-data-source>
-        <class></class><!-- Each entity class needs to specified here? One class tag per entity I think-->
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties> <!-- Are any of these properties needed? Compare with backend project -->
-            <property name="hibernate.connection.url" value=""/>
+            <!-- <property name="hibernate.connection.url" value=""/>
             <property name="hibernate.connection.driver_class" value=""/>
             <property name="hibernate.connection.username" value=""/>
-            <property name="hibernate.connection.password" value=""/>
-            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.connection.password" value=""/> -->
+            <property name="hibernate.archive.autodetection" value="class"/> <!-- What does this do? -->
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hbm2ddl.auto" value="update"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
         </properties>
     </persistence-unit>
 </persistence>
