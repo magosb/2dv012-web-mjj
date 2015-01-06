@@ -31,7 +31,7 @@ public class Calendar {
     @Column(name = "pass_phrase")
     private String passPhrase;
 
-    @OneToMany(mappedBy="calendarName", fetch=FetchType.LAZY, cascade={CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy="calendarName", fetch=FetchType.LAZY, cascade={CascadeType.MERGE, CascadeType.REFRESH}) // TODO: Are these cascades correct?
     private List<Window> windows;
 
     public Calendar() {

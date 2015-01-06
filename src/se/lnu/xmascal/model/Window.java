@@ -13,6 +13,7 @@ import java.io.Serializable;
 @NamedQuery(name = "Window.findAll", query = "SELECT w FROM Window w")
 public class Window implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "calendar_name")
     private String calendarName;
@@ -23,7 +24,7 @@ public class Window implements Serializable {
 
     @Lob
     @Basic(fetch=FetchType.LAZY)
-    @Column(name = "content") // TODO: Must be lazily loaded
+    @Column(name = "content")
     private byte[] content;
 
     @Column(name = "type")

@@ -20,7 +20,7 @@ public class CalendarQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @PersistenceContext(name = "xmascal-pu")
-    EntityManager em;
+    private EntityManager em;
 
     public CalendarQueryBean() {
     }

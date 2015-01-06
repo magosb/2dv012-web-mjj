@@ -121,7 +121,7 @@ public class CalendarManagedBean implements Serializable {
      * message is sent if the calendar was updated successfully.
      */
     // public void update(ValueChangeEvent e) TODO: Might be able to use this instead/in conjunction?
-    public void update() {
+    public void update() { // TODO: calendar.set... may not work, since the Calendar may be detached. Need to use em.merge
         if (hasNullErrors()) {
             return;
         }

@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "admin")
 @NamedQuery(name = "Admin.findAll", query = "SELECT a FROM Admin a")
-public class Admin {
+public class Admin { // TODO: This should probably be SessionScoped?
     private static final long serialVersionUID = 1L;
 
     @Id
