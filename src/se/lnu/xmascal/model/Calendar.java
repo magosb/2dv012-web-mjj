@@ -18,10 +18,14 @@ public class Calendar {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "background") // TODO: Must be lazily loaded
+    @Lob
+    @Basic(fetch=FetchType.LAZY)
+    @Column(name = "background")
     private byte[] background;
 
-    @Column(name = "thumbnail")  // TODO: Must be lazily loaded
+    @Lob
+    @Basic(fetch=FetchType.LAZY)
+    @Column(name = "thumbnail")
     private byte[] thumbnail;
 
     @Column(name = "pass_phrase")
