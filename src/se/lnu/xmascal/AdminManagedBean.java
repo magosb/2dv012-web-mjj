@@ -41,11 +41,11 @@ public class AdminManagedBean implements Serializable {
     }
 
     /**
-     * Sets the provided msg as an error message using the 'messages' tag on the facelet of the current page.
+     * Sends the provided msg as an error message using the 'messages' tag on the facelet of the current page.
      *
      * @param msg the error message to be set
      */
-    private void setErrorMsg(String msg) {
+    private void sendErrorMsg(String msg) {
         FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null);
         FacesContext.getCurrentInstance().addMessage("", facesMessage); // TODO: Do we need to specify anything for ""?
     }
@@ -63,7 +63,7 @@ public class AdminManagedBean implements Serializable {
             }
         }
 
-        setErrorMsg("No admin with that username and password exists.");
+        sendErrorMsg("No admin with that username and password exists.");
         return null;
     }
 
