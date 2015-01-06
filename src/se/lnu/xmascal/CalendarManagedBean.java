@@ -30,6 +30,8 @@ public class CalendarManagedBean implements Serializable {
     private String passPhrase;
     private Calendar calendar;
 
+    // TODO: Will probably need to keep a list of Windows here, that the admin has added on Add Calendar page
+
     public String getName() {
         return name;
     }

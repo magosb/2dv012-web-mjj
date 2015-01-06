@@ -1,6 +1,7 @@
 package se.lnu.xmascal.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * This class represents a Calendar in the Christmas Calendar web application.
@@ -25,6 +26,9 @@ public class Calendar {
 
     @Column(name = "pass_phrase")
     private String passPhrase;
+
+    @OneToMany(mappedBy="calendarName", fetch=FetchType.LAZY, cascade={CascadeType.MERGE, CascadeType.REFRESH})
+    private List<Window> windows;
 
     public Calendar() {
     }
@@ -96,5 +100,19 @@ public class Calendar {
      */
     public void setPassPhrase(String passPhrase) {
         this.passPhrase = passPhrase;
+    }
+
+    /**
+     * @return the <code>Windows</code> of this <code>Calendar</code>
+     */
+    public List<Window> getWindows() {
+        return windows;
+    }
+
+    /**
+     * @param windows the <code>Window</code>s to set for this <code>Calendar</code>
+     */
+    public void setWindows(List<Window> windows) {
+        this.windows = windows;
     }
 }

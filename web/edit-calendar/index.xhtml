@@ -9,7 +9,7 @@
     <h:form>
         <h3 class="formLable">Calendars in database:</h3>
         <h:selectOneListbox id="list1" size="3" onchange="submit()" value="#{calendarManagedBean.name}">
-            <f:selectItems value="#{calendarManagedBean.allCalendars}" var="c" itemLabel="#{c.name}" itemValue="#{c.name}"/>
+            <f:selectItems value="#{calendarManagedBean.allCalendars}" var="c" itemLabel="CalName: #{c.name}, Window0Day:#{c.windows.get(0).day}" itemValue="#{c.name}"/>
         </h:selectOneListbox>
     </h:form>
     <h:form>

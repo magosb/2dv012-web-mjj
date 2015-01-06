@@ -14,6 +14,7 @@
             <property name="hibernate.show_sql" value="true"/> <!-- TODO: Remove this before hand-in -->
             <property name="hibernate.format_sql" value="true"/>
             <!-- <property name="hbm2ddl.auto" value="update"/> -->
+            <property name="hibernate.enable_lazy_load_no_trans" value="true"/> <!-- Needed to avoid JPA lazy load exception -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
         </properties>
     </persistence-unit>
