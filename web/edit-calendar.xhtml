@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:form>
+        <h3 class="formLable">Calendars in database:</h3>
+        <h:selectOneListbox id="list1" size="3" onchange="submit()" value="#{calendarManagedBean.name}">
+            <f:selectItems value="#{calendarManagedBean.allCalendars}" var="c" itemLabel="#{c.name}" itemValue="#{c.name}"/>
+        </h:selectOneListbox>
+    </h:form>
+    <h:form>
+        <br/>
+        <fieldset>
+            <h:messages infoStyle="color:green" errorStyle="color:red"/>
+            <legend>
+                <h:outputLabel value="Add a new/ edit calendar: " />
+            </legend>
+            <h:outputLabel value="Name:" />
+
+            <h:inputText id="name" value="#{calendarManagedBean.name}" />
+            <br/>
+            <h:outputLabel value="Passphrase:" />
+            <h:inputText id="passphrase" value="#{calendarManagedBean.passPhrase}" />
+            <br/>
+
+            <h:commandButton value="Add" action="#{calendarManagedBean.add}" class="submitButton"/>
+            <h:commandButton value="Update" action="#{calendarManagedBean.update}" class="submitButton"/>
+            <h:commandButton value="Delete" action="#{calendarManagedBean.remove}" class="submitButton"/>
+
+        </fieldset>
+    </h:form>
+</f:view>
+</html>
