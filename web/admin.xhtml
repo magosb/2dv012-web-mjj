@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:form>
+        <fieldset>
+            <h:messages infoStyle="color:green" errorStyle="color:red"/>
+            <legend>
+                <h:outputLabel value="Enter admin details to login" />
+            </legend>
+            <h:outputLabel value="Username:" />
+            <h:inputText id="username" value="#{adminManagedBean.username}" />
+            <br/>
+            <h:outputLabel value="Password:" />
+            <h:inputText id="password" value="#{adminManagedBean.password}" />
+            <br/>
+
+            <h:commandButton value="Login" action="#{adminManagedBean.login()}" class="submitButton"/>
+
+        </fieldset>
+    </h:form>
+</f:view>
+</html>
