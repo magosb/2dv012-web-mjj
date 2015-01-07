@@ -42,7 +42,7 @@
         <auth-method>FORM</auth-method>
         <form-login-config>
             <form-login-page>/auth/login.xhtml</form-login-page>
-            <form-error-page>/auth/invalid-login.xhtml</form-error-page>
+            <form-error-page>/auth/invalid.xhtml</form-error-page>
         </form-login-config>
     </login-config>
 </web-app>

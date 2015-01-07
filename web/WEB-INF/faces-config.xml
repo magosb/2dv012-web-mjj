@@ -50,9 +50,9 @@
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/auth/login.xhtml</from-view-id>
+        <from-view-id>/auth/*</from-view-id>
         <navigation-case>
-            <from-outcome>login</from-outcome>
+            <from-outcome>*</from-outcome>
             <to-view-id>/admin/index.xhtml/</to-view-id>
         </navigation-case>
     </navigation-rule>

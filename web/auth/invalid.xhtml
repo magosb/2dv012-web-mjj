@@ -6,9 +6,18 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head lang="en">
-    <title>Login</title>
+    <title>Login failed</title>
+    <style type="text/css">
+        h1 {
+            color: red;
+        }
+    </style>
 </h:head>
 <h:body>
+
+    <!-- TODO: since most of this page is identical to login, define a template!! !-->
+
+    <h1 class="error">Unknown login, please try again</h1>
     <legend>
         Enter admin details to login
     </legend>
@@ -17,5 +26,6 @@
         Password: <input type="password" name="j_password"/>
         <input type="submit" value="Login"/>
     </form>
+
 </h:body>
 </html>
