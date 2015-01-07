@@ -16,13 +16,13 @@ import java.util.List;
  * @author Jerry Strand
  */
 @Stateless
-public class CalendarQueryBean implements Serializable {
+public class CalendarManager implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @PersistenceContext(name = "xmascal-pu")
     private EntityManager em;
 
-    public CalendarQueryBean() {
+    public CalendarManager() {
     }
 
     /**

@@ -17,7 +17,7 @@ import java.io.InputStream;
  */
 @ViewScoped
 @ManagedBean
-public class UploadManagedBean {
+public class UploadBean {
 
     public void handleFileUpload(FileUploadEvent event) {
         try {

@@ -12,8 +12,8 @@
 <f:view>
     <h:form>
         <h3 class="formLable">Calendars in database:</h3>
-        <h:selectOneListbox id="list1" size="3" onchange="submit()" value="#{calendarManagedBean.name}">
-            <f:selectItems value="#{calendarManagedBean.allCalendars}" var="c" itemLabel="CalName: #{c.name}, Window0Day:#{c.windows.get(0).day}" itemValue="#{c.name}"/>
+        <h:selectOneListbox id="list1" size="3" onchange="submit()" value="#{calendarBean.name}">
+            <f:selectItems value="#{calendarBean.allCalendars}" var="c" itemLabel="CalName: #{c.name}, Window0Day:#{c.windows.get(0).day}" itemValue="#{c.name}"/>
         </h:selectOneListbox>
     </h:form>
     <h:form>
@@ -25,15 +25,15 @@
             </legend>
             <h:outputLabel value="Name:" />
 
-            <h:inputText id="name" value="#{calendarManagedBean.name}" />
+            <h:inputText id="name" value="#{calendarBean.name}" />
             <br/>
             <h:outputLabel value="Passphrase:" />
-            <h:inputText id="passphrase" value="#{calendarManagedBean.passPhrase}" />
+            <h:inputText id="passphrase" value="#{calendarBean.passPhrase}" />
             <br/>
 
-            <h:commandButton value="Add" action="#{calendarManagedBean.add}" class="submitButton"/>
-            <h:commandButton value="Update" action="#{calendarManagedBean.update}" class="submitButton"/>
-            <h:commandButton value="Delete" action="#{calendarManagedBean.remove}" class="submitButton"/>
+            <h:commandButton value="Add" action="#{calendarBean.add}" class="submitButton"/>
+            <h:commandButton value="Update" action="#{calendarBean.update}" class="submitButton"/>
+            <h:commandButton value="Delete" action="#{calendarBean.remove}" class="submitButton"/>
 
         </fieldset>
     </h:form>

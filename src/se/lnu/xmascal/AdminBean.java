@@ -1,8 +1,9 @@
 package se.lnu.xmascal;
 
-import se.lnu.xmascal.ejb.AdminQueryBean;
+import se.lnu.xmascal.ejb.AdminManager;
 import se.lnu.xmascal.model.Admin;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -18,18 +19,20 @@ import java.io.Serializable;
  * This class is a ViewScoped Managed Bean for the Admin class.
  */
 //@DeclareRoles("XmasCalAdmin")
-@Named
+@Named("admin")
 @ViewScoped
-public class AdminManagedBean implements Serializable {
+public class AdminBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EJB
-    private AdminQueryBean adminQueryBean;
+    private AdminManager adminManager;
     private String username;
     private String password;
+    private Admin admin;
 
     public String getUsername() {
-        return username;
+        //return username;
+        return admin.getUsername();
     }
 
     public void setUsername(String username) {
@@ -44,6 +47,18 @@ public class AdminManagedBean implements Serializable {
         this.password = password;
     }
 
+    @PostConstruct
+    public void setup() {
+        ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) external.getRequest();
+        String username = request.getRemoteUser();
+        admin = adminManager.getAdmin(username);
+
+        // Test whether the current user belongs to a given role:
+        // String role = "admin";
+        // boolean isAdmin = request.isUserInRole(role);
+    }
+
     /**
      * Sends the provided msg as an error message using the 'messages' tag on the facelet of the current page.
      *
@@ -55,24 +70,6 @@ public class AdminManagedBean implements Serializable {
     }
 
     /**
-     * Uses the currently set username and password of this <code>AdminManagedBean</code> to validate the admin. If
-     * the credentials match those of an admin in the database, the admin is logged in.
-     *
-     * @return a page redirection <code>String</code>
-     */
-    public String login() {
-        for (Admin admin : adminQueryBean.getAllAdmins()) {
-            if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
-                return "/index.xhtml?faces-redirect=true";
-            }
-        }
-
-        sendErrorMsg("No admin with that username and password exists.");
-        return null;
-    }
-
-
-    /**
      * Logs out the admin.
      *
      * @author Johan Widén, Jerry Strand
@@ -82,22 +79,13 @@ public class AdminManagedBean implements Serializable {
         HttpServletRequest request = (HttpServletRequest) ctx.getRequest();
         try {
             request.logout();
-            ctx.redirect("/");
+            ctx.redirect("../");
         } catch (ServletException e) {
             sendErrorMsg("Logout failed.");
         } catch (IOException e) {
             sendErrorMsg("Redirect failed.");
         }
 
-    }
-
-    public void a() {
-        ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest) external.getRequest();
-        String user = request.getRemoteUser();
-        // You can also test whether the current user belongs to a given role. For example:
-        String role = "admin";
-        boolean isAdmin = request.isUserInRole(role);
     }
 
 }

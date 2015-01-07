@@ -1,6 +1,6 @@
 package se.lnu.xmascal;
 
-import se.lnu.xmascal.ejb.CalendarQueryBean;
+import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
 
 import javax.ejb.EJB;
@@ -19,11 +19,11 @@ import java.util.List;
 //@DeclareRoles("XmasCalAdmin")
 @Named
 @ViewScoped
-public class CalendarManagedBean implements Serializable {
+public class CalendarBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EJB
-    private CalendarQueryBean calendarQueryBean;
+    private CalendarManager calendarManager;
     private String name;
     private byte[] background;
     private byte[] thumbnail;
@@ -65,7 +65,7 @@ public class CalendarManagedBean implements Serializable {
     }
 
     public List<Calendar> getAllCalendars() {
-        return calendarQueryBean.getAllCalendars();
+        return calendarManager.getAllCalendars();
     }
 
     /**
@@ -126,7 +126,7 @@ public class CalendarManagedBean implements Serializable {
             return;
         }
         if (calendar == null) {
-            calendar = calendarQueryBean.getCalendar(name);
+            calendar = calendarManager.getCalendar(name);
         }
         calendar.setName(name);
         calendar.setBackground(background);
@@ -143,11 +143,11 @@ public class CalendarManagedBean implements Serializable {
         if (hasNullErrors()) {
             return;
         }
-        if (calendarQueryBean.exists(name)) {
+        if (calendarManager.exists(name)) {
             sendErrorMsg("A calendar named '" + name + "' already exists!");
         }
         calendar = new Calendar(name, background, thumbnail, passPhrase);
-        calendarQueryBean.add(calendar);
+        calendarManager.add(calendar);
         sendInfoMsg("Calendar has been added.");
 
     }
@@ -158,12 +158,12 @@ public class CalendarManagedBean implements Serializable {
     public void remove() {
         if (name == null) {
             sendErrorMsg("Name of a calendar is needed to remove it!");
-        } else if (!calendarQueryBean.exists(name)) {
+        } else if (!calendarManager.exists(name)) {
             sendErrorMsg("No calendar with the name '" + name + "' exists!");
         } else if (calendar == null) {
-            calendar = calendarQueryBean.getCalendar(name);
+            calendar = calendarManager.getCalendar(name);
         }
-        calendarQueryBean.remove(calendar);
+        calendarManager.remove(calendar);
         name = null;
         background = null;
         thumbnail = null;

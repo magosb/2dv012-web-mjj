@@ -9,6 +9,10 @@
     <title>Login</title>
 </h:head>
 <h:body>
-    Start page for admin. List of calendars with add and edit icons
+    Start page for admin. List of calendars with add and edit icons. <br/>
+    Currently logged as <h:outputText id="username" value="#{admin.username}" />
+    <h:form>
+        <h:commandButton value="Log out" action="#{admin.logout}"/>
+    </h:form>
 </h:body>
 </html>
