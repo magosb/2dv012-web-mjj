@@ -9,12 +9,17 @@
     <title>View calendar</title>
 </h:head>
 <h:body>
-    <f:view>
-        <h:outputLabel value="Hello, cruel world. "/>
-    </f:view>
+    <h:outputLabel value="Hello, cruel world. "/>
     <h:outputLink value="view-calendar/">View calendar</h:outputLink>,
     <h:outputLink value="admin/">Admin start</h:outputLink>,
     <h:outputLink value="admin/add-calendar/">Add calendar</h:outputLink>,
     <h:outputLink value="admin/edit-calendar/">Edit calendar</h:outputLink>
+    <h:form>
+        <h:commandButton value="View calendar" action="#{navigationBean.viewCalendar}"/>
+        <h:commandButton value="To upload page" action="#{navigationBean.uploadFile}"/>
+        <h:commandButton value="Admin start" action="#{navigationBean.adminStart}"/>
+        <h:commandButton value="Add calendar" action="#{navigationBean.addCalendar}"/>
+        <h:commandButton value="Edit calendar" action="#{navigationBean.editCalendar}"/>
+    </h:form>
 </h:body>
 </html>
