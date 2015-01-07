@@ -9,4 +9,10 @@
     <h:outputLabel value="Hello, cruel world. "/>
 </f:view>
 <h:outputLink value="edit-calendar/">Edit calendar</h:outputLink>, <h:outputLink value="admin/">Admin login</h:outputLink>
+<h:body>
+    <h:form>
+        <h:commandButton value="To upload page" action="#{navigationBean.uploadFile}"/>
+        <h:commandButton value="To admin login page" action="#{navigationBean.adminLogin}"/>
+    </h:form>
+ </h:body>
 </html>
