@@ -9,18 +9,25 @@
     <title>Login</title>
 </h:head>
 <h:body>
-    <f:view>
-        <fieldset>
-            <legend>
-                <h:outputLabel value="Enter admin details to login"/>
-            </legend>
-            <h:messages infoStyle="color:green" errorStyle="color:red"/>
-            <form method="POST" action="j_security_check">
-                User name: <input type="text" name="j_username"/>
-                Password: <input type="password" name="j_password"/>
-                <input type="submit" value="Login"/>
-            </form>
-        </fieldset>
-    </f:view>
+
+    <fieldset>
+        <legend>
+            <h:outputLabel value="Enter admin details to login"/>
+        </legend>
+        <h:form action="j_security_check" method="POST">
+            <h:panelGroup rendered="#{requestScope['javax.servlet.forward.servlet_path'] == '/j_security_check'}">
+                <h:outputText value="Unknown login, please try again" styleClass="error"/>
+            </h:panelGroup>
+            <h:panelGrid columns="3" cellpadding="5">
+                <h:outputLabel for="j_username">Username:</h:outputLabel>
+                <h:inputText id="j_username" required="true"/>
+                <h:outputLabel for="j_password">Password:</h:outputLabel>
+                <h:inputSecret id="j_password" required="true"/>
+                <br/>
+                <h:commandButton value="Login"/>
+            </h:panelGrid>
+        </h:form>
+    </fieldset>
+
 </h:body>
 </html>

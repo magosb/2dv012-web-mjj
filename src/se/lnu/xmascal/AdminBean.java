@@ -4,11 +4,12 @@ import se.lnu.xmascal.ejb.AdminManager;
 import se.lnu.xmascal.model.Admin;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +19,9 @@ import java.io.Serializable;
 /**
  * This class is a ViewScoped Managed Bean for the Admin class.
  */
-//@DeclareRoles("XmasCalAdmin")
+@DeclareRoles("XmasCalAdmin")
 @Named("admin")
-@ViewScoped
+@SessionScoped
 public class AdminBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -74,14 +75,14 @@ public class AdminBean implements Serializable {
      *
      * @author Johan Widén, Jerry Strand
      */
-    public void logout() {  // TODO: TEST THIS METHOD
+    public void logout() {
         ExternalContext ctx = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) ctx.getRequest();
         try {
             request.logout();
             ctx.redirect("../");
         } catch (ServletException e) {
-            sendErrorMsg("Logout failed.");
+            sendErrorMsg("Logout failed."); // TODO: Will this way of communicating an error be used?
         } catch (IOException e) {
             sendErrorMsg("Redirect failed.");
         }
