@@ -13,19 +13,27 @@ import javax.faces.bean.SessionScoped;
 public class NavigationBean {
 
     public String viewCalendar() {
-        return "/view-calendar/index.xhtml";
+        return "view";
     }
 
-    public String adminStart() {
-        return "/admin/index.xhtml";
+    public String admin() {
+        return "admin";
+    }
+
+    public String login() {
+        return "login";
+    }
+
+    public String logout() {
+        return "logout";
     }
 
     public String addCalendar() {
-        return "/add-calendar/index.xhtml";
+        return "add";
     }
 
     public String editCalendar() {
-        return "/edit-calendar/index.xhtml";
+        return "edit";
     }
 
     public String uploadFile() {
