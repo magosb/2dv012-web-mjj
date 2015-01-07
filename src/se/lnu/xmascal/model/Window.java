@@ -77,4 +77,24 @@ public class Window implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Window)) return false;
+
+        Window window = (Window) o;
+        if (day != window.day) return false;
+        if (!calendarName.equals(window.calendarName)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = day;
+        result = result * 31 + (calendarName == null ? 0 : calendarName.hashCode());
+        return result;
+    }
+
 }
