@@ -6,10 +6,19 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head lang="en">
-    <title>Login</title>
+    <title>Login failed</title>
+    <style type="text/css">
+        body {
+            background-image: url("../resources/images/Free-Printable-Grinch-Coloring-Sheets.jpg");
+            background-repeat: no-repeat;
+        }
+    </style>
 </h:head>
 <h:body>
 
+    <!-- TODO: since most of this page is identical to login, define a template!! !-->
+
+    <h1 class="error">Unknown login, please try again</h1>
     <fieldset>
         <legend>
             <h:outputLabel value="Enter admin details to login"/>
@@ -18,7 +27,7 @@
             <h:panelGrid columns="3" cellpadding="5">
                 <h:outputLabel for="j_username">Username:</h:outputLabel>
                 <h:inputText id="j_username" required="true"/>
-                <br />
+                <br/>
                 <h:outputLabel for="j_password">Password:</h:outputLabel>
                 <h:inputSecret id="j_password" required="true"/>
                 <br/>
