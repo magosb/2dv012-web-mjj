@@ -26,27 +26,27 @@ public class AdminBean implements Serializable {
 
     @EJB
     private AdminManager adminManager;
-    private String username;
-    private String password;
     private Admin admin;
 
     public String getUsername() {
-        //return username;
         return admin.getUsername();
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        admin.setUsername(username);
     }
 
     public String getPassword() {
-        return password;
+        return admin.getPassword();
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        admin.setPassword(password);
     }
 
+    /**
+     * Retrieves currently logged in <code>Admin</code> from database.
+     */
     @PostConstruct
     public void setup() {
         ExternalContext external = FacesContext.getCurrentInstance().getExternalContext();
