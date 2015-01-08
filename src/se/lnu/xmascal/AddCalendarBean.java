@@ -49,6 +49,30 @@ public class AddCalendarBean implements Serializable {
 
     // TODO: Will probably need to keep a list of Windows here, that the admin has added on Add Calendar page
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean getPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
+    }
+
+    public String getPassPhrase() {
+        return passPhrase;
+    }
+
+    public void setPassPhrase(String passPhrase) {
+        this.passPhrase = passPhrase;
+    }
+
     public void handleBackgroundUpload(FileUploadEvent event) {
         try {
             background = handleFile(event.getFile().getInputstream());
@@ -88,33 +112,10 @@ public class AddCalendarBean implements Serializable {
         return data;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean getPublic() {
-        return isPublic;
-    }
-
-    public void setPublic(boolean isPublic) {
-        this.isPublic = isPublic;
-    }
-
-    public String getPassPhrase() {
-        return passPhrase;
-    }
-
-    public void setPassPhrase(String passPhrase) {
-        this.passPhrase = passPhrase;
-    }
-
     // TODO: Try to make this happen client side instead?
     public String onFlowProcess(FlowEvent event) {
         System.out.println("New step: " + event.getNewStep());
+        System.out.println(name + passPhrase);
         return event.getNewStep();
     }
 
@@ -155,7 +156,7 @@ public class AddCalendarBean implements Serializable {
      * @return <code>true</code> if any attributes are <code>null</code>
      */
     private boolean hasNullErrors() {
-        boolean hasErrors = true;
+        boolean hasErrors = false;
 
         if (name == null || name.isEmpty()) { // TODO: Need better validation: empty String? Too short? Etc
             sendErrorMsg("Invalid name.");
