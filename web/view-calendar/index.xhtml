@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core">
 <h:head lang="en">
-    <title>View calendar</title>
+    <title>Christmas Calendar</title>
+    <h:outputStylesheet library="css" name="style.css"/>
 </h:head>
 <h:body>
-    View calendar
+    <section>
+        <h:outputLabel value="#{viewWindowBean.name}"/>
+        <ul>
+            <c:forEach items="#{viewWindowBean.windows}" var="win">
+                <li class="thumbnail" id="#{win.type}"></li>
+            </c:forEach>
+        </ul>
+        <!--  THIS CAN BE NEEDED IN THE FUTURE... -->
+        <h:panelGroup layout="block">
+            <p:dataGrid value="#{viewWindowBean.windows}" var="win" type="definition" columns="5">
+                Day: #{win.day}
+                <f:facet name="description">
+                    <p:graphicImage name="images/window_#{win.type}_icon.jpg"/>
+                </f:facet>
+            </p:dataGrid>
+        </h:panelGroup>
+
+    </section>
 </h:body>
 </html>
