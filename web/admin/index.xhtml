@@ -5,14 +5,20 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head lang="en">
-    <title>Login</title>
-</h:head>
+    <h:head lang="en">
+        <title>Login</title>
+    </h:head>
 <h:body>
+    <ui:insert name="header" >
+        <ui:include src="../header.xhtml" />
+    </ui:insert>
     Start page for admin. List of calendars with add and edit icons. <br/>
     Currently logged as <h:outputText id="username" value="#{admin.username}" />
     <h:form>
         <h:commandButton value="Log out" action="#{admin.logout}"/>
     </h:form>
+    <ui:insert name="footer" >
+        <ui:include src="../footer.xhtml" />
+    </ui:insert>
 </h:body>
 </html>
