@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -29,6 +30,10 @@ public class CalendarBean implements Serializable {
     private byte[] thumbnail;
     private String passPhrase;
     private Calendar calendar;
+
+    // Change the current date here:
+    private final int CURRENT_DATE = 4;
+    private java.util.Calendar currentDate = new GregorianCalendar();
 
     // TODO: Will probably need to keep a list of Windows here, that the admin has added on Add Calendar page
 
@@ -169,6 +174,20 @@ public class CalendarBean implements Serializable {
         thumbnail = null;
         passPhrase = null;
         sendInfoMsg("Calendar has been removed.");
+    }
+
+    /**
+     * This method returns the current date. Notice this methods is also used to manuplitate which current date it
+     * currently is.
+     *
+     * @author Johan Widén
+     * @return int with the current date.
+     */
+    public int getCurrentDate() {
+        currentDate.set(java.util.Calendar.YEAR, 2014);
+        currentDate.set(java.util.Calendar.MONTH, 11);
+        currentDate.set(java.util.Calendar.DAY_OF_MONTH, CURRENT_DATE);
+        return currentDate.get(java.util.Calendar.DATE);
     }
 
 }
