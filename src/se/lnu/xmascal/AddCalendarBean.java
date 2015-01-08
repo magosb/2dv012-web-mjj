@@ -1,5 +1,7 @@
 package se.lnu.xmascal;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.FlowEvent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
 
@@ -9,17 +11,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+
+
+// <!-- <h:selectOneRadio id="isPublic" value="#{newCalendar.public}" onchange="submit()" valueChangeListener="#{newCalendar.update}"> TODO: This will submit entire form? Change to separate form? -->
+//<!-- <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}" disabled="#{newCalendar.public}"/> -->
 /**
  * This class is a ViewScoped Managed Bean for the Calendar class.
  *
  * @author Jerry Strand
  */
 //@DeclareRoles("XmasCalAdmin")
-@Named
+@Named("newCalendar")
 @ViewScoped
 public class AddCalendarBean implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -31,7 +39,7 @@ public class AddCalendarBean implements Serializable {
     private byte[] thumbnail;
     private String passPhrase;
     private Calendar calendar = new Calendar();
-    private boolean isPublic;
+    private boolean isPublic = true;
 
 //    @ManagedProperty()
 
@@ -41,28 +49,51 @@ public class AddCalendarBean implements Serializable {
 
     // TODO: Will probably need to keep a list of Windows here, that the admin has added on Add Calendar page
 
+    public void handleBackgroundUpload(FileUploadEvent event) {
+        try {
+            background = handleFile(event.getFile().getInputstream());
+        } catch (IOException e) {
+            e.printStackTrace(); // TODO: Send error message to client
+        }
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void handleThumbnailUpload(FileUploadEvent event) {
+        try {
+            event.getFile().getContents();
+            thumbnail = handleFile(event.getFile().getInputstream());
+        } catch (IOException e) {
+            e.printStackTrace(); // TODO: Send error message to client
+        }
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    /**
+     *
+     * @param is
+     * @return
+     */
+    private byte[] handleFile(InputStream is) {
+        byte[] data = null;
+        try {
+            data = new byte[is.available()]; // TODO: THIS MIGHT NOT READ ALL BYTES!!
+            is.read(data);
+            is.close();
+            // TODO Send fileName and data to the database or somewhere...
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public byte[] getBackground() {
-        return background;
-    }
-
-    public void setBackground(byte[] background) {
-        this.background = background;
-    }
-
-    public byte[] getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(byte[] thumbnail) {
-        this.thumbnail = thumbnail;
     }
 
     public boolean getPublic() {
@@ -73,10 +104,6 @@ public class AddCalendarBean implements Serializable {
         this.isPublic = isPublic;
     }
 
-    public void update(ValueChangeEvent event) {
-        isPublic = (Boolean) event.getNewValue();
-    }
-
     public String getPassPhrase() {
         return passPhrase;
     }
@@ -84,6 +111,19 @@ public class AddCalendarBean implements Serializable {
     public void setPassPhrase(String passPhrase) {
         this.passPhrase = passPhrase;
     }
+
+    // TODO: Try to make this happen client side instead?
+    public String onFlowProcess(FlowEvent event) {
+        System.out.println("New step: " + event.getNewStep());
+        return event.getNewStep();
+    }
+
+    public void update(ValueChangeEvent event) {
+        System.out.print("isPublic was '" + isPublic + "'");
+        isPublic = (Boolean) event.getNewValue();
+        System.out.println(", now changed to '" + isPublic + "'");
+    }
+
 
     public List<Calendar> getAllCalendars() {
         return calendarManager.getAllCalendars();
@@ -160,7 +200,7 @@ public class AddCalendarBean implements Serializable {
      * Adds the managed calendar. Error messages are sent to the current facelet if any attributes are null and if a
      * calendar with the set name exists. An info message is sent if the calendar was added successfully.
      */
-    public void add() {
+    public void save() {
         if (hasNullErrors()) {
             return;
         }
@@ -170,7 +210,6 @@ public class AddCalendarBean implements Serializable {
         calendar = new Calendar(name, background, thumbnail, passPhrase);
         calendarManager.add(calendar);
         sendInfoMsg("Calendar has been added.");
-
     }
 
     /**

@@ -6,6 +6,7 @@ import se.lnu.xmascal.model.Calendar;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -29,7 +30,10 @@ public class CalendarBean implements Serializable {
     private byte[] background;
     private byte[] thumbnail;
     private String passPhrase;
-    private Calendar calendar;
+    private Calendar calendar = new Calendar();
+    private boolean isPublic;
+
+//    @ManagedProperty()
 
     // Change the current date here:
     private final int CURRENT_DATE = 4;
@@ -59,6 +63,18 @@ public class CalendarBean implements Serializable {
 
     public void setThumbnail(byte[] thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public boolean getPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
+    }
+
+    public void update(ValueChangeEvent event) {
+        isPublic = (Boolean) event.getNewValue();
     }
 
     public String getPassPhrase() {
