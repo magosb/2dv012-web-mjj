@@ -177,7 +177,6 @@ section {
 	height: 100px;
 	border: dotted;
 	margin: 20px;
-	padding: 5px;
 }
 
 .thumbnail:hover{
@@ -200,6 +199,56 @@ section {
 #add_button {
 	background: url(../images/add_button.jpg) no-repeat;
 	float:left;
+	width: 100px;
+	height: 100px;
+	border: dotted;
+	margin: 20px;
+}
+
+.textwindow {
+	background: url(../images/background2.jpg) no-repeat;
+	float:left;
+	position: relative;
+	width: 100px;
+	height: 100px;
+	border: dotted;
+	margin: 20px;
+}
+
+.urlwindow {
+	background: url(../images/background2.jpg) no-repeat;
+	float:left;
+	position: relative;
+	width: 100px;
+	height: 100px;
+	border: dotted;
+	margin: 20px;
+}
+
+.imagewindow {
+	background: url(../images/background2.jpg) no-repeat;
+	float:left;
+	position: relative;
+	width: 100px;
+	height: 100px;
+	border: dotted;
+	margin: 20px;
+}
+
+.videowindow {
+	background: url(../images/background2.jpg) no-repeat;
+	float:left;
+	position: relative;
+	width: 100px;
+	height: 100px;
+	border: dotted;
+	margin: 20px;
+}
+
+.audiowindow {
+	background: url(../images/background2.jpg) no-repeat;
+	float:left;
+	position: relative;
 	width: 100px;
 	height: 100px;
 	border: dotted;
