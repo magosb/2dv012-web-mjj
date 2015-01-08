@@ -18,14 +18,15 @@
     <!-- TODO: since most of this page is identical to login, define a template!! !-->
 
     <h1 class="error">Unknown login, please try again</h1>
-    <legend>
-        Enter admin details to login
-    </legend>
-    <form method="POST" action="j_security_check">
-        User name: <input type="text" name="j_username"/> <br />
-        Password: <input type="password" name="j_password"/>
-        <input type="submit" value="Login"/>
-    </form>
-
+    <fieldset>
+        <legend>
+            Enter admin details to login
+        </legend>
+        <form method="POST" action="j_security_check">
+            User name: <input type="text" name="j_username"/> <br/>
+            Password: <input type="password" name="j_password"/>
+            <input type="submit" value="Login"/>
+        </form>
+    </fieldset>
 </h:body>
 </html>

@@ -29,8 +29,7 @@
     <security-constraint>
         <display-name>Christmas Calendar admin</display-name>
         <web-resource-collection>
-            <web-resource-name>Christmas Calendar admin permissions</web-resource-name>
-            <description></description>
+            <web-resource-name>Christmas Calendar admin resources</web-resource-name>
             <url-pattern>/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
@@ -40,9 +39,18 @@
 
     <login-config>
         <auth-method>FORM</auth-method>
+        <!-- should not be needed (see jboss-web.xml): <realm-name>xmascal-policyfile</realm-name> Not sure if needed -->
         <form-login-config>
             <form-login-page>/auth/login.xhtml</form-login-page>
             <form-error-page>/auth/invalid.xhtml</form-error-page>
         </form-login-config>
     </login-config>
+
+    <security-role>
+        <role-name>XmasCalAdmin</role-name>
+    </security-role>
+
+    <session-config>
+        <session-timeout>15</session-timeout>
+    </session-config>
 </web-app>

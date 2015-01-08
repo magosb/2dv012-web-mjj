@@ -9,13 +9,15 @@
     <title>Login</title>
 </h:head>
 <h:body>
-    <legend>
-        Enter admin details to login
-    </legend>
-    <form method="POST" action="j_security_check">
-        User name: <input type="text" name="j_username"/> <br />
-        Password: <input type="password" name="j_password"/>
-        <input type="submit" value="Login"/>
-    </form>
+    <fieldset>
+        <legend>
+            Enter admin details to login
+        </legend>
+        <form method="POST" action="j_security_check">
+            User name: <input type="text" name="j_username"/> <br/>
+            Password: <input type="password" name="j_password"/>
+            <input type="submit" value="Login"/>
+        </form>
+    </fieldset>
 </h:body>
 </html>
