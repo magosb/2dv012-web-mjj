@@ -32,7 +32,7 @@ html {
 }
 
 body {
-	background: url(../images/background.jpg) repeat;
+	background-image:url("#{resource['css:../images/background.jpg']}") repeat;
 	color: #175591;
 	font: 75%/1.5em Courier New, Courier, Monospaced;
 	text-align:center;
@@ -132,6 +132,7 @@ h1#date {
 	font-weight: bold;
 	padding: 0px;
 }
+
 h2#date { 
 	color:red;
 	font: Courier New, Courier, Monospaced;
