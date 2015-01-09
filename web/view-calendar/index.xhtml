@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head lang="en">
-    <title>View calendar</title>
+    <title>Christmas Calendar</title>
+    <h:outputStylesheet library="default" name="css/style.css"/>
 </h:head>
 <h:body>
-    View calendar
+    <ui:insert name="header">
+        <ui:include src="../header.xhtml"/>
+    </ui:insert>
+    <section>
+        <h:outputLabel value="#{viewWindowBean.name}"/>
+        <ul>
+            <c:forEach items="#{viewWindowBean.windows}" var="win">
+                <li class="thumbnail" id="#{win.type}window"></li>
+            </c:forEach>
+        </ul>
+        <!--  Second version..... -->
+        <h:form id="form">
+            <p:dataGrid var="win" value="#{viewWindowBean.windows}" columns="5" layout="grid"
+                        rows="24" id="wins"
+                        style="background-image:url(#{viewWindowBean.background})">
+
+                <h:panelGrid class="thumbnail" columns="1">
+                    <h:outputLabel value="#{win.day}"/>
+                    <p:graphicImage name="/default/1_0/images/window_#{win.type}_icon.jpg"/>
+                </h:panelGrid>
+
+            </p:dataGrid>
+        </h:form>
+
+        <ui:insert name="footer">
+            <ui:include src="../footer.xhtml"/>
+        </ui:insert>
+    </section>
 </h:body>
 </html>
