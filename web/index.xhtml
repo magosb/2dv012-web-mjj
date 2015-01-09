@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -21,11 +20,11 @@
     <h:outputLink value="admin/add-calendar/">Add calendar</h:outputLink>,
     <h:outputLink value="admin/edit-calendar/">Edit calendar</h:outputLink>
     <h:form>
-        <h:commandButton value="View calendar" action="#{navigationBean.viewCalendar}"/>
-        <h:commandButton value="To upload page" action="#{navigationBean.uploadFile}"/>
-        <h:commandButton value="Admin start" action="#{navigationBean.admin}"/>
-        <h:commandButton value="Add calendar" action="#{navigationBean.addCalendar}"/>
-        <h:commandButton value="Edit calendar" action="#{navigationBean.editCalendar}"/>
+        <h:commandButton value="View calendar" action="view"/>
+        <h:commandButton value="To upload page" action="uploadFile"/>
+        <h:commandButton value="Admin start" action="admin"/>
+        <h:commandButton value="Add calendar" action="add"/>
+        <h:commandButton value="Edit calendar" action="edit"/>
     </h:form>
     <h:outputLabel value="Current date is now: #{calendarBean.currentDate}"/>
     </section>
