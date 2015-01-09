@@ -201,16 +201,19 @@ public class AddCalendarBean implements Serializable {
      * Adds the managed calendar. Error messages are sent to the current facelet if any attributes are null and if a
      * calendar with the set name exists. An info message is sent if the calendar was added successfully.
      */
-    public void save() {
+    public String save() {
         if (hasNullErrors()) {
-            return;
+            return null;
         }
         if (calendarManager.exists(name)) {
             sendErrorMsg("A calendar named '" + name + "' already exists!");
+        } else {
+            calendar = new Calendar(name, background, thumbnail, passPhrase);
+            calendarManager.add(calendar);
+            sendInfoMsg("Calendar has been added.");
         }
-        calendar = new Calendar(name, background, thumbnail, passPhrase);
-        calendarManager.add(calendar);
-        sendInfoMsg("Calendar has been added.");
+        System.out.println("Returning edit outcome");
+        return "edit"; // TODO: Update this to /admin/edit-calendar/ -- also need to pass parameter detailing which calendar
     }
 
     /**

@@ -60,8 +60,17 @@ public class CalendarManager implements Serializable {
      * @return <code>true</code> if a <code>Calendar</code> with the given name exists
      */
     public boolean exists(String name) {
-        Query query = em.createQuery("SELECT count(c) FROM Calendar c WHERE c.name = :cname");
-        query.setParameter("cname", name);
-        return (query.getResultList().size() != 0);
+        Query query = em.createQuery("SELECT c.name FROM Calendar c WHERE c.name = :cname");
+        query.setParameter("cname", name).setMaxResults(1);
+        return query.getResultList().size() != 0;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<String> getAllCalendarNames() {
+        TypedQuery<String> theQuery = em.createQuery("SELECT c.name FROM Calendar c", String.class);
+        return theQuery.getResultList();
     }
 }

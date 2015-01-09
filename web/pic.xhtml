@@ -7,6 +7,11 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 <h:head></h:head>
 <h:body>
-    <p:graphicImage value="#{imageBean.image}"/>
+    <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
+        <p:graphicImage value="#{thumbnails.thumbnail}">
+            <f:param name="name" value="#{calendarName}"/>
+        </p:graphicImage>
+        <br/>
+    </ui:repeat>
 </h:body>
 </html>
