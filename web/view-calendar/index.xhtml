@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head lang="en">
     <title>Christmas Calendar</title>
     <h:outputStylesheet library="default" name="css/style.css"/>
@@ -17,7 +18,9 @@
         <h:outputLabel value="#{viewWindowBean.name}"/>
         <ul>
             <c:forEach items="#{viewWindowBean.windows}" var="win">
+
                 <li class="thumbnail" id="#{win.type}window"></li>
+
             </c:forEach>
         </ul>
         <!--  Second version..... -->
@@ -28,7 +31,12 @@
 
                 <h:panelGrid class="thumbnail" columns="1">
                     <h:outputLabel value="#{win.day}"/>
-                    <p:graphicImage name="/default/1_0/images/window_#{win.type}_icon.jpg"/>
+                    <p:lightBox styleClass="imagebox" id="lighbox1">
+                        <p:graphicImage name="/default/1_0/images/window_#{win.type}_icon.jpg"/>
+                        <f:facet name="inline">
+                            <p:media value="#{viewWindowBean.content}"  width="400" height="225" player="flash" />
+                        </f:facet>
+                    </p:lightBox>
                 </h:panelGrid>
 
             </p:dataGrid>
