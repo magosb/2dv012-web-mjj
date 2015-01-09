@@ -128,14 +128,14 @@ a:focus {
 	border-style: solid;
 }
 
-h1#date { 
+h2#date1 {
 	color:black;
 	/*font: Courier New, Courier, Monospaced;*/
 	font-size: 16px;
 	font-weight: bold;
 	padding: 0;
 }
-h2#date {
+h2#date2 {
 	color:red;
 	/*font: Courier New, Courier, Monospaced;*/
 	font-size: 25px;
@@ -340,8 +340,6 @@ input.file {
     width:  95%;
 	float: left;
 	text-align: left;
-	-moz-opacity:0 ;
-	filter:alpha(opacity: 0);
 	opacity: 0;
 	z-index: 2;
      margin-bottom:4%;
@@ -363,7 +361,6 @@ input[type="submit"]{
   color:#fff;
   cursor:pointer;
   transition:background .3s;
-  -webkit-transition:background .3s;
 }
 
 input[type="submit"]:hover{
