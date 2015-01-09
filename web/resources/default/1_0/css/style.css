@@ -32,7 +32,7 @@ html {
 }
 
 body {
-	background: url(../images/background.jpg) repeat;
+	background: url(#{resource['default:images/background.jpg']}) repeat;
 	color: #175591;
 	font: 75%/1.5em Courier New, Courier, Monospaced;
 	text-align:center;
@@ -117,7 +117,7 @@ a:focus {
 
  
  header {
-	background: url(../images/banner.jpg) top no-repeat;
+	background: url(#{resource['default:images/banner.jpg']}) top no-repeat;
 	height: 240px;
 	width: 1000px;
 	border: 2px;
@@ -132,7 +132,7 @@ h1#date {
 	font-weight: bold;
 	padding: 0px;
 }
-h2#date { 
+h2#date {
 	color:red;
 	font: Courier New, Courier, Monospaced;
 	font-size: 25px;
@@ -170,7 +170,7 @@ section {
 }
 
 .thumbnail {
-	background: url(../images/background2.jpg) repeat;
+	background: url(#{resource['default:images/background2.jpg']}) repeat;
 	float:left;
 	position: relative;
 	width: 120px;
@@ -180,7 +180,7 @@ section {
 }
 
 .thumbnail:hover{
-	background: url(../images/background.jpg) repeat;
+	background: url(#{resource['default:images/background.jpg']}) repeat;
 	border: double;
 }
 
@@ -197,7 +197,7 @@ section {
 }
 
 #add_button {
-	background: url(../images/add_button.jpg) no-repeat;
+	background: url(#{resource['default:images/add_button.jpg']}) no-repeat;
 	float:left;
 	width: 120px;
 	height: 120px;
@@ -206,24 +206,24 @@ section {
 }
 
 #window {
- background: url(../images/background2.jpg) repeat;
+ background: url(#{resource['default:images/background2.jpg']}) repeat;
 }
 
 
 #urlwindow {
-	background: url(../images/window_web_icon.jpg) no-repeat;
+	background: url(#{resource['default:images/window_web_icon.jpg']}) no-repeat;
 }
 
 #imagewindow {
-	background: url(../images/window_imgae_icon.jpg) no-repeat;
+	background: url(#{resource['default:images/window_imgae_icon.jpg']}) no-repeat;
 }
 
 #videowindow {
-	background: url(../images/window_video_icon.jpg) no-repeat;
+	background: url(#{resource['default:images/window_video_icon.jpg']}) no-repeat;
 }
 
 #audiowindow {
-	background: url(../images/window_audio_icon.jpg) no-repeat;
+	background: url(#{resource['default:images/window_audio_icon.jpg']}) no-repeat;
 }
 
 .button:hover{
