@@ -34,7 +34,6 @@
                                        value="Pass phrase"/> <!-- TODO: Should be a password/secret field -->
                         <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}"/>
                     </h:panelGrid>
-                    <p:commandButton value="Submit" actionListener="#{newCalendar.save}" update="growl" process="@this"/>
                 </p:panel>
             </p:tab>
 
@@ -63,13 +62,21 @@
                                       allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac)$/"/>
                         <p:growl id="messages" showDetail="true"/>
                     </h:panelGrid>
-                    <p:commandButton value="Submit" actionListener="#{newCalendar.save}" update="growl" process="@this"/>
+                    <p:commandButton value="Save" action="#{newCalendar.save}"
+                                     ajax="no"/> <!--  update="growl" process="@this" -->
                 </p:panel>
             </p:tab>
-
-
         </p:wizard>
+    </h:form>
 
+    <h:form id="form" prependId="false">
+        <h:inputText id="name2" value="#{newCalendar.name}"/>
+        <h:commandButton value="Test render"><!--  update="growl" process="@this" -->
+            <f:ajax execute="name2" render="textParent" />
+        </h:commandButton>
+        <h:panelGroup id="textParent">
+            <h:outputText id="text123" value="Calendar has been saved!" rendered="#{not empty newCalendar.name}"/>
+        </h:panelGroup>
     </h:form>
 </h:body>
 </html>
