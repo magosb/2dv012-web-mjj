@@ -202,8 +202,14 @@ section {
 	margin: 20px;
 }
 
-#window {
- background: url(#{resource['default:images/background2.jpg']}) repeat;
+.window {
+	position: relative;
+	width: 120px;
+	height: 120px;
+	border: dotted;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 

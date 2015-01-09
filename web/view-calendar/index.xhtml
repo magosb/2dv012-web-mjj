@@ -15,21 +15,21 @@
         <ui:include src="../header.xhtml"/>
     </ui:insert>
     <section>
-        <h:outputLabel value="#{viewWindowBean.name}"/>
-        <ul>
-            <c:forEach items="#{viewWindowBean.windows}" var="win">
+      <h:outputLabel value="#{viewWindowBean.name}"/>
+        <!-- <ul>
+           <c:forEach items="#{viewWindowBean.windows}" var="win">
 
-                <li class="thumbnail" id="#{win.type}window"></li>
+               <li class="thumbnail" id="#{win.type}window"></li>
 
-            </c:forEach>
-        </ul>
+           </c:forEach>
+       </ul> -->
         <!--  Second version..... -->
         <h:form id="form">
-            <p:dataGrid var="win" value="#{viewWindowBean.windows}" columns="5" layout="grid"
+            <p:dataGrid var="win" value="#{viewWindowBean.windows}" columns="4" layout="grid"
                         rows="24" id="wins"
                         style="background-image:url(#{viewWindowBean.background})">
 
-                <h:panelGrid class="thumbnail" columns="1">
+                <h:panelGrid class="window" columns="1">
                     <h:outputLabel value="#{win.day}"/>
                     <p:lightBox styleClass="imagebox" id="lighbox1">
                         <p:graphicImage name="/default/1_0/images/window_#{win.type}_icon.jpg"/>
