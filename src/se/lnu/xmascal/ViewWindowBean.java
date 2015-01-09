@@ -1,6 +1,8 @@
 package se.lnu.xmascal;
 
+import org.primefaces.component.media.Media;
 import org.primefaces.model.ByteArrayContent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
@@ -10,6 +12,10 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +30,7 @@ public class ViewWindowBean {
     private byte[] background;
     @EJB
     private CalendarManager calendarManager;
+    private StreamedContent content;
 
 
 
@@ -63,5 +70,9 @@ public class ViewWindowBean {
         return windows;
     }
 
+    public StreamedContent getContent() {
 
+        content = new ByteArrayContent(windows.get(1).getContent());
+        return this.content;
+    }
 }
