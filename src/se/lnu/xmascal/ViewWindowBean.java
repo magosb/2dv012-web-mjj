@@ -1,6 +1,8 @@
 package se.lnu.xmascal;
 
+import org.primefaces.component.media.Media;
 import org.primefaces.model.ByteArrayContent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
@@ -10,6 +12,10 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +27,10 @@ import java.util.List;
 public class ViewWindowBean {
     private Calendar calendar;
     private List<Window> windows;
-    private StreamedContent background;
+    private byte[] background;
     @EJB
     private CalendarManager calendarManager;
+    private StreamedContent content;
 
 
 
@@ -33,13 +40,13 @@ public class ViewWindowBean {
 
         windows = new ArrayList<Window>();
         for (int i = 1; i < 10; i++) {
-            windows.add(new Window("Johans christmas calendar", i, "ada".getBytes(), "image"));
+            windows.add(new Window("johans", i, "ada".getBytes(), "image"));
         }
         for (int i = 10; i < 15; i++) {
-            windows.add(new Window("Johans christmas calendar", i, "ada".getBytes(), "video"));
+            windows.add(new Window("johans", i, "ada".getBytes(), "video"));
         }
         for (int i = 15; i < 25; i++) {
-            windows.add(new Window("Johans christmas calendar", i, "ada".getBytes(), "web"));
+            windows.add(new Window("johans", i, "ada".getBytes(), "web"));
         }
     }
 
@@ -47,9 +54,8 @@ public class ViewWindowBean {
         return calendar.getName();
     }
 
-    public StreamedContent getBackground() {
-        background = new ByteArrayContent(calendar.getBackground());
-        return this.background;
+    public byte[] getBackground() {
+        return calendar.getBackground();
     }
 
     public String getPassPhrase() {
@@ -64,5 +70,9 @@ public class ViewWindowBean {
         return windows;
     }
 
+    public StreamedContent getContent() {
 
+        content = new ByteArrayContent(windows.get(1).getContent());
+        return this.content;
+    }
 }
