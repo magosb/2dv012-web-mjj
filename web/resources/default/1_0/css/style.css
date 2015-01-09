@@ -48,27 +48,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+	color: white;
 }
 
 h2 {
+	color: white;
     font-family: Courier New, Courier, Monospaced;
-    font-size: 5em;
-	color: #ff7d00;
+    font-size: 1.7em;
 }
 
 h3 {
-	color: #ff7d00;
-	font-size: 2em;
+	color: white;
+	font-size: 1.5em;
 	font-weight: bold;
 }
 
 h4 {
-	font-size: 1.35em;
-    color: #ff7d00;
+	color: white;
+	font-size: 1.3em;
     font-weight: bolder;
 }
 
 h5 {
+	color: white;
     font-family: Courier New, Courier, Monospaced;
 	font-size: 1.2em;
     font-weight: bolder;
@@ -80,6 +82,7 @@ h6 {
 }
 
 p {
+	color: white;
 	font-family: Courier New, Courier, Monospaced;
 	font-size: 1em;
 	line-height: 1.5em;
@@ -127,14 +130,14 @@ a:focus {
 
 h1#date { 
 	color:black;
-	font: Courier New, Courier, Monospaced;
+	/*font: Courier New, Courier, Monospaced;*/
 	font-size: 16px;
 	font-weight: bold;
 	padding: 0;
 }
 h2#date {
 	color:red;
-	font: Courier New, Courier, Monospaced;
+	/*font: Courier New, Courier, Monospaced;*/
 	font-size: 25px;
 	font-weight: bold;
 	padding: 0;
@@ -257,7 +260,7 @@ section {
 
 
 #login h1{
-  background-color:  #096a8d;
+  background-color: #096a8d;
   padding:20px 0;
   font-size:140%;
   font-weight:300;
@@ -269,7 +272,7 @@ section {
 	font-size: 1.5em;
 	font-weight:300;
 	text-align:center;
-	color:#096a8d;
+	color: white;
 }
 
 #contentwindow {
@@ -353,11 +356,10 @@ input[type="submit"]{
 	height: 2em;
 	margin: 2px;
   background: #096a8d;
-	border:3px;
-	border-color: #ffffff;
-	border-left-style: solid;
-  padding:0;
-  font-size:1.5em;
+	margin-bottom:4%;
+	border:1px solid #ccc;
+  padding:4%;
+  font-size:1.6em;
   color:#fff;
   cursor:pointer;
   transition:background .3s;
