@@ -7,17 +7,25 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head lang="en">
     <title>Login</title>
+    <h:outputStylesheet library="default" name="css/style.css"  />
 </h:head>
 <h:body>
-    <fieldset>
-        <legend>
-            Enter admin details to login
-        </legend>
-        <form method="POST" action="j_security_check">
-            User name: <input type="text" name="j_username"/> <br/>
-            Password: <input type="password" name="j_password"/>
-            <input type="submit" value="Login"/>
-        </form>
-    </fieldset>
+    <ui:insert name="header" >
+        <ui:include src="../header.xhtml" />
+    </ui:insert>
+        <section>
+            <div id="login">
+                <h1>Log in as admin</h1>
+                    <form method="POST" action="j_security_check">
+                        <h2>User name:</h2> <input type="text" name="j_username"/> <br/>
+                        <h2>Password: </h2><input type="password" name="j_password"/>
+                        <input type="submit" value="Login"/>
+                    </form>
+            </div>
+        </section>
+
 </h:body>
+<ui:insert name="footer" >
+    <ui:include src="../footer.xhtml" />
+</ui:insert>
 </html>

@@ -130,14 +130,14 @@ h1#date {
 	font: Courier New, Courier, Monospaced;
 	font-size: 16px;
 	font-weight: bold;
-	padding: 0px;
+	padding: 0;
 }
 h2#date {
 	color:red;
 	font: Courier New, Courier, Monospaced;
 	font-size: 25px;
 	font-weight: bold;
-	padding: 0px;
+	padding: 0;
 }
 
 #date_wrapper {
@@ -265,6 +265,13 @@ section {
   color:#fff;
 }
 
+#login h2{
+	font-size: 1.5em;
+	font-weight:300;
+	text-align:center;
+	color:#096a8d;
+}
+
 #contentwindow {
   width:400px;
   background-color: white;
@@ -343,9 +350,13 @@ input.file {
 
 input[type="submit"]{
   width:95%;
+	height: 2em;
+	margin: 2px;
   background: #096a8d;
-  border:0;
-  padding:4%;
+	border:3px;
+	border-color: #ffffff;
+	border-left-style: solid;
+  padding:0;
   font-size:1.5em;
   color:#fff;
   cursor:pointer;

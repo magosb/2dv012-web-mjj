@@ -13,7 +13,9 @@
     <ui:insert name="header" >
         <ui:include src="header.xhtml" />
     </ui:insert>
-    <h:outputLabel value="Hello, cruel world. "/>
+
+    <section>
+    <h:outputLabel value="Hello, cruel world."/>
     <h:outputLink value="view-calendar/">View calendar</h:outputLink>,
     <h:outputLink value="admin/">Admin start</h:outputLink>,
     <h:outputLink value="admin/add-calendar/">Add calendar</h:outputLink>,
@@ -26,6 +28,7 @@
         <h:commandButton value="Edit calendar" action="#{navigationBean.editCalendar}"/>
     </h:form>
     <h:outputLabel value="Current date is now: #{calendarBean.currentDate}"/>
+    </section>
 
     <ui:insert name="footer" >
         <ui:include src="footer.xhtml" />
