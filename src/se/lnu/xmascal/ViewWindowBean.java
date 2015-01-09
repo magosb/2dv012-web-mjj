@@ -21,7 +21,7 @@ import java.util.List;
 public class ViewWindowBean {
     private Calendar calendar;
     private List<Window> windows;
-    private StreamedContent background;
+    private byte[] background;
     @EJB
     private CalendarManager calendarManager;
 
@@ -33,13 +33,13 @@ public class ViewWindowBean {
 
         windows = new ArrayList<Window>();
         for (int i = 1; i < 10; i++) {
-            windows.add(new Window("Johans christmas calendar", i, "ada".getBytes(), "image"));
+            windows.add(new Window("johans", i, "ada".getBytes(), "image"));
         }
         for (int i = 10; i < 15; i++) {
-            windows.add(new Window("Johans christmas calendar", i, "ada".getBytes(), "video"));
+            windows.add(new Window("johans", i, "ada".getBytes(), "video"));
         }
         for (int i = 15; i < 25; i++) {
-            windows.add(new Window("Johans christmas calendar", i, "ada".getBytes(), "web"));
+            windows.add(new Window("johans", i, "ada".getBytes(), "web"));
         }
     }
 
@@ -47,9 +47,8 @@ public class ViewWindowBean {
         return calendar.getName();
     }
 
-    public StreamedContent getBackground() {
-        background = new ByteArrayContent(calendar.getBackground());
-        return this.background;
+    public byte[] getBackground() {
+        return calendar.getBackground();
     }
 
     public String getPassPhrase() {
