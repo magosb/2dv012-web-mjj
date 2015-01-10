@@ -165,9 +165,7 @@ section {
 	border-right-color: white;
 	border-right-style: solid;
 }
-.johan{
-	background:url( #{viewWindowBean.background} ) no-repeat;
-}
+
 .thumbnail_panel {
 	float:left;
 	position: relative;
@@ -220,23 +218,7 @@ section {
 	height: 22px;
 }
 
-.window {
-	position: relative;
-	width: 100px;
-	height: 100px;
-	margin: 0;
-}
 
-.window_panel {
-	position: relative;
-	float: left;
-	border: dotted;
-	width: 120px;
-	height:120px;
-	margin: auto;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
 
 .button:hover{
   background-color: #485c7a;
@@ -248,6 +230,49 @@ section {
 	width: 100%;
 }
 
+.window {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 75px;
+	height: 60px;
+	margin: 0;
+}
+
+.window_panel {
+	position: relative;
+	float: left;
+	border: dotted;
+	width: 75px;
+	height:75px;
+	margin-left: 90px;
+	margin-top: 40px;
+}
+
+.window_container {
+	/* The size of a calenders background image */
+	height: 650px;
+	width: 960px;
+	margin: 0;
+	position: relative;
+}
+
+.window_background {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	height: 100%;
+}
+
+.window_content {
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	top: 0;
+	height: 100%;
+}
+
 #content_window {
 	background: #096a8d;
 	left: 0px;
@@ -255,7 +280,6 @@ section {
     z-index: -1;
 	height: 100px;
 	width: 100px;
-	border: solid;
  }
 
 #login {

@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
@@ -20,27 +19,31 @@
     </ui:insert>
     <section>
         <h:outputLabel value="#{viewWindowBean.name}"/>
-        <h:form>
-            <ui:repeat value="#{viewWindowBean.windows}" var="win">
-                <h:panelGroup layout="block" class="window_panel">
-                    <p:lightBox id="lighbox">
-                        <p:graphicImage class="window" id="imagewindow"
-                                        name="/default/1_0/images/window_#{win.type}_icon.jpg"
-                                        value="#{viewWindowBean.content}">
-                            <h:outputText value="#{win.day}"/>
-                            <f:param name="windowDay" value="#{win.day}"/>
-                        </p:graphicImage>
-                        <f:facet name="inline">
-                            <p:media value="#{viewWindowBean.content}" width="400" height="225" player="flash"/>
-                        </f:facet>
+        <h:form prependId="false">
+            <h:panelGroup layout="block" class="window_container">
+                <p:graphicImage value="#{viewWindowBean.background}" styleClass="window_background"></p:graphicImage>
 
-                    </p:lightBox>
+                <h:panelGroup layout="block" class="window_content">
+                    <ui:repeat value="#{viewWindowBean.windows}" var="win">
+                        <h:panelGroup layout="block" class="window_panel">
+                            <p:lightBox id="lighbox">
+                                <p:graphicImage class="window" id="imagewindow"
+                                                name="/default/1_0/images/window_#{win.type}_icon.jpg"
+                                                value="#{viewWindowBean.content}">
+                                    <h:outputText value="#{win.day}"/>
+                                    <f:param name="windowDay" value="#{win.day}"/>
+                                </p:graphicImage>
+                                <f:facet name="inline">
+                                    <p:media value="#{viewWindowBean.content}" width="400" height="225" player="flash"/>
+                                </f:facet>
+                            </p:lightBox>
+                        </h:panelGroup>
+                    </ui:repeat>
                 </h:panelGroup>
-            </ui:repeat>
+            </h:panelGroup>
         </h:form>
-        <!-- This is the background image. It shall not be here! -->
-        <p:graphicImage value="#{viewWindowBean.background}"></p:graphicImage>
-        <h:outputLabel value="Calendar to load is named '#{viewWindowBean.name}'" /><!-- TODO: Remove this test eventually -->
+        <h:outputLabel
+                value="Calendar to load is named '#{viewWindowBean.name}'"/><!-- TODO: Remove this test eventually -->
     </section>
     <ui:insert name="footer">
         <ui:include src="../footer.xhtml"/>
