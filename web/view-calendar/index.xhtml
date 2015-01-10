@@ -6,6 +6,9 @@
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:metadata>
+    <f:viewParam name="cal" value="#{viewWindowBean.name}"/>
+</f:metadata>
 <h:head lang="en">
     <title>Christmas Calendar</title>
     <h:outputStylesheet library="default" name="css/style.css"/>
@@ -36,6 +39,7 @@
         </h:form>
         <!-- This is the background image. It shall not be here! -->
         <p:graphicImage value="#{viewWindowBean.background}"></p:graphicImage>
+        <h:outputLabel value="Calendar to load is named '#{viewWindowBean.name}'" /><!-- TODO: Remove this test eventually -->
     </section>
     <ui:insert name="footer">
         <ui:include src="../footer.xhtml"/>

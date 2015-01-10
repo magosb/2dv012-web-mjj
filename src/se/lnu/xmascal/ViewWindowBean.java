@@ -25,7 +25,7 @@ public class ViewWindowBean implements Serializable {
     private static final long serialVersionUID = 1L;
     @EJB
     private CalendarManager calendarManager;
-    private Calendar calendar;
+    private Calendar calendar = new Calendar();
 
     @PostConstruct
     public void init() {
@@ -43,6 +43,10 @@ public class ViewWindowBean implements Serializable {
             windows.add(new Window("johans", i, "ada".getBytes(), "web"));
         }
         calendar.setWindows(windows);
+    }
+
+    public void setName(String name) {
+        calendar.setName(name);
     }
 
     public String getName() {

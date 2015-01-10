@@ -8,9 +8,12 @@
 <h:head></h:head>
 <h:body>
     <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
-        <p:graphicImage value="#{thumbnails.thumbnail}" alt="#{calendarName}">
-            <f:param name="name" value="#{calendarName}"/>
-        </p:graphicImage>
+        <h:link outcome="/view-calendar/index.xhtml">
+            <p:graphicImage value="#{thumbnails.thumbnail}" alt="#{calendarName}">
+                <f:param name="name" value="#{calendarName}"/>
+            </p:graphicImage>
+            <f:param name="cal" value="#{calendarName}"/>
+        </h:link>
         <br/>
     </ui:repeat>
 </h:body>
