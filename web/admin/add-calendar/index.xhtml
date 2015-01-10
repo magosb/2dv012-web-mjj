@@ -4,15 +4,111 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 
 <h:head lang="en">
+    <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
     <title>Add calendar</title>
+    <h:outputStylesheet library="default" name="css/style.css"/>
 </h:head>
 <h:body>
     <ui:insert name="header" >
         <ui:include src="../../header.xhtml" />
     </ui:insert>
+
+    <section class="admin_panel">
+            <!-- enctype="multipart/form-data" -->
+            <h:form enctype="multipart/form-data"> <!-- Multipart is required for the fileUpload, but will it mess the rest up? Check StackOverflow post about FileUpload in wizard -->
+
+                <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                <p:wizard flowListener="#{newCalendar.onFlowProcess}">
+                    <p:tab id="details" title="Details">
+                        <p:panel header="Calendar Details">
+                            <p:messages/>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputLabel for="name" value="Calendar name:"/>
+                                <h:inputText id="name" value="#{newCalendar.name}"/>
+                                <br/>
+
+                                <!-- public/private -->
+                                <h:selectOneRadio id="isPublic" value="#{newCalendar.public}"
+                                                  valueChangeListener="#{newCalendar.update}"> <!-- TODO: This will submit entire form? Change to separate form? -->
+                                    <f:selectItem itemValue="#{true}" itemLabel="Public"/>
+                                    <f:selectItem itemValue="#{false}" itemLabel="Private"/>
+                                </h:selectOneRadio>
+                                <br/>
+
+                                <!-- public/private -->
+                                <h:outputLabel for="passPhrase"
+                                               value="Pass phrase"/> <!-- TODO: Should be a password/secret field -->
+                                <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="background" title="Background">
+                        <p:panel header="Calendar background">
+                            <p:messages/>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <!-- background -->
+                                <h:outputLabel for="bgUploader" value="Background image"/>
+                                <p:fileUpload id="bgUploader"
+                                              fileUploadListener="#{newCalendar.handleBackgroundUpload}"
+                                              mode="advanced"
+                                              update="messages"
+                                              sizeLimit="100000000"
+                                              fileLimit="1"
+                                              allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac)$/"/>
+
+                                <!-- thumbnail -->
+                                <h:outputLabel for="thumbnailUploader" value="Thumbnail"/>
+                                <p:fileUpload id="thumbnailUploader"
+                                              fileUploadListener="#{newCalendar.handleThumbnailUpload}"
+                                              mode="advanced"
+                                              update="messages"
+                                              sizeLimit="100000000"
+                                              fileLimit="1"
+                                              allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac)$/"/>
+                                <p:growl id="messages" showDetail="true"/>
+                            </h:panelGrid>
+                            <p:commandButton value="Save" action="#{newCalendar.save}"
+                                             ajax="no"/> <!--  update="growl" process="@this" -->
+                        </p:panel>
+                    </p:tab>
+                </p:wizard>
+            </h:form>
+
+            <h:form id="form" prependId="false">
+                <h:inputText id="name2" value="#{newCalendar.name}"/>
+                <h:commandButton value="Test render"><!--  update="growl" process="@this" -->
+                    <f:ajax execute="name2" render="textParent" />
+                </h:commandButton>
+                <h:panelGroup id="textParent">
+                    <h:outputText id="text123" value="Calendar has been saved!" rendered="#{not empty newCalendar.name}"/>
+                </h:panelGroup>
+            </h:form>
+        </section>
+        <section>
+            <h:outputLabel value="#{viewWindowBean.name}"/>
+            <h:form>
+                <ui:repeat value="#{viewWindowBean.windows}" var="win">
+                    <h:panelGroup layout="block" class="thumbnail_panel">
+                            <p:graphicImage class="window" id="imagewindow"
+                                            name="/default/1_0/images/window_#{win.type}_icon.jpg"
+                                            value="#{viewWindowBean.content}">
+                                <h:outputText value="#{win.day}"/>
+                                <f:param name="windowDay" value="#{win.day}"/>
+                            </p:graphicImage>
+                            <f:facet name="inline">
+                                <p:media value="#{viewWindowBean.content}" width="400" height="225" player="flash"/>
+                            </f:facet>
+                    </h:panelGroup>
+                </ui:repeat>
+            </h:form>
+            <!-- This is the background image. It shall not be here! -->
+            <p:graphicImage value="#{viewWindowBean.background}"></p:graphicImage>
+    </section>
 
     <ui:insert name="footer" >
         <ui:include src="../../footer.xhtml" />

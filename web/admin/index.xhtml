@@ -3,51 +3,44 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head lang="en">
-        <title>Login</title>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
+        <title>Edit Calendar</title>
         <h:outputStylesheet library="default" name="css/style.css"/>
     </h:head>
 <h:body>
     <ui:insert name="header" >
         <ui:include src="../header.xhtml" />
     </ui:insert>
-    <section class="panel">
+    <section class="admin_panel">
         <h:form>
-            <div id="panelpart">
+            <div class="admin_panelpart">
                 <h:commandButton value="Log out" action="#{admin.logout}"/>
             </div>
-            <div id="panelpart">
+            <div class="admin_panelpart">
                 Currently logged in as <h:outputText id="username" value="#{admin.username}" />
             </div>
         </h:form>
     </section>
     <section>
-        <a href = "createCalendarView.html"><div id="add_button"></div></a>
-        <div class="thumbnail.t2"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
-        <div class="thumbnail"></div>
+        <h:form>
+            <h:panelGroup layout="block" class="thumbnail_panel">
+                <h:commandButton action="add" styleClass="add_button" />
+            </h:panelGroup>
+            <ui:repeat value="#{viewWindowBean.windows}" var="win">
+                <h:panelGroup layout="block" class="thumbnail_panel">
+                        <p:graphicImage class="thumbnail" id="imagewindow"
+                                        name="/default/1_0/images/window_hover_icon.jpg"
+                                        value="#{viewWindowBean.content}">
+                        </p:graphicImage>
+                        <h:commandButton action="edit" styleClass="edit_button" />
+                </h:panelGroup>
+            </ui:repeat>
+        </h:form>
     </section>
     <ui:insert name="footer" >
         <ui:include src="../footer.xhtml" />
