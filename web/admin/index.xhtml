@@ -24,7 +24,8 @@
         </h:form>
     </section>
     <section>
-        <a href = "createCalendarView.html"><div id="add_button"></div></a>
+        <h:form>
+        <h:commandButton action="add" styleClass="add_button" />
         <div class="thumbnail.t2"></div>
         <div class="thumbnail"></div>
         <div class="thumbnail"></div>
@@ -48,6 +49,7 @@
         <div class="thumbnail"></div>
         <div class="thumbnail"></div>
         <div class="thumbnail"></div>
+        </h:form>
     </section>
     <ui:insert name="footer" >
         <ui:include src="../footer.xhtml" />
