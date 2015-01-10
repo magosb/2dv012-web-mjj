@@ -5,10 +5,22 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head></h:head>
+<h:head>
+    <h:outputStylesheet library="default" name="css/style.css"  />
+</h:head>
 <h:body>
+    <ui:insert name="header" >
+        <ui:include src="header.xhtml" />
+    </ui:insert>
+
+    <section>
 <f:view>
     <h:outputLabel value="Edit page"/>
 </f:view>
+    </section>
+
+    <ui:insert name="footer" >
+        <ui:include src="footer.xhtml" />
+    </ui:insert>
 </h:body>
 </html>

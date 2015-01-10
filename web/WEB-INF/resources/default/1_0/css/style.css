@@ -42,35 +42,30 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	color: white;
+	color: navy;
 	font: 1.9em/1em Courier New, Courier, Monospaced;
 	padding-bottom: 3px;
 }
 
 h1 {
-	color: white;
 }
 
 h2 {
-	color: white;
     font-family: Courier New, Courier, Monospaced;
     font-size: 1.7em;
 }
 
 h3 {
-	color: white;
 	font-size: 1.5em;
 	font-weight: bold;
 }
 
 h4 {
-	color: white;
 	font-size: 1.3em;
     font-weight: bolder;
 }
 
 h5 {
-	color: white;
     font-family: Courier New, Courier, Monospaced;
 	font-size: 1.2em;
     font-weight: bolder;
@@ -82,7 +77,6 @@ h6 {
 }
 
 p {
-	color: white;
 	font-family: Courier New, Courier, Monospaced;
 	font-size: 1em;
 	line-height: 1.5em;
@@ -128,14 +122,14 @@ a:focus {
 	border-style: solid;
 }
 
-h1#date { 
+h2#date1 {
 	color:black;
 	/*font: Courier New, Courier, Monospaced;*/
 	font-size: 16px;
 	font-weight: bold;
 	padding: 0;
 }
-h2#date {
+h2#date2 {
 	color:red;
 	/*font: Courier New, Courier, Monospaced;*/
 	font-size: 25px;
@@ -171,15 +165,18 @@ section {
 	border-right-color: white;
 	border-right-style: solid;
 }
+.johan{
+	background:url( #{viewWindowBean.background} ) no-repeat;
+}
 
 .thumbnail {
 	background: url(#{resource['default:images/background2.jpg']}) repeat;
 	float:left;
 	position: relative;
-	width: 120px;
-	height: 120px;
+	width: 100px;
+	height: 100px;
 	border: dotted;
-	margin: 20px;
+	margin: 15px;
 }
 
 .thumbnail:hover{
@@ -202,31 +199,20 @@ section {
 #add_button {
 	background: url(#{resource['default:images/add_button.jpg']}) no-repeat;
 	float:left;
-	width: 120px;
-	height: 120px;
+	width: 100px;
+	height: 100px;
 	border: dotted;
-	margin: 20px;
+	margin: 15px;
 }
 
-#window {
- background: url(#{resource['default:images/background2.jpg']}) repeat;
-}
-
-
-#urlwindow {
-	background: url(#{resource['default:images/window_web_icon.jpg']}) no-repeat;
-}
-
-#imagewindow {
-	background: url(#{resource['default:images/window_imgae_icon.jpg']}) no-repeat;
-}
-
-#videowindow {
-	background: url(#{resource['default:images/window_video_icon.jpg']}) no-repeat;
-}
-
-#audiowindow {
-	background: url(#{resource['default:images/window_audio_icon.jpg']}) no-repeat;
+.window {
+	position: relative;
+	width: 100px;
+	height: 80px;
+	border: dotted;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 0px;
 }
 
 .button:hover{
@@ -235,7 +221,7 @@ section {
 
 .panel {
 	background-color: rgba(255, 255, 255, 0.75);
-    height: 200px;
+	height:auto;
 	width: 100%;
 }
 
@@ -306,9 +292,9 @@ section {
   width:25%;
   height: 20%;
   margin-top: 0;
-  margin-bottom: 2%;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   float: left;
   transition:opacity 1s;
   -webkit-transition:opacity 1s;
@@ -317,15 +303,15 @@ section {
 
 form {
   background-color: rgba(255, 255, 255, 0.00);
-  padding:6% 4%;
+  padding:2% 2%;
 }
 
 input[type="username"],input[type="password"], input[type="text"] {
   width:95%;
   background:white;
-  margin-bottom:4%;
+  margin-bottom:2%;
   border:1px solid #ccc;
-  padding:4%;
+  padding:2%;
   font-size:1.5em;
   color:#555;
 }
@@ -340,30 +326,24 @@ input.file {
     width:  95%;
 	float: left;
 	text-align: left;
-	-moz-opacity:0 ;
-	filter:alpha(opacity: 0);
 	opacity: 0;
 	z-index: 2;
-     margin-bottom:4%;
+     margin-bottom:2%;
     border:1px solid #ccc;
-    padding:4%;
+    padding:2%;
     font-size:1.6em;
     color:#555;
 }
 
 input[type="submit"]{
   width:95%;
-	height: 2em;
-	margin: 2px;
   background: #096a8d;
-	margin-bottom:4%;
 	border:1px solid #ccc;
-  padding:4%;
+  padding:2%;
   font-size:1.6em;
   color:#fff;
   cursor:pointer;
   transition:background .3s;
-  -webkit-transition:background .3s;
 }
 
 input[type="submit"]:hover{

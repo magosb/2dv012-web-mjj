@@ -1,8 +1,6 @@
 package se.lnu.xmascal;
 
-import org.primefaces.component.media.Media;
 import org.primefaces.model.ByteArrayContent;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
@@ -10,35 +8,31 @@ import se.lnu.xmascal.model.Window;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Johan Widén
  */
-@ManagedBean
-@SessionScoped
-public class ViewWindowBean {
-    private Calendar calendar;
-    private List<Window> windows;
-    private byte[] background;
+@Named("viewWindowBean")
+@ApplicationScoped
+public class ViewWindowBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     @EJB
     private CalendarManager calendarManager;
-    private StreamedContent content;
-
-
+    private Calendar calendar;
 
     @PostConstruct
     public void init() {
         calendar = calendarManager.getCalendar("johans");
 
-        windows = new ArrayList<Window>();
+        // USED for testing:
+        List<Window> windows = new ArrayList<>();
         for (int i = 1; i < 10; i++) {
             windows.add(new Window("johans", i, "ada".getBytes(), "image"));
         }
@@ -48,31 +42,43 @@ public class ViewWindowBean {
         for (int i = 15; i < 25; i++) {
             windows.add(new Window("johans", i, "ada".getBytes(), "web"));
         }
+        calendar.setWindows(windows);
     }
 
     public String getName() {
         return calendar.getName();
     }
 
-    public byte[] getBackground() {
-        return calendar.getBackground();
-    }
+    public StreamedContent getBackground() {
+        FacesContext context = FacesContext.getCurrentInstance();
 
-    public String getPassPhrase() {
-        return calendar.getPassPhrase();
-    }
+        // View is being rendered. Return a stub StreamedContent so that it will generate right URL.
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            return new ByteArrayContent();
+        }
 
-    public byte[] getThumbnail() {
-        return calendar.getThumbnail();
+        // Image is being requested. Return a real StreamedContent with the image bytes.
+        else {
+            return new ByteArrayContent(calendar.getBackground());
+        }
     }
 
     public List<Window> getWindows() {
-        return windows;
+        return calendar.getWindows();
     }
 
     public StreamedContent getContent() {
+        FacesContext context = FacesContext.getCurrentInstance();
 
-        content = new ByteArrayContent(windows.get(1).getContent());
-        return this.content;
+        // View is being rendered. Return a stub StreamedContent so that it will generate right URL.
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            return new ByteArrayContent();
+        }
+
+        // Image is being requested. Return a real StreamedContent with the image bytes.
+        else {
+            String day = context.getExternalContext().getRequestParameterMap().get("windowDay");
+            return new ByteArrayContent(calendar.getWindows().get(Integer.parseInt(day)).getContent());
+        }
     }
 }

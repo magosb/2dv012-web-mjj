@@ -16,35 +16,29 @@
     </ui:insert>
     <section>
         <h:outputLabel value="#{viewWindowBean.name}"/>
-        <ul>
-            <c:forEach items="#{viewWindowBean.windows}" var="win">
-
-                <li class="thumbnail" id="#{win.type}window"></li>
-
-            </c:forEach>
-        </ul>
-        <!--  Second version..... -->
-        <h:form id="form">
-            <p:dataGrid var="win" value="#{viewWindowBean.windows}" columns="5" layout="grid"
-                        rows="24" id="wins"
-                        style="background-image:url(#{viewWindowBean.background})">
-
-                <h:panelGrid class="thumbnail" columns="1">
-                    <h:outputLabel value="#{win.day}"/>
-                    <p:lightBox styleClass="imagebox" id="lighbox1">
-                        <p:graphicImage name="/default/1_0/images/window_#{win.type}_icon.jpg"/>
+        <h:form>
+            <ui:repeat value="#{viewWindowBean.windows}" var="win">
+                <h:panelGroup layout="block" class="thumbnail">
+                    <p:lightBox id="lighbox">
+                        <p:graphicImage class="window" id="imagewindow"
+                                        name="/default/1_0/images/window_#{win.type}_icon.jpg"
+                                        value="#{viewWindowBean.content}">
+                            <h:outputText value="#{win.day}"/>
+                            <f:param name="windowDay" value="#{win.day}"/>
+                        </p:graphicImage>
                         <f:facet name="inline">
-                            <p:media value="#{viewWindowBean.content}"  width="400" height="225" player="flash" />
+                            <p:media value="#{viewWindowBean.content}" width="400" height="225" player="flash"/>
                         </f:facet>
+
                     </p:lightBox>
-                </h:panelGrid>
-
-            </p:dataGrid>
+                </h:panelGroup>
+            </ui:repeat>
         </h:form>
-
-        <ui:insert name="footer">
-            <ui:include src="../footer.xhtml"/>
-        </ui:insert>
+        <!-- This is the background image. It shall not be here! -->
+        <p:graphicImage value="#{viewWindowBean.background}"></p:graphicImage>
     </section>
+    <ui:insert name="footer">
+        <ui:include src="../footer.xhtml"/>
+    </ui:insert>
 </h:body>
 </html>

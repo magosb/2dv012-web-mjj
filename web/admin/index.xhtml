@@ -7,16 +7,48 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head lang="en">
         <title>Login</title>
+        <h:outputStylesheet library="default" name="css/style.css"/>
     </h:head>
 <h:body>
     <ui:insert name="header" >
         <ui:include src="../header.xhtml" />
     </ui:insert>
-    Start page for admin. List of calendars with add and edit icons. <br/>
-    Currently logged as <h:outputText id="username" value="#{admin.username}" />
-    <h:form>
-        <h:commandButton value="Log out" action="#{admin.logout}"/>
-    </h:form>
+    <section class="panel">
+        <h:form>
+            <div id="panelpart">
+                <h:commandButton value="Log out" action="#{admin.logout}"/>
+            </div>
+            <div id="panelpart">
+                Currently logged in as <h:outputText id="username" value="#{admin.username}" />
+            </div>
+        </h:form>
+    </section>
+    <section>
+        <a href = "createCalendarView.html"><div id="add_button"></div></a>
+        <div class="thumbnail.t2"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+    </section>
     <ui:insert name="footer" >
         <ui:include src="../footer.xhtml" />
     </ui:insert>

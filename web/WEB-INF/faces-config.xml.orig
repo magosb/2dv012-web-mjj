@@ -2,8 +2,7 @@
 
 <faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
               version="2.2">
 
     <application>
@@ -17,16 +16,31 @@
     </application>
 
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+        <from-view-id>/add.xhtml</from-view-id>
         <navigation-case>
             <description>For admins to login.</description>
+<<<<<<< HEAD
+            <from-outcome>edit</from-outcome>
+            <to-view-id>/edit.xhtml/</to-view-id>
+=======
             <from-outcome>admin</from-outcome>
             <to-view-id>/admin/index.xhtml</to-view-id>
             <redirect />
+>>>>>>> b8e3b748e588648ff74ca40e04f313702523c1c4
         </navigation-case>
         <navigation-case>
-            <description>For users to login to a password protected calendar.</description>
-            <from-outcome>login</from-outcome>
+            <description>For users to view a calendar.</description>
+            <from-outcome>view</from-outcome>
+            <to-view-id>/view-calendar/index.xhtml/</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <!--
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <description>For admins to login.</desicription>
+            <from-outcome>admin</from-outcome>
             <to-view-id>/auth/login.xhtml/</to-view-id>
             <redirect />
         </navigation-case>
@@ -66,6 +80,10 @@
         </navigation-case>
     </navigation-rule>
 
+
+
+
+
     <navigation-rule>
         <from-view-id>/auth/*</from-view-id>
         <navigation-case>
@@ -74,6 +92,11 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+
+
+
+
+
 
     <navigation-rule>
         <from-view-id>/admin/add-calendar/index.xhtml/</from-view-id>
@@ -108,6 +131,21 @@
     </navigation-rule>
 
     <navigation-rule>
+<<<<<<< HEAD
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <description>A way to get back to the website index page from any link.</description>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <description>For a admins to logout.</description>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/auth/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    -->
+=======
     <from-view-id>*</from-view-id>
     <navigation-case>
         <description>A way to get back to the website index page from any link.</description>
@@ -122,4 +160,5 @@
         <redirect />
     </navigation-case>
 </navigation-rule>
+>>>>>>> b8e3b748e588648ff74ca40e04f313702523c1c4
 </faces-config>
