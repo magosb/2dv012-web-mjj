@@ -26,31 +26,38 @@ public class ViewWindowBean implements Serializable {
     @EJB
     private CalendarManager calendarManager;
     private Calendar calendar = new Calendar();
+    private String name;
 
     @PostConstruct
     public void init() {
-        calendar = calendarManager.getCalendar("johans");
+        System.out.println("INIT is the shit");
+        if (this.name != null) {
+            calendar = calendarManager.getCalendar(name);
+        }
 
+
+        //TODO remove when we can create a complete calendar.
         // USED for testing:
         List<Window> windows = new ArrayList<>();
         for (int i = 1; i < 10; i++) {
-            windows.add(new Window("johans", i, "ada".getBytes(), Window.ContentType.PICTURE));
+            windows.add(new Window(name, i, "ada".getBytes(), "image"));
         }
         for (int i = 10; i < 15; i++) {
-            windows.add(new Window("johans", i, "ada".getBytes(), Window.ContentType.VIDEO));
+            windows.add(new Window(name, i, "ada".getBytes(), "video"));
         }
         for (int i = 15; i < 25; i++) {
-            windows.add(new Window("johans", i, "ada".getBytes(), Window.ContentType.URL));
+            windows.add(new Window(name, i, "ada".getBytes(), "web"));
         }
         calendar.setWindows(windows);
     }
 
     public void setName(String name) {
-        calendar.setName(name);
+        System.out.println("SET NAME");
+        this.name = name;
     }
 
     public String getName() {
-        return calendar.getName();
+        return name;
     }
 
     public StreamedContent getBackground() {
