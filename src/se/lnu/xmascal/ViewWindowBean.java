@@ -40,13 +40,13 @@ public class ViewWindowBean implements Serializable {
         // USED for testing:
         List<Window> windows = new ArrayList<>();
         for (int i = 1; i < 10; i++) {
-            windows.add(new Window(name, i, "ada".getBytes(), "image"));
+            windows.add(new Window(name, i, "ada".getBytes(), Window.ContentType.PICTURE));
         }
         for (int i = 10; i < 15; i++) {
-            windows.add(new Window(name, i, "ada".getBytes(), "video"));
+            windows.add(new Window(name, i, "ada".getBytes(), Window.ContentType.VIDEO));
         }
         for (int i = 15; i < 25; i++) {
-            windows.add(new Window(name, i, "ada".getBytes(), "web"));
+            windows.add(new Window(name, i, "ada".getBytes(), Window.ContentType.URL));
         }
         calendar.setWindows(windows);
     }
