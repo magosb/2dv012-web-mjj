@@ -1,5 +1,8 @@
 package se.lnu.xmascal.model;
 
+import org.primefaces.model.ByteArrayContent;
+import org.primefaces.model.StreamedContent;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -49,7 +52,7 @@ public class Calendar {
         this.thumbnail = thumbnail;
         this.passPhrase = passPhrase;
     }
-
+    // TODO: Add isPrivate() { private == null }
     /**
      * @return the name of this <code>Calendar</code>
      */
@@ -107,6 +110,13 @@ public class Calendar {
     }
 
     /**
+     * @return <code>true</code> if this calendar is private, otherwise <code>false</code>
+     */
+    public boolean isPrivate() {
+        return (passPhrase == null || passPhrase.isEmpty());
+    }
+
+    /**
      * @return the <code>Windows</code> of this <code>Calendar</code>
      */
     public List<Window> getWindows() {
@@ -118,5 +128,21 @@ public class Calendar {
      */
     public void setWindows(List<Window> windows) {
         this.windows = windows;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public StreamedContent getBackgroundContent() {
+        return new ByteArrayContent(background);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public StreamedContent getThumbnailContent() {
+        return new ByteArrayContent(thumbnail);
     }
 }

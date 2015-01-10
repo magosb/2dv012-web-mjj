@@ -28,7 +28,7 @@ public class Window implements Serializable {
     private byte[] content;
 
     @Column(name = "type")
-    private String type;
+    private String type; // TODO: Change this to ContentType and see if translation to String happens automatically
 
     public Window() {
     }
@@ -39,11 +39,11 @@ public class Window implements Serializable {
      * @param content the content of the <code>Window</code>
      * @param type the type of the content
      */
-    public Window(String calendarName, int day, byte[] content, String type) {
+    public Window(String calendarName, int day, byte[] content, ContentType type) {
         this.calendarName = calendarName;
         this.day = day;
         this.content = content;
-        this.type = type;
+        this.type = type.toString();
     }
 
     public String getCalendarName() {
@@ -76,6 +76,25 @@ public class Window implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public enum ContentType {
+        PICTURE("picture"),
+        AUDIO("audio"),
+        VIDEO("video"),
+        URL("URL"),
+        TEXT("text");
+
+        private String type;
+        ContentType(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public String toString() {
+            return type;
+        }
+
     }
 
     @Override
