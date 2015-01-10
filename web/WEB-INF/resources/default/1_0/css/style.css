@@ -137,6 +137,23 @@ h2#date2 {
 	padding: 0;
 }
 
+.window_date {
+	position: relative;
+	bottom: 10px;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	margin: auto;
+	z-index: 1000;
+	font-family: Courier New, Courier, Monospaced;
+	font-size: 60px;
+	font-weight: bolder;
+	color: #ffffff;
+	opacity: 0.5;
+
+}
+
 #date_wrapper {
 	float:right;
 	margin-right: 75px;
@@ -273,9 +290,9 @@ section {
 .window_panel {
 	position: relative;
 	float:left;
-	border: dotted;
+	border: 1px solid white;
 	width: 75px;
-	height: 90px;
+	height: 75px;
 	margin-right: 0;
 	margin-left: 54px;
 	margin-top: 40px;
@@ -283,13 +300,13 @@ section {
 }
 
 .window_panel:hover {
-	border: solid;
+	border: 1px solid grey;
 }
 
 .window_container {
 	/* The size of a calenders background image */
-	height: 720px;
-	width: 900px;
+	max-height: 720px;
+	max-width: 900px;
 	position: relative;
 	top:0;
 	bottom: 0;
@@ -301,6 +318,8 @@ section {
 }
 
 .window_background {
+	max-height: 720px;
+	max-width: 900px;
 	position: absolute;
 	top:0;
 	bottom: 0;
@@ -312,9 +331,11 @@ section {
 
 .window_content {
 	position: absolute;
-	z-index: 2;
 	left: 0;
 	top: 0;
+	right:0;
+	bottom: 0;
+	z-index: 2;
 }
 
 #login {
