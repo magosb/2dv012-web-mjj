@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head lang="en">
     <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
     <title>View calendar</title>
@@ -28,6 +29,17 @@
         <h:commandButton value="Edit calendar" action="edit"/>
     </h:form>
     <h:outputLabel value="Current date is now: #{calendarBean.currentDate}"/>
+
+        <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
+            <h:link outcome="/view-calendar/index.xhtml">
+                <p:graphicImage value="#{thumbnails.thumbnail}" alt="#{calendarName}" styleClass="thumbnail">
+                    <f:param name="name" value="#{calendarName}"/>
+                </p:graphicImage>
+                <f:param name="cal" value="#{calendarName}"/>
+            </h:link>
+            <br/>
+        </ui:repeat>
+
     </section>
 
     <ui:insert name="footer" >
