@@ -6,6 +6,16 @@
         http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
               version="2.2">
 
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>se.lnu.xmascal.messages</base-name>
+            <var>msgs</var>
+        </resource-bundle>
+    </application>
+
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
