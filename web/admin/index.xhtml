@@ -7,14 +7,14 @@
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head lang="en">
-        <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
-        <title>Edit Calendar</title>
-        <h:outputStylesheet library="default" name="css/style.css"/>
-    </h:head>
+<h:head lang="en">
+    <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
+    <title>Edit Calendar</title>
+    <h:outputStylesheet library="default" name="css/style.css"/>
+</h:head>
 <h:body>
-    <ui:insert name="header" >
-        <ui:include src="../header.xhtml" />
+    <ui:insert name="header">
+        <ui:include src="../header.xhtml"/>
     </ui:insert>
     <section class="admin_panel">
         <h:form>
@@ -22,28 +22,45 @@
                 <h:commandButton value="Log out" action="#{admin.logout}"/>
             </div>
             <div class="admin_panelpart">
-                Currently logged in as <h:outputText id="username" value="#{admin.username}" />
+                Currently logged in as <h:outputText id="username" value="#{admin.username}"/>
             </div>
         </h:form>
     </section>
     <section>
+
+
         <h:form>
-            <h:panelGroup layout="block" class="thumbnail_panel">
-                <h:commandButton action="add" styleClass="add_button" />
+            <h:panelGroup layout="block">
+                <h:commandButton action="add" styleClass="add_button"/>
             </h:panelGroup>
-            <ui:repeat value="#{viewWindowBean.windows}" var="win">
-                <h:panelGroup layout="block" class="thumbnail_panel">
-                        <p:graphicImage class="thumbnail" id="imagewindow"
-                                        name="/default/1_0/images/window_hover_icon.jpg"
-                                        value="#{viewWindowBean.content}">
-                        </p:graphicImage>
-                        <h:commandButton action="edit" styleClass="edit_button" />
+            <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
+                <h:panelGroup layout="block" class="thumbnail_container">
+                    <p:graphicImage value="#{thumbnails.thumbnail}" alt="#{calendarName}" styleClass="thumbnail">
+                        <f:param name="name" value="#{calendarName}"/>
+                    </p:graphicImage>
+                    <f:param name="cal" value="#{calendarName}"/>
+                    <br/>
+                    <h:panelGroup layout="block" class="edit_panel">
+                        <h:link outcome="edit">
+                            <p:graphicImage name="/default/1_0/images/edit.png" styleClass="lock">
+                            </p:graphicImage>
+                        </h:link>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" class="delete_panel">
+                        <p:lightBox id="lighbox">
+                            <p:graphicImage name="/default/1_0/images/delete.png" styleClass="lock">
+                            </p:graphicImage>
+                            <f:facet name="inline">
+                                <p:media value="#{viewWindowBean.content}" width="400" height="225" player="flash"/>
+                            </f:facet>
+                        </p:lightBox>
+                    </h:panelGroup>
                 </h:panelGroup>
             </ui:repeat>
         </h:form>
     </section>
-    <ui:insert name="footer" >
-        <ui:include src="../footer.xhtml" />
+    <ui:insert name="footer">
+        <ui:include src="../footer.xhtml"/>
     </ui:insert>
 </h:body>
 </html>
