@@ -165,6 +165,9 @@ section {
 	border-right-color: white;
 	border-right-style: solid;
 }
+.johan{
+	background:url( #{viewWindowBean.background} ) no-repeat;
+}
 
 .thumbnail {
 	background: url(#{resource['default:images/background2.jpg']}) repeat;
@@ -204,12 +207,12 @@ section {
 
 .window {
 	position: relative;
-	width: 120px;
-	height: 120px;
+	width: 100px;
+	height: 80px;
 	border: dotted;
 	margin: auto;
 	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 0px;
 }
 
 .button:hover{
