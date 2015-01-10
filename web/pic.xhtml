@@ -8,7 +8,7 @@
 <h:head></h:head>
 <h:body>
     <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
-        <p:graphicImage value="#{thumbnails.thumbnail}">
+        <p:graphicImage value="#{thumbnails.thumbnail}" alt="#{calendarName}">
             <f:param name="name" value="#{calendarName}"/>
         </p:graphicImage>
         <br/>
