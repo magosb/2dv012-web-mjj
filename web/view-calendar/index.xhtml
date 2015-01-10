@@ -7,6 +7,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head lang="en">
+    <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
     <title>Christmas Calendar</title>
     <h:outputStylesheet library="default" name="css/style.css"/>
 </h:head>
@@ -18,7 +19,7 @@
         <h:outputLabel value="#{viewWindowBean.name}"/>
         <h:form>
             <ui:repeat value="#{viewWindowBean.windows}" var="win">
-                <h:panelGroup layout="block" class="thumbnail">
+                <h:panelGroup layout="block" class="window_panel">
                     <p:lightBox id="lighbox">
                         <p:graphicImage class="window" id="imagewindow"
                                         name="/default/1_0/images/window_#{win.type}_icon.jpg"

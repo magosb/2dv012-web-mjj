@@ -7,6 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 
 <h:head lang="en">
+    <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
     <title>Add calendar</title>
     <h:outputStylesheet library="default" name="css/style.css"/>
 </h:head>
@@ -15,7 +16,7 @@
         <ui:include src="../../header.xhtml" />
     </ui:insert>
 
-    <section class="panel">
+    <section class="admin_panel">
             <!-- enctype="multipart/form-data" -->
             <h:form enctype="multipart/form-data"> <!-- Multipart is required for the fileUpload, but will it mess the rest up? Check StackOverflow post about FileUpload in wizard -->
 
@@ -92,8 +93,7 @@
             <h:outputLabel value="#{viewWindowBean.name}"/>
             <h:form>
                 <ui:repeat value="#{viewWindowBean.windows}" var="win">
-                    <h:panelGroup layout="block" class="thumbnail">
-                        <p:lightBox id="lighbox">
+                    <h:panelGroup layout="block" class="thumbnail_panel">
                             <p:graphicImage class="window" id="imagewindow"
                                             name="/default/1_0/images/window_#{win.type}_icon.jpg"
                                             value="#{viewWindowBean.content}">
@@ -103,8 +103,6 @@
                             <f:facet name="inline">
                                 <p:media value="#{viewWindowBean.content}" width="400" height="225" player="flash"/>
                             </f:facet>
-
-                        </p:lightBox>
                     </h:panelGroup>
                 </ui:repeat>
             </h:form>

@@ -168,6 +168,13 @@ section {
 .johan{
 	background:url( #{viewWindowBean.background} ) no-repeat;
 }
+.thumbnail_panel {
+	float:left;
+	position: relative;
+	width: 110px;
+	height: 110px;
+	margin: 15px;
+}
 
 .thumbnail {
 	background: url(#{resource['default:images/background2.jpg']}) repeat;
@@ -176,7 +183,6 @@ section {
 	width: 100px;
 	height: 100px;
 	border: dotted;
-	margin: 15px;
 }
 
 .thumbnail:hover{
@@ -205,21 +211,38 @@ section {
 	margin: 15px;
 }
 
+.edit_button {
+	background-color: transparent;
+	background: url(#{resource['default:images/edit.png']}) !important;
+	background-repeat: no-repeat;
+	float:left;
+	width: 22px;
+	height: 22px;
+}
+
 .window {
 	position: relative;
 	width: 100px;
-	height: 80px;
+	height: 100px;
+	margin: 0;
+}
+
+.window_panel {
+	position: relative;
+	float: left;
 	border: dotted;
+	width: 120px;
+	height:120px;
 	margin: auto;
 	margin-top: 20px;
-	margin-bottom: 0px;
+	margin-bottom: 20px;
 }
 
 .button:hover{
   background-color: #485c7a;
 }
 
-.panel {
+.admin_panel {
 	background-color: rgba(255, 255, 255, 0.75);
 	height:auto;
 	width: 100%;
@@ -287,7 +310,8 @@ section {
   text-align:center;
   color:black;
 }
-#panelpart {
+
+.admin_panelpart {
   background-color: rgba(255, 255, 255, 0.00);
   width:25%;
   height: 20%;
