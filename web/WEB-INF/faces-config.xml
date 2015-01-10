@@ -2,20 +2,39 @@
 
 <faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
               version="2.2">
 
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>se.lnu.xmascal.messages</base-name>
+            <var>msgs</var>
+        </resource-bundle>
+    </application>
+
+    <navigation-rule>
+        <from-view-id>/add.xhtml</from-view-id>
+        <navigation-case>
+            <description>For admins to login.</description>
+            <from-outcome>edit</from-outcome>
+            <to-view-id>/edit.xhtml/</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <description>For users to view a calendar.</description>
+            <from-outcome>view</from-outcome>
+            <to-view-id>/view-calendar/index.xhtml/</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <!--
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
-            <description>For admins to login.</description>
+            <description>For admins to login.</desicription>
             <from-outcome>admin</from-outcome>
-            <to-view-id>/auth/login.xhtml/</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <description>For users to login to a password protected calendar.</description>
-            <from-outcome>login</from-outcome>
             <to-view-id>/auth/login.xhtml/</to-view-id>
         </navigation-case>
         <navigation-case>
@@ -49,6 +68,10 @@
         </navigation-case>
     </navigation-rule>
 
+
+
+
+
     <navigation-rule>
         <from-view-id>/auth/*</from-view-id>
         <navigation-case>
@@ -56,6 +79,11 @@
             <to-view-id>/admin/index.xhtml/</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+
+
+
+
 
     <navigation-rule>
         <from-view-id>/admin/add-calendar/index.xhtml/</from-view-id>
@@ -85,7 +113,6 @@
         </navigation-case>
     </navigation-rule>
 
-
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
@@ -99,4 +126,5 @@
             <to-view-id>/auth/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    -->
 </faces-config>
