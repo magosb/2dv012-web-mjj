@@ -8,42 +8,48 @@
 <h:head lang="en">
     <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
     <title>View calendar</title>
-    <h:outputStylesheet library="default" name="css/style.css"  />
+    <h:outputStylesheet library="default" name="css/style.css"/>
 </h:head>
 <h:body>
-    <ui:insert name="header" >
-        <ui:include src="header.xhtml" />
+    <ui:insert name="header">
+        <ui:include src="header.xhtml"/>
     </ui:insert>
 
     <section>
-    <h:outputLabel value="Hello, cruel world. 111"/>
-    <h:outputLink value="view-calendar/">View calendar</h:outputLink>,
-    <h:outputLink value="admin/">Admin start</h:outputLink>,
-    <h:outputLink value="admin/add-calendar/">Add calendar</h:outputLink>,
-    <h:outputLink value="admin/edit-calendar/">Edit calendar</h:outputLink>
-    <h:form>
-        <h:commandButton value="View calendar" action="view"/>
-        <h:commandButton value="To upload page" action="uploadFile"/>
-        <h:commandButton value="Admin start" action="admin"/>
-        <h:commandButton value="Add calendar" action="add"/>
-        <h:commandButton value="Edit calendar" action="edit"/>
-    </h:form>
-    <h:outputLabel value="Current date is now: #{calendarBean.currentDate}"/>
+        <h:outputLabel value="Hello, cruel world. 111"/>
+        <h:outputLink value="view-calendar/">View calendar</h:outputLink>,
+        <h:outputLink value="admin/">Admin start</h:outputLink>,
+        <h:outputLink value="admin/add-calendar/">Add calendar</h:outputLink>,
+        <h:outputLink value="admin/edit-calendar/">Edit calendar</h:outputLink>
+        <h:form>
+            <h:commandButton value="View calendar" action="view"/>
+            <h:commandButton value="To upload page" action="uploadFile"/>
+            <h:commandButton value="Admin start" action="admin"/>
+            <h:commandButton value="Add calendar" action="add"/>
+            <h:commandButton value="Edit calendar" action="edit"/>
+        </h:form>
+        <h:outputLabel value="Current date is now: #{calendarBean.currentDate}"/>
 
         <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
-            <h:link outcome="/view-calendar/index.xhtml">
-                <p:graphicImage value="#{thumbnails.thumbnail}" alt="#{calendarName}" styleClass="thumbnail">
-                    <f:param name="name" value="#{calendarName}"/>
-                </p:graphicImage>
-                <f:param name="cal" value="#{calendarName}"/>
-            </h:link>
-            <br/>
+            <h:panelGroup layout="block" class="thumbnail_container">
+                <h:link outcome="/view-calendar/index.xhtml">
+                    <p:graphicImage value="#{thumbnails.thumbnail}" alt="#{calendarName}" styleClass="thumbnail">
+                        <f:param name="name" value="#{calendarName}"/>
+                    </p:graphicImage>
+                    <f:param name="cal" value="#{calendarName}"/>
+                </h:link>
+                <br/>
+                <h:panelGroup layout="block" class="thumbnail_panel">
+                    <p:graphicImage name="/default/1_0/images/lock.png" styleClass="lock">
+                    </p:graphicImage>
+                </h:panelGroup>
+            </h:panelGroup>
         </ui:repeat>
 
     </section>
 
-    <ui:insert name="footer" >
-        <ui:include src="footer.xhtml" />
+    <ui:insert name="footer">
+        <ui:include src="footer.xhtml"/>
     </ui:insert>
 </h:body>
 </html>

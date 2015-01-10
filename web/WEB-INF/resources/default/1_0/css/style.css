@@ -166,38 +166,44 @@ section {
 	border-right-style: solid;
 }
 
+.lock {
+	position: relative;
+	width: 25px;
+	height: 25px;
+	margin: 0;
+}
+
 .thumbnail_panel {
+	position: absolute;
+	bottom: 1px;
+	right: 2px;
+	margin: auto;
+	width: 25px;
+	height: 25px;
+}
+
+.thumbnail_container {
+	background: url(#{resource['default:images/background2.jpg']}) repeat;
 	float:left;
 	position: relative;
 	width: 110px;
 	height: 110px;
-	margin: 15px;
+	margin: 10px;
 }
 
 .thumbnail {
-	background: url(#{resource['default:images/background2.jpg']}) repeat;
-	float:left;
-	position: relative;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
 	width: 100px;
 	height: 100px;
-	border: dotted;
 }
 
-.thumbnail:hover{
+.thumbnail_container:hover{
 	background: url(#{resource['default:images/background.jpg']}) repeat;
-	border: double;
-}
-
-.thumbnail h1{
-	font: 2.0em/1.5em Courier New, Courier, Monospaced;
-	font-weight: lighter;
-	margin: 3px;
-}
-
-.thumbnail:hover h1{
-	font: 2.0em/1.5em Courier New, Courier, Monospaced;
-	font-weight: bold;
-	margin: 3px;
 }
 
 .add_button {
@@ -235,34 +241,48 @@ section {
 	left: 0;
 	bottom: 0;
 	width: 75px;
-	height: 60px;
+	height: 75px;
 	margin: 0;
 }
 
 .window_panel {
 	position: relative;
-	float: left;
+	float:left;
 	border: dotted;
 	width: 75px;
-	height:75px;
-	margin-left: 90px;
+	height: 90px;
+	margin-right: 0;
+	margin-left: 54px;
 	margin-top: 40px;
+	margin-bottom: 45px;
+}
+
+.window_panel:hover {
+	border: solid;
 }
 
 .window_container {
 	/* The size of a calenders background image */
-	height: 650px;
-	width: 960px;
-	margin: 0;
+	height: 720px;
+	width: 900px;
 	position: relative;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	margin: auto;
+
 }
 
 .window_background {
 	position: absolute;
-	z-index: 1;
+	top:0;
+	bottom: 0;
 	left: 0;
-	top: 0;
-	height: 100%;
+	right: 0;
+
+	margin: auto;
 }
 
 .window_content {
@@ -270,17 +290,7 @@ section {
 	z-index: 2;
 	left: 0;
 	top: 0;
-	height: 100%;
 }
-
-#content_window {
-	background: #096a8d;
-	left: 0px;
-    top: 0px;
-    z-index: -1;
-	height: 100px;
-	width: 100px;
- }
 
 #login {
   width:400px;
