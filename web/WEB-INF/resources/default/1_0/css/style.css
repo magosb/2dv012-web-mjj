@@ -139,8 +139,8 @@ h2#date2 {
 
 .window_date {
 	position: relative;
-	bottom: 10px;
-	top: 0;
+	bottom: 0;
+	top: 30px;
 	left: 0;
 	right: 0;
 
@@ -151,6 +151,7 @@ h2#date2 {
 	font-weight: bolder;
 	color: #ffffff;
 	opacity: 0.5;
+	text-shadow: 2px 2px #ff0000;
 
 }
 
@@ -305,8 +306,8 @@ section {
 
 .window_container {
 	/* The size of a calenders background image */
-	max-height: 720px;
-	max-width: 900px;
+	height: 720px;
+	width: 900px;
 	position: relative;
 	top:0;
 	bottom: 0;

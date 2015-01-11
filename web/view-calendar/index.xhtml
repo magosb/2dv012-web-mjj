@@ -30,7 +30,7 @@
                                 <p:graphicImage class="window" id="imagewindow"
                                                 name="/default/1_0/images/window_#{win.type}_icon.jpg"
                                                 value="#{viewWindowBean.content}">
-                                    <h:outputText value="#{win.day}"/>
+                                    <h:outputText value="#{win.day}" styleClass="window_date"/>
                                     <f:param name="windowDay" value="#{win.day}"/>
                                 </p:graphicImage>
                                 <f:facet name="inline">
