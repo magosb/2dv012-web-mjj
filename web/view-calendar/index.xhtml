@@ -7,7 +7,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
     <f:viewParam name="cal" value="#{viewWindowBean.name}"/>
+    <f:event listener="#{viewWindowBean.init}" type="preRenderView" />
 </f:metadata>
+
 <h:head lang="en">
     <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
     <title>Christmas Calendar</title>

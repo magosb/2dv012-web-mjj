@@ -9,12 +9,14 @@ import se.lnu.xmascal.model.Window;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Johan Widén
@@ -30,34 +32,41 @@ public class ViewWindowBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        System.out.println("INIT is the shit");
-        if (this.name != null) {
+        Map<String, String> params = FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap();
+        String cal = params.get("cal");
+
+        System.out.println("Cal is: " + cal);
+
+            name = cal;
+            System.out.println("Equal?: " + name + " " + cal);
             calendar = calendarManager.getCalendar(name);
-        }
+
+            //TODO remove when we can create a complete calendar.
+            // USED for testing:
+            List<Window> windows = new ArrayList<>();
+            for (int i = 1; i < 10; i++) {
+                windows.add(new Window(name, i, "ada".getBytes(), Window.ContentType.PICTURE));
+            }
+            for (int i = 10; i < 15; i++) {
+                windows.add(new Window(name, i, "ada".getBytes(), Window.ContentType.VIDEO));
+            }
+            for (int i = 15; i < 25; i++) {
+                windows.add(new Window(name, i, "ada".getBytes(), Window.ContentType.URL));
+            }
+            calendar.setWindows(windows);
 
 
-        //TODO remove when we can create a complete calendar.
-        // USED for testing:
-        List<Window> windows = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            windows.add(new Window(name, i, "ada".getBytes(), Window.ContentType.PICTURE));
-        }
-        for (int i = 10; i < 15; i++) {
-            windows.add(new Window(name, i, "ada".getBytes(), Window.ContentType.VIDEO));
-        }
-        for (int i = 15; i < 25; i++) {
-            windows.add(new Window(name, i, "ada".getBytes(), Window.ContentType.URL));
-        }
-        calendar.setWindows(windows);
-    }
-
-    public void setName(String name) {
-        System.out.println("SET NAME");
-        this.name = name;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        System.out.println("SET NAME " + name);
+        calendar = calendarManager.getCalendar(name);
+        this.name = name;
     }
 
     public StreamedContent getBackground() {
