@@ -94,11 +94,11 @@ public class Window implements Serializable {
     }
 
     public enum ContentType {
-        PICTURE("picture"),
-        AUDIO("audio"),
-        VIDEO("video"),
+        PICTURE("Picture"),
+        AUDIO("Audio"),
+        VIDEO("Video"),
         URL("URL"),
-        TEXT("text");
+        TEXT("Text");
 
         private String type;
         ContentType(String type) {

@@ -16,8 +16,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
+import java.util.LinkedHashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 // <!-- <h:selectOneRadio id="isPublic" value="#{newCalendar.public}" onchange="submit()" valueChangeListener="#{newCalendar.update}"> TODO: This will submit entire form? Change to separate form? -->
@@ -41,8 +42,6 @@ public class AddCalendarBean implements Serializable {
     private String passPhrase;
     private Calendar calendar = new Calendar();
     private boolean isPublic = true;
-    private int windowNumber;
-    private byte[] windowContent;
 
 
     // Change the current date here:
@@ -104,6 +103,21 @@ public class AddCalendarBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
+    // --------------------------------------
+    // WINDOW CONFIG RELATED --------------->
+    private int windowNumber;
+    private byte[] windowContent;
+    private Window.ContentType contentType = Window.ContentType.PICTURE;
+    private static Map<String, Window.ContentType> contentTypeItems;
+    static {
+        contentTypeItems = new LinkedHashMap<>();
+        contentTypeItems.put(Window.ContentType.PICTURE.toString(), Window.ContentType.PICTURE);
+        contentTypeItems.put(Window.ContentType.VIDEO.toString(), Window.ContentType.VIDEO);
+        contentTypeItems.put(Window.ContentType.AUDIO.toString(), Window.ContentType.AUDIO); // label, value
+        contentTypeItems.put(Window.ContentType.URL.toString(), Window.ContentType.URL);
+        contentTypeItems.put(Window.ContentType.TEXT.toString(), Window.ContentType.TEXT);
+    }
+
     public void handleContentUpload(FileUploadEvent event) {
         try {
             windowContent = handleFile(event.getFile().getInputstream());
@@ -115,11 +129,26 @@ public class AddCalendarBean implements Serializable {
     }
 
     public void saveWindowContent() {
-        Window window = new Window(name, windowNumber, windowContent, Window.ContentType.PICTURE);
+        Window window = new Window(name, windowNumber, windowContent, contentType);
+        System.out.println(contentType);
         // TODO: THIS WILL FAIL IF THE WINDOW HAS ALREADY BEEN ADDED!
         calendarManager.addWindow(window);
         //calendar = calendarManager.update(calendar); // TODO: Does it matter if calendar is assigned the returned one? Returned calendar is detached?
     }
+
+    public Window.ContentType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(Window.ContentType contentType) {
+        this.contentType = contentType;
+    }
+
+    public Map<String, Window.ContentType> getContentTypeItems() {
+        return contentTypeItems;
+    }
+    // <----------  END WINDOW CONFIG RELATED
+    // --------------------------------------
 
     /**
      *
