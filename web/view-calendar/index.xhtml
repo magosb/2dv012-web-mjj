@@ -18,7 +18,7 @@
         <ui:include src="../header.xhtml"/>
     </ui:insert>
     <section>
-        <h:outputLabel value="#{viewWindowBean.name}"/>
+        <h1><h:outputLabel value="#{viewWindowBean.name}"/></h1>
         <h:form prependId="false">
             <h:panelGroup layout="block" class="window_container">
                 <p:graphicImage value="#{viewWindowBean.background}" styleClass="window_background"></p:graphicImage>
@@ -30,11 +30,17 @@
                                 <p:graphicImage class="window" id="imagewindow"
                                                 name="/default/1_0/images/window_#{win.type}_icon.jpg"
                                                 value="#{viewWindowBean.content}">
-                                    <h:outputText value="#{win.day}"/>
+                                    <h:outputText value="#{win.day}" styleClass="window_date"/>
                                     <f:param name="windowDay" value="#{win.day}"/>
                                 </p:graphicImage>
                                 <f:facet name="inline">
-                                    <p:media value="#{viewWindowBean.content}" width="400" height="225" player="flash"/>
+                                    <h:panelGroup layout="block" class="content_lightbox">
+                                        <h:panelGroup layout="block" class="content_popup_day">
+                                            <h:outputText value="#{win.day}" styleClass="day_text"/></h:panelGroup>
+
+                                        <p:media value="#{viewWindowBean.content}" styleClass="content_popup" player="flash">
+                                        </p:media>
+                                    </h:panelGroup>
                                 </f:facet>
                             </p:lightBox>
                         </h:panelGroup>
