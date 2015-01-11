@@ -1,7 +1,6 @@
 package se.lnu.xmascal;
 
 import org.primefaces.model.ByteArrayContent;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
@@ -21,7 +20,7 @@ public class ThumbnailBean {
     @EJB
     private CalendarManager calendarManager;
 
-    public StreamedContent getThumbnail() throws IOException { // TODO: Handle
+    public synchronized StreamedContent getThumbnail() throws IOException { // TODO: Handle
         FacesContext context = FacesContext.getCurrentInstance();
 
         // View is being rendered. Return a stub StreamedContent so that it will generate right URL.
@@ -39,7 +38,7 @@ public class ThumbnailBean {
         }
     }
 
-    public List<String> getCalendarNames() {
+    public synchronized List<String> getCalendarNames() {
         return calendarManager.getAllCalendarNames();
     }
 

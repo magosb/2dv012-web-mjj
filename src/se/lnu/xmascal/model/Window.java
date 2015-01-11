@@ -30,6 +30,20 @@ public class Window implements Serializable {
     @Column(name = "type")
     private String type; // TODO: Change this to ContentType and see if translation to String happens automatically
 
+    /*
+    @ManyToOne
+    @JoinColumn(name="name")
+    private Calendar calendar;
+
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
+    }
+    */
+
     public Window() {
     }
 
@@ -41,6 +55,7 @@ public class Window implements Serializable {
      */
     public Window(String calendarName, int day, byte[] content, ContentType type) {
         this.calendarName = calendarName;
+        //this.calendar = new Calendar(); this.calendar.setName(calendarName); // TODO: Remove this after testing
         this.day = day;
         this.content = content;
         this.type = type.toString();

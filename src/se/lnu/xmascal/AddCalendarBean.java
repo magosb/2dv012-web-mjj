@@ -4,6 +4,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
+import se.lnu.xmascal.model.Window;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -40,8 +41,9 @@ public class AddCalendarBean implements Serializable {
     private String passPhrase;
     private Calendar calendar = new Calendar();
     private boolean isPublic = true;
+    private int windowNumber;
+    private byte[] windowContent;
 
-//    @ManagedProperty()
 
     // Change the current date here:
     private final int CURRENT_DATE = 4;
@@ -73,6 +75,14 @@ public class AddCalendarBean implements Serializable {
         this.passPhrase = passPhrase;
     }
 
+    public int getWindowNumber() {
+        return windowNumber;
+    }
+
+    public void setWindowNumber(int windowNumber) {
+        this.windowNumber = windowNumber;
+    }
+
     public void handleBackgroundUpload(FileUploadEvent event) {
         try {
             background = handleFile(event.getFile().getInputstream());
@@ -92,6 +102,23 @@ public class AddCalendarBean implements Serializable {
         }
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void handleContentUpload(FileUploadEvent event) {
+        try {
+            windowContent = handleFile(event.getFile().getInputstream());
+        } catch (IOException e) {
+            e.printStackTrace(); // TODO: Send error message to client
+        }
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void saveWindowContent() {
+        Window window = new Window(name, windowNumber, windowContent, Window.ContentType.PICTURE);
+        // TODO: THIS WILL FAIL IF THE WINDOW HAS ALREADY BEEN ADDED!
+        calendarManager.addWindow(window);
+        //calendar = calendarManager.update(calendar); // TODO: Does it matter if calendar is assigned the returned one? Returned calendar is detached?
     }
 
     /**
@@ -248,5 +275,7 @@ public class AddCalendarBean implements Serializable {
         currentDate.set(java.util.Calendar.DAY_OF_MONTH, CURRENT_DATE);
         return currentDate.get(java.util.Calendar.DATE);
     }
+
+
 
 }

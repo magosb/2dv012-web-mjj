@@ -1,6 +1,7 @@
 package se.lnu.xmascal.ejb;
 
 import se.lnu.xmascal.model.Calendar;
+import se.lnu.xmascal.model.Window;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -49,10 +50,30 @@ public class CalendarManager implements Serializable {
     }
 
     /**
+     * @param window the <code>Window</code> to add to the database
+     * @return
+     */
+    public void addWindow(Window window) {
+        em.persist(window);
+    }
+
+    /**
+     * Updates the given <code>Calendar</code> and all its <code>Window</code>s.<br />
+     * <b>Note that if any of the <code>Window</code>s of this <code>Calendar</code> has not previously been added to
+     * the database with addWindow(Window), then this method will throw an exception.</b>
+     *
+     * @param cal the <code>Calendar</code> to update
+     * @return the updated <code>Calendar</code>
+     */
+    public Calendar update(Calendar cal) {
+        return em.merge(cal); // TODO: How efficient is this? If some byte[] has not been changed, will it still be processed?
+    }
+
+    /**
      * @param cal the <code>Calendar</code> to be removed. This entity needs to be attached
      */
     public void remove(Calendar cal) {
-       em.remove(cal);
+        em.remove(cal);
     }
 
     /**
@@ -66,7 +87,6 @@ public class CalendarManager implements Serializable {
     }
 
     /**
-     *
      * @return
      */
     public List<String> getAllCalendarNames() {

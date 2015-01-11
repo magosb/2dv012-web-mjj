@@ -34,7 +34,10 @@ public class Calendar {
     @Column(name = "pass_phrase")
     private String passPhrase;
 
-    @OneToMany(mappedBy="calendarName", fetch=FetchType.LAZY, cascade={CascadeType.MERGE, CascadeType.REFRESH}) // TODO: Are these cascades correct?
+    // Add/update Window elements in List windows when this Calendar is added/updated. Note that EntityManager.persist
+    // CANNOT update a Calendar with a new Window. The Window needs to be persisted first!
+    @OneToMany(mappedBy="calendarName", cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
+               fetch=FetchType.LAZY)
     private List<Window> windows;
 
     public Calendar() {
