@@ -118,7 +118,7 @@ header {
     background: url(#{resource[ 'default:images/banner.jpg' ]}) top no-repeat;
     height: 240px;
     width: 1000px;
-    border: 2px;
+    border: 1px;
     border-color: white;
     border-style: solid;
 }
@@ -168,7 +168,7 @@ footer {
     clear: both;
     float: left;
     width: 1000px;
-    border: 2px;
+    border: 1px;
     border-color: white;
     border-style: solid;
 }
@@ -178,10 +178,10 @@ section {
     float: left;
     clear: both;
     width: 1000px;
-    border-left: 2px;
+    border-left: 1px;
     border-left-color: white;
     border-left-style: solid;
-    border-right: 2px;
+    border-right: 1px;
     border-right-color: white;
     border-right-style: solid;
 }
