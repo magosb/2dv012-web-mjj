@@ -9,13 +9,16 @@ import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
 @Named("thumbnails")
-@ApplicationScoped
-public class ThumbnailBean {
+@ViewScoped
+public class ThumbnailBean implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     @EJB
     private CalendarManager calendarManager;

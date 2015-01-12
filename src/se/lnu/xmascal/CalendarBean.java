@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Jerry Strand
  */
-//@DeclareRoles("XmasCalAdmin")
+//@DeclareRoles("XmasCalAdmin") // TODO: Yes, this should be added, to only allow Admin access (DeclareRoles implies AllowRoles)
 @Named
 @ViewScoped
 public class CalendarBean implements Serializable {
