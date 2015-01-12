@@ -31,7 +31,7 @@
                         <h:panelGroup layout="block" class="window_panel">
                             <p:lightBox id="lighbox">
                                 <p:graphicImage class="window" id="imagewindow"
-                                                name="/default/1_0/images/window_#{win.type}_icon.jpg"
+                                                name="/default/1_0/images/#{win.type}_icon.jpg"
                                                 value="#{viewWindowBean.content}">
                                     <h:outputText value="#{win.day}" styleClass="window_date"/>
                                     <f:param name="windowDay" value="#{win.day}"/>
@@ -44,7 +44,15 @@
                                         <!-- TODO: Don't pre load content?
                                         <p:media value="{viewWindowBean.content}" styleClass="content_popup"
                                                  player="flash">
+                                        <p:media value="{viewWindowBean.content}" styleClass="content_popup"
+                                                 player="flash"
+                                                 rendered="{win.type == 'Picture' or win.type == 'Video' or win.type == 'Audio'}">
                                         </p:media>
+
+                                        <h:outputText value="{viewWindowBean.content}" rendered="{win.type == 'Text'}" converter="se.lnu.xmascal.TextConverter"/>
+                                        <h:outputLink value="{viewWindowBean.content}" rendered="{win.type == 'URL'}" converter="se.lnu.xmascal.TextConverter">
+                                            <h:outputText value="{viewWindowBean.content}" converter="se.lnu.xmascal.TextConverter"/>
+                                        </h:outputLink>
                                         -->
                                     </h:panelGroup>
                                 </f:facet>
