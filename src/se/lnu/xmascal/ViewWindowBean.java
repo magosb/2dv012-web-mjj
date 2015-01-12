@@ -37,8 +37,11 @@ public class ViewWindowBean implements Serializable {
         //TODO remove when we can create a complete calendar.
         // USED for testing:
         List<Window> windows = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < 5; i++) {
             windows.add(new Window(calName, i, "ada".getBytes(), Window.ContentType.PICTURE));
+        }
+        for (int i = 5; i < 10; i++) {
+            windows.add(new Window(calName, i, "ada".getBytes(), Window.ContentType.TEXT));
         }
         for (int i = 10; i < 15; i++) {
             windows.add(new Window(calName, i, "ada".getBytes(), Window.ContentType.VIDEO));
@@ -59,6 +62,18 @@ public class ViewWindowBean implements Serializable {
 
     public List<Window> getWindows() {
         return calendar.getWindows();
+    }
+
+    public String getText(String cal, String wDay) {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+
+        //String wDay = context.getExternalContext().getRequestParameterMap().get("wDay");
+        //String cal = context.getExternalContext().getRequestParameterMap().get("cal");
+        System.out.println("Day is...: " + wDay + " cal: " + cal);
+        //return new ByteArrayContent(calendarManager.getCalendar(cal).getWindows().get(Integer.parseInt(wDay)).getContent());
+        return "Calendar name: " + cal + " day: " + wDay;
+
     }
 
 }

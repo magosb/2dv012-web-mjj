@@ -5,7 +5,6 @@ import org.primefaces.model.StreamedContent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
 
-// TODO: Should this be faces.bean.ViewScope?
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
@@ -13,10 +12,12 @@ import javax.faces.event.PhaseId;
 import javax.inject.Named;
 import java.io.Serializable;
 
+// TODO: Should this be faces.bean.ViewScope?
+
 /**
  * Created by doode on 2015-01-08.
  */
-@Named
+@Named("wcs")
 @ApplicationScoped
 public class WindowContentService implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -33,18 +34,6 @@ public class WindowContentService implements Serializable {
 //        return this.image;
 //    }
 //
-//    public List<StreamedContent> getAllThumbnails() {
-//        List<Calendar> cals = calendarManager.getAllCalendars();
-//        List<StreamedContent> contents = new ArrayList<>();
-//        for (Calendar cal : cals) {
-//            if (cal.getThumbnail() == null) {
-//                System.out.println("null");
-//            }
-//            contents.add(new ByteArrayContent(cal.getThumbnail()));
-//        }
-//        System.out.println(contents.size());
-//        return contents;
-//    }
 
     public StreamedContent getBackground(Calendar calendar) {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -60,7 +49,7 @@ public class WindowContentService implements Serializable {
         }
     }
 
-    public StreamedContent getContent(Calendar calendar) {
+    public StreamedContent getContent() {
         FacesContext context = FacesContext.getCurrentInstance();
 
         // View is being rendered. Return a stub StreamedContent so that it will generate right URL.
@@ -70,8 +59,10 @@ public class WindowContentService implements Serializable {
 
         // Image is being requested. Return a real StreamedContent with the image bytes.
         else {
-            String day = context.getExternalContext().getRequestParameterMap().get("windowDay");
-            return new ByteArrayContent(calendar.getWindows().get(Integer.parseInt(day)).getContent());
+            String wDay = context.getExternalContext().getRequestParameterMap().get("wDay");
+            String cal = context.getExternalContext().getRequestParameterMap().get("cal");
+            System.out.println("Day is...: " + wDay + " cal: " + cal);
+            return new ByteArrayContent(calendarManager.getCalendar(cal).getWindows().get(Integer.parseInt(wDay)).getContent());
         }
     }
 }
