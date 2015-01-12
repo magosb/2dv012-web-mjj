@@ -32,7 +32,6 @@ public class ViewWindowBean implements Serializable {
     public void preRenderListen(ComponentSystemEvent event) throws AbortProcessingException {
         String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
         calendar = calendarManager.getCalendar(calName);
-        System.out.println("cal.getName() = " + calendar.getName());
 
         //TODO remove when we can create a complete calendar.
         // USED for testing:
@@ -64,16 +63,11 @@ public class ViewWindowBean implements Serializable {
         return calendar.getWindows();
     }
 
-    public String getText(String cal, String wDay) {
-        FacesContext context = FacesContext.getCurrentInstance();
-
-
-        //String wDay = context.getExternalContext().getRequestParameterMap().get("wDay");
-        //String cal = context.getExternalContext().getRequestParameterMap().get("cal");
-        System.out.println("Day is...: " + wDay + " cal: " + cal);
-        //return new ByteArrayContent(calendarManager.getCalendar(cal).getWindows().get(Integer.parseInt(wDay)).getContent());
-        return "Calendar name: " + cal + " day: " + wDay;
+    public void open() {
+        String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
+        String wDay = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wDay");
+        String type = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("type");
+        System.out.println("open calender: " + calName +" window: " + wDay + " type: " + type);
 
     }
-
 }
