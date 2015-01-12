@@ -6,9 +6,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
-    <f:viewParam name="cal" value="#{viewWindowBean.name}"/>
+    <f:event type="preRenderView" listener="#{viewWindowBean.preRenderListen}"/>
+    <!-- <f:viewParam name="cal" value="{viewWindowBean.name}"/> -->
 </f:metadata>
-<f:event listener="#{viewWindowBean.init}" type="preRenderView" />
 
 <h:head lang="en">
     <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
@@ -20,11 +20,12 @@
         <ui:include src="../header.xhtml"/>
     </ui:insert>
     <section>
-        <h1><h:outputLabel value="#{viewWindowBean.name}"/></h1>
+        <!-- <h1><h:outputLabel value="{viewWindowBean.name}"/></h1> -->
         <h:form prependId="false">
             <h:panelGroup layout="block" class="window_container">
-                <p:graphicImage value="#{viewWindowBean.background}" styleClass="window_background"></p:graphicImage>
-
+                <p:graphicImage value="#{calendarImageService.background}" styleClass="window_background">
+                    <f:param name="cal" value="#{viewWindowBean.name}"/>
+                </p:graphicImage>
                 <h:panelGroup layout="block" class="window_content">
                     <ui:repeat value="#{viewWindowBean.windows}" var="win">
                         <h:panelGroup layout="block" class="window_panel">
@@ -40,8 +41,11 @@
                                         <h:panelGroup layout="block" class="content_popup_day">
                                             <h:outputText value="#{win.day}" styleClass="day_text"/></h:panelGroup>
 
-                                        <p:media value="#{viewWindowBean.content}" styleClass="content_popup" player="flash">
+                                        <!-- TODO: Don't pre load content?
+                                        <p:media value="{viewWindowBean.content}" styleClass="content_popup"
+                                                 player="flash">
                                         </p:media>
+                                        -->
                                     </h:panelGroup>
                                 </f:facet>
                             </p:lightBox>
@@ -50,8 +54,6 @@
                 </h:panelGroup>
             </h:panelGroup>
         </h:form>
-        <h:outputLabel
-                value="Calendar to load is named '#{viewWindowBean.name}'"/><!-- TODO: Remove this test eventually -->
     </section>
     <ui:insert name="footer">
         <ui:include src="../footer.xhtml"/>
