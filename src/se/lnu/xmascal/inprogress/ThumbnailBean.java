@@ -1,4 +1,4 @@
-package se.lnu.xmascal;
+package se.lnu.xmascal.inprogress;
 
 import org.primefaces.model.ByteArrayContent;
 import org.primefaces.model.StreamedContent;

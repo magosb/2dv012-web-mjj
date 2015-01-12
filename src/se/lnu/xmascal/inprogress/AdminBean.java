@@ -1,4 +1,4 @@
-package se.lnu.xmascal;
+package se.lnu.xmascal.inprogress;
 
 import se.lnu.xmascal.ejb.AdminManager;
 import se.lnu.xmascal.model.Admin;
