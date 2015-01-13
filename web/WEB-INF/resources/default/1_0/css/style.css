@@ -168,9 +168,7 @@ footer {
     clear: both;
     float: left;
     width: 1000px;
-    border: 1px;
-    border-color: white;
-    border-style: solid;
+    border-radius: 15px;
 }
 
 section {
