@@ -1,4 +1,4 @@
-package se.lnu.xmascal;
+package se.lnu.xmascal.inprogress;
 
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
