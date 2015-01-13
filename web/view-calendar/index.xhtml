@@ -6,8 +6,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
-    <f:viewParam name="cal" value="#{viewWindowBean.name}"/>
+    <f:event type="preRenderView" listener="#{viewWindowBean.preRenderListen}"/>
 </f:metadata>
+
 <h:head lang="en">
     <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
     <title>Christmas Calendar</title>
@@ -21,35 +22,53 @@
         <h1><h:outputLabel value="#{viewWindowBean.name}"/></h1>
         <h:form prependId="false">
             <h:panelGroup layout="block" class="window_container">
-                <p:graphicImage value="#{viewWindowBean.background}" styleClass="window_background"></p:graphicImage>
-
+                <p:graphicImage value="#{calendarImageService.background}" styleClass="window_background">
+                    <f:param name="cal" value="#{viewWindowBean.name}"/>
+                </p:graphicImage>
                 <h:panelGroup layout="block" class="window_content">
                     <ui:repeat value="#{viewWindowBean.windows}" var="win">
                         <h:panelGroup layout="block" class="window_panel">
-                            <p:lightBox id="lighbox">
+                            <h:commandLink action="#{viewWindowBean.open}" styleClass="window_cmdLink">
                                 <p:graphicImage class="window" id="imagewindow"
-                                                name="/default/1_0/images/window_#{win.type}_icon.jpg"
+                                                name="/default/1_0/images/#{win.type}_icon.jpg"
                                                 value="#{viewWindowBean.content}">
                                     <h:outputText value="#{win.day}" styleClass="window_date"/>
-                                    <f:param name="windowDay" value="#{win.day}"/>
                                 </p:graphicImage>
-                                <f:facet name="inline">
-                                    <h:panelGroup layout="block" class="content_lightbox">
-                                        <h:panelGroup layout="block" class="content_popup_day">
-                                            <h:outputText value="#{win.day}" styleClass="day_text"/></h:panelGroup>
-
-                                        <p:media value="#{viewWindowBean.content}" styleClass="content_popup" player="flash">
-                                        </p:media>
-                                    </h:panelGroup>
-                                </f:facet>
-                            </p:lightBox>
+                                <f:param name="wDay" value="#{win.day}"/>
+                                <f:param name="cal" value="#{win.calendarName}"/>
+                                <f:param name="type" value="#{win.type}"/>
+                                <f:ajax execute="imagewindow" render="lightbox"></f:ajax>
+                            </h:commandLink>
                         </h:panelGroup>
                     </ui:repeat>
                 </h:panelGroup>
+
             </h:panelGroup>
+            <p:lightBox id="lightbox">
+                <f:facet name="inline">
+                    <h:panelGroup layout="block" class="content_lightbox">
+                        <h:panelGroup layout="block" class="content_popup_day">
+                            <h:outputText value="#{win.day}" styleClass="day_text"/></h:panelGroup>
+
+                        <p:media id="mediaPlayer" value="#{dataService.streamedContent}" styleClass="content_popup"
+                                 player="flash">
+                        </p:media>
+                        <!--
+                        <h:outputText value="{viewWindowBean.text}" rendered="{win.type == 'Text'}">
+                                                        <f:param name="wDay" value="{win.day}"/>
+                                                        <f:param name="cal" value="{win.calendarName}"/>
+                                                    </h:outputText>
+
+                                                    <h:outputLink value="{wcs.text}" rendered="{win.type == 'URL'}"
+                                                                  converter="se.lnu.xmascal.TextConverter">
+                                                        <h:outputText value="{viewWindowBean.content}"
+                                                                      converter="se.lnu.xmascal.TextConverter"/>
+                                                    </h:outputLink>
+                        -->
+                    </h:panelGroup>
+                </f:facet>
+            </p:lightBox>
         </h:form>
-        <h:outputLabel
-                value="Calendar to load is named '#{viewWindowBean.name}'"/><!-- TODO: Remove this test eventually -->
     </section>
     <ui:insert name="footer">
         <ui:include src="../footer.xhtml"/>

@@ -1,4 +1,4 @@
-package se.lnu.xmascal;
+package se.lnu.xmascal.inprogress;
 
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Jerry Strand
  */
-//@DeclareRoles("XmasCalAdmin")
+//@DeclareRoles("XmasCalAdmin") // TODO: Yes, this should be added, to only allow Admin access (DeclareRoles implies AllowRoles)
 @Named
 @ViewScoped
 public class CalendarBean implements Serializable {

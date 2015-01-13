@@ -336,6 +336,10 @@ section {
     z-index: 2;
 }
 
+.window_cmdLink:hover{
+    text-decoration: none;
+}
+
 #login {
     width: 400px;
     margin: 0 auto;
