@@ -33,8 +33,8 @@
         <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
             <h:panelGroup layout="block" class="thumbnail_container">
                 <h:link outcome="/view-calendar/index.xhtml">
-                    <p:graphicImage value="#{thumbnails.thumbnail}" alt="#{calendarName}" styleClass="thumbnail">
-                        <f:param name="name" value="#{calendarName}"/>
+                    <p:graphicImage value="#{dataService.calendarThumbnail}" alt="#{calendarName}" styleClass="thumbnail">
+                        <f:param name="cal" value="#{calendarName}"/>
                     </p:graphicImage>
                     <f:param name="cal" value="#{calendarName}"/>
                 </h:link>
