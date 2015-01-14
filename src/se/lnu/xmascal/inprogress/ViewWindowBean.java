@@ -1,5 +1,7 @@
 package se.lnu.xmascal.inprogress;
 
+import org.primefaces.model.StreamedContent;
+import se.lnu.xmascal.DataService;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
 import se.lnu.xmascal.model.Window;
@@ -25,6 +27,8 @@ public class ViewWindowBean implements Serializable {
     private Calendar calendar;
     @EJB
     private CalendarManager calendarManager;
+
+    private StreamedContent mediaContent;
 
     public ViewWindowBean() {
     }
@@ -65,9 +69,30 @@ public class ViewWindowBean implements Serializable {
 
     public void open() {
         String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
-        String wDay = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wDay");
+        int wDay = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wDay"));
         String type = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("type");
         System.out.println("open calender: " + calName +" window: " + wDay + " type: " + type);
 
+        DataService d = new DataService();
+        System.out.println(Window.ContentType.TEXT);
+        if(type.equals("Text")) {
+            String text = d.getTextContent(calName, wDay);
+            System.out.println("TEXT is: " + text);
+        } else if (type.equals(Window.ContentType.URL)){
+            String text = d.getTextContent(calName, wDay);
+            System.out.println("URL is: " + text);
+        } else if (type.equals(Window.ContentType.VIDEO.toString())) {
+            System.out.println("MEDIA is: something..");
+            setMediaContent(d.getStreamedContent());
+        }
+
+    }
+
+    public StreamedContent getMediaContent(){
+        return mediaContent;
+    }
+
+    public void setMediaContent(StreamedContent mediaContent) {
+        this.mediaContent = mediaContent;
     }
 }

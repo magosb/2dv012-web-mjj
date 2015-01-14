@@ -26,19 +26,46 @@ del {
 }
 
 html {
-    padding: 0 0 40px;
+    padding: 0;
+    margin: 0;
     text-align: center;
     font-size: 16px;
 }
 
 body {
-    background: url(#{resource[ 'default:images/background.jpg' ]}) repeat;
-    color: #175591;
+    background: url(#{resource[ 'default:images/background5.jpg' ]}) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     font: 75%/1.5em Courier New, Courier, Monospaced;
     text-align: center;
+    width: 100%;
+    margin: 0 auto; /* center */
+    padding: 0;
+}
+
+header {
+    background: url(#{resource[ 'default:images/banner.png' ]}) top no-repeat;
+    height: 350px;
     width: 1000px;
-    margin: 20px auto; /* center */
-    padding: 20px;
+    margin: auto;
+}
+
+footer {
+    background-color: rgba(255, 255, 255, 0.54);
+    clear: both;
+    margin: auto;
+    width: 1000px;
+    border-radius: 15px;
+}
+
+section {
+    background-color: rgba(255, 255, 255, 0.54);
+    margin: auto;
+    /*clear: both;*/
+    width: 1000px;
+    border-radius: 15px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -88,13 +115,11 @@ p {
 }
 
 a:link {
-    color: #485c7a;
     outline: none;
     text-decoration: none;
 }
 
 a:visited {
-    color: #485c7a;
     outline: none;
     text-decoration: none;
 }
@@ -114,14 +139,6 @@ a:focus {
     outline: 1px dotted;
 }
 
-header {
-    background: url(#{resource[ 'default:images/banner.jpg' ]}) top no-repeat;
-    height: 240px;
-    width: 1000px;
-    border: 1px;
-    border-color: white;
-    border-style: solid;
-}
 
 h2#date1 {
     color: black;
@@ -163,28 +180,6 @@ h2#date2 {
     margin-top: 90px;
 }
 
-footer {
-    background-color: rgba(255, 255, 255, 0.54);
-    clear: both;
-    float: left;
-    width: 1000px;
-    border: 1px;
-    border-color: white;
-    border-style: solid;
-}
-
-section {
-    background-color: rgba(255, 255, 255, 0.54);
-    float: left;
-    clear: both;
-    width: 1000px;
-    border-left: 1px;
-    border-left-color: white;
-    border-left-style: solid;
-    border-right: 1px;
-    border-right-color: white;
-    border-right-style: solid;
-}
 
 .lock {
     position: relative;
@@ -209,7 +204,7 @@ section {
     margin: auto;
     width: 25px;
     height: 25px;
-    border: #ffffff solid 2px;
+    border: #ffffff solid 1px;
 }
 
 .delete_panel {
@@ -219,7 +214,7 @@ section {
     margin: auto;
     width: 25px;
     height: 25px;
-    border: #ffffff solid 2px;
+    border: #ffffff solid 1px;
 }
 
 .edit_panel:hover, .delete_panel:hover {
@@ -251,12 +246,17 @@ section {
 }
 
 .add_button {
-    background-image: url(#{resource[ 'default:images/add_button.jpg' ]}) !important;
+    background-color: transparent !important;
+    background-image: url(#{resource[ 'default:images/add_button.png' ]}) !important;
     float: left;
     width: 100px;
     height: 100px;
     border: 1px solid grey;
     margin: 15px;
+}
+
+.add_button:hover {
+    background-image: url(#{resource[ 'default:images/add_button_hover.png' ]}) !important;
 }
 
 .edit_button {
@@ -352,7 +352,7 @@ section {
 }
 
 #login h1 {
-    background-color: #096a8d;
+    background-color: #4c170e;
     padding: 20px 0;
     font-size: 140%;
     font-weight: 300;
@@ -450,15 +450,15 @@ input.file {
 }
 
 input[type="submit"] {
-    background-color: #096a8d;
+    background-color: white;
     padding: 2%;
     font-size: 1em;
-    color: white;
+    color: black;
 }
 
 input[type="submit"]:hover {
-    background: #485c7a;
-    border: 2px solid #ffffff;
+    background: white;
+    border: 2px solid black;
 
 }
 

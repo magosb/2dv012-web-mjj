@@ -1,48 +1,43 @@
 package se.lnu.xmascal.inprogress;
 
-import org.primefaces.model.ByteArrayContent;
-import org.primefaces.model.StreamedContent;
 import se.lnu.xmascal.ejb.CalendarManager;
-import se.lnu.xmascal.model.Calendar;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.ApplicationScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
+import java.util.*;
 
+/**
+ * @author Johan Widén
+ */
 @Named("thumbnails")
 @ViewScoped
-public class ThumbnailBean implements Serializable{
+public class ThumbnailBean implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    private Map<String, Boolean> thumbnailPrivate;
 
     @EJB
     private CalendarManager calendarManager;
 
-    public synchronized StreamedContent getThumbnail() throws IOException { // TODO: Handle
-        FacesContext context = FacesContext.getCurrentInstance();
 
-        // View is being rendered. Return a stub StreamedContent so that it will generate right URL.
-        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            return new ByteArrayContent();
-            //return new DefaultStreamedContent();
-        }
-
-        // Image is being requested. Return a real StreamedContent with the image bytes.
-        else {
-            String name = context.getExternalContext().getRequestParameterMap().get("name");
-            Calendar calendar = calendarManager.getCalendar(name);
-            //return new DefaultStreamedContent(new ByteArrayInputStream(image.getBytes()));
-            return new ByteArrayContent(calendar.getThumbnail());
-        }
-    }
-
+    /**
+     * This method get all names of the calendars.
+     *
+     * @return List with calendar names
+     */
     public synchronized List<String> getCalendarNames() {
         return calendarManager.getAllCalendarNames();
     }
 
+    /**
+     * This methods returns true or false if the given calendar is private or not.
+     *
+     * @param cal The calendar to check if it is private or not.
+     * @return Boolean that is either True or False depending of the param calendar
+     */
+    public synchronized boolean isCalendarPrivate(String cal) {
+        return calendarManager.getCalendar(cal).isPrivate();
+    }
 }
