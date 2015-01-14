@@ -40,8 +40,10 @@
                 </h:link>
                 <br/>
                 <h:panelGroup layout="block" class="lock_panel">
-                    <p:graphicImage name="/default/1_0/images/lock.png" styleClass="lock">
+                    <p:graphicImage name="/default/1_0/images/lock.png" styleClass="lock" rendered="#{thumbnails.isCalendarPrivate(calendarName)}">
+                        <f:param name="cal" value="#{calendarName}"/>
                     </p:graphicImage>
+                    <f:param name="cal" value="#{calendarName.toString}"/>
                 </h:panelGroup>
             </h:panelGroup>
         </ui:repeat>
