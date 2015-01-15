@@ -44,17 +44,18 @@ public class CookieViewBean implements Serializable {
 
     public void checkAuthCookie(ComponentSystemEvent event) throws AbortProcessingException {
         // TODO: Instead of static name, get calendar ID from request params
-        Cookie cookie = cookieManager.getCookie("cal");
-        if (cookie != null && cookie.getValue().equals("pass")) {
-            authorized = true;
-        }
+        //Cookie cookie = cookieManager.getCookie("cal");
+        //if (cookie != null && cookie.getValue().equals("pass")) {
+        //    authorized = true;
+        //}
+        //cookieManager.getPassphrase(cookie); // TODO: Remove testing
     }
 
     public void authCheck() {
         authorized = passphrase.equals("pass"); // TODO: Check if passphrase matches that of the calendar
 
         if (remember) {
-            cookieManager.setCookie("cal", "pass", Integer.MAX_VALUE); // TODO: Set proper calendar cookie
+            //cookieManager.setCookie("cal", "pass", Integer.MAX_VALUE); // TODO: Set proper calendar cookie
         }
     }
 

@@ -4,6 +4,7 @@ import org.primefaces.model.ByteArrayContent;
 import org.primefaces.model.StreamedContent;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,12 +15,16 @@ import java.util.List;
 @Entity
 @Table(name = "calendar")
 @NamedQuery(name = "Calendar.findAll", query = "SELECT c FROM Calendar c")
-public class Calendar {
+public class Calendar implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "name")
     private String name;
+
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "numeric_id")
+    private long numericId;
 
     @Lob
     @Basic(fetch=FetchType.LAZY)
@@ -75,6 +80,10 @@ public class Calendar {
      */
     public byte[] getBackground() {
         return background;
+    }
+
+    public long getNumericId() {
+        return numericId;
     }
 
     /**

@@ -1,6 +1,7 @@
 package se.lnu.xmascal.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * This class represents an administrator of the Christmas Calendar web application.
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "admin")
 @NamedQuery(name = "Admin.findAll", query = "SELECT a FROM Admin a")
-public class Admin { // TODO: This should probably be SessionScoped?
+public class Admin implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

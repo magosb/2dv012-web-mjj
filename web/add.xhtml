@@ -15,17 +15,17 @@
 
     <section class="panel">
         <!-- enctype="multipart/form-data" -->
-        <h:form enctype="multipart/form-data"> <!-- Multipart is required for the fileUpload, but will it mess the rest up? Check StackOverflow post about FileUpload in wizard -->
+        <h:form enctype="multipart/form-data" prependId="false"> <!-- Multipart is required for the fileUpload, but will it mess the rest up? Check StackOverflow post about FileUpload in wizard -->
 
-            <p:growl id="growl" sticky="true" showDetail="true"/>
+            <ui:remove><p:growl id="growl" sticky="true" showDetail="true"/></ui:remove>
 
             <p:wizard flowListener="#{newCalendar.onFlowProcess}">
                 <p:tab id="details" title="Details">
                     <p:panel header="Calendar Details">
-                        <p:messages/>
                         <h:panelGrid columns="2" columnClasses="label, value">
-                            <h:outputLabel for="name" value="Calendar name:"/>
-                            <h:inputText id="name" value="#{newCalendar.name}"/>
+                            <h:outputLabel for="calendarName" value="Calendar name:"/>
+                            <h:inputText id="calendarName" value="#{newCalendar.name}" required="true"/>
+                            <h:message for="calendarName" errorClass="errorMessage" showDetail="false" showSummary="true"/>
                             <br/>
 
                             <!-- public/private -->

@@ -7,35 +7,35 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 
 <h:form>
-    <h:dataTable value="#{thumbnails.calendarNames}" var="name"
+    <h:dataTable value="#{thumbnails.calendarNames}" var="calendarName"
                  styleClass="characterTable"
                  headerClass="characterTableHeader"
                  rowClasses="characterTableOddRow,characterTableEvenRow" border="1" cellpadding="5">
         <h:column>
             <f:facet name="header">Name</f:facet>
-            #{name}
+            #{calendarName}
         </h:column>
         <h:column>
             <f:facet name="header">Thumbnail</f:facet>
-            <p:graphicImage value="#{dataService.calendarThumbnail}" alt="#{name} thumbnail" width="200">
-                <f:param name="cal" value="#{name}"/>
+            <p:graphicImage value="#{dataService.calendarThumbnail}" alt="#{calendarName} thumbnail" width="200">
+                <f:param name="cal" value="#{calendarName}"/>
             </p:graphicImage>
         </h:column>
         <h:column>
             <f:facet name="header">Window 1 picture</f:facet>
-            <p:graphicImage value="#{dataService.streamedContent}" alt="#{name} day 1 streamed content"  width="200">
-                <f:param name="cal" value="#{name}"/>
+            <p:graphicImage value="#{dataService.streamedContent}" alt="#{calendarName} day 1 streamed content"  width="200">
+                <f:param name="cal" value="#{calendarName}"/>
                 <f:param name="day" value="1"/>
             </p:graphicImage>
         </h:column>
         <h:column>
             <f:facet name="header">Window 1 text</f:facet>
-            <h:outputText value="#{dataService.getTextContent(name, 1).substring(0, 10)}"/>
+            <h:outputText value="#{dataService.getTextContent(calendarName, 1).substring(0, 10)}"/>
         </h:column>
         <h:column>
             <f:facet name="header">Background</f:facet>
-            <p:graphicImage value="#{dataService.calendarBackground}" alt="#{name} background"  width="200">
-                <f:param name="cal" value="#{name}"/>
+            <p:graphicImage value="#{dataService.calendarBackground}" alt="#{calendarName} background"  width="200">
+                <f:param name="cal" value="#{calendarName}"/>
             </p:graphicImage>
         </h:column>
     </h:dataTable>
