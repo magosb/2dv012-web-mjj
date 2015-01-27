@@ -20,54 +20,47 @@
     </ui:insert>
     <section>
         <h1><h:outputLabel value="#{viewWindowBean.name}"/></h1>
-        <h:form prependId="false">
+        <h:form prependId="false" id="viewContentId">
             <h:panelGroup layout="block" class="window_container">
                 <p:graphicImage value="#{dataService.calendarBackground}" styleClass="window_background">
                     <f:param name="cal" value="#{viewWindowBean.name}"/>
                 </p:graphicImage>
-                <h:panelGroup layout="block" class="window_content">
-                    <ui:repeat value="#{viewWindowBean.windows}" var="win">
-                        <h:panelGroup layout="block" class="window_panel">
-                            <h:commandLink action="#{viewWindowBean.open}" styleClass="window_cmdLink">
-                                <p:graphicImage class="window" id="imagewindow"
-                                                name="/default/1_0/images/#{win.type}_icon.png"
-                                                value="#{viewWindowBean.content}">
-                                    <h:outputText value="#{win.day}" styleClass="window_date"/>
-                                </p:graphicImage>
-                                <f:param name="wDay" value="#{win.day}"/>
-                                <f:param name="cal" value="#{win.calendarName}"/>
-                                <f:param name="type" value="#{win.type}"/>
-                                <f:ajax execute="imagewindow" render="lightbox"></f:ajax>
-                            </h:commandLink>
+                <h:panelGroup layout="block" class="content_lightbox">
+                    <p:lightBox id="lightbox" widgetVar="lb1">
+                        <f:facet name="inline">
+                            <h:panelGroup layout="block" class="content_popup_day">
+                                <h:outputText value="#{win.day}" styleClass="day_text"/></h:panelGroup>
+
+                            <p:media id="mediaPlayer" value="#{viewWindowBean.mediaContent}"
+                                     styleClass="content_popup"
+                                     player="flash"
+                                     rendered="#{viewWindowBean.mediaContent != null}">
+                            </p:media>
+                        </f:facet>
+                        <h:panelGroup layout="block" class="window_content">
+                            <ui:repeat value="#{viewWindowBean.windows}" var="win">
+                                <h:panelGroup layout="block" class="window_panel">
+                                    <p:commandLink action="#{viewWindowBean.open}" styleClass="window_cmdLink">
+                                        <p:graphicImage class="window" id="imagewindow"
+                                                        name="/default/1_0/images/#{win.type}_icon.png"
+                                                        value="#{viewWindowBean.content}">
+                                            <h:outputText value="#{win.day}" styleClass="window_date"/>
+                                        </p:graphicImage>
+                                        <f:param name="day" value="#{win.day}"/>
+                                        <f:param name="cal" value="#{win.calendarName}"/>
+                                        <f:param name="type" value="#{win.type}"/>
+                                        <f:ajax render="lightbox mediaPlayer viewContentId content_lightbox"></f:ajax>
+                                    </p:commandLink>
+
+                                </h:panelGroup>
+                            </ui:repeat>
                         </h:panelGroup>
-                    </ui:repeat>
+
+
+
+                    </p:lightBox>
                 </h:panelGroup>
-
             </h:panelGroup>
-            <p:lightBox id="lightbox">
-                <f:facet name="inline">
-                    <h:panelGroup layout="block" class="content_lightbox">
-                        <h:panelGroup layout="block" class="content_popup_day">
-                            <h:outputText value="#{win.day}" styleClass="day_text"/></h:panelGroup>
-
-                        <p:media id="mediaPlayer" value="#{viewWindowBean.mediaContent}" styleClass="content_popup"
-                                 player="flash">
-                        </p:media>
-                        <!--
-                        <h:outputText value="{viewWindowBean.text}" rendered="{win.type == 'Text'}">
-                                                        <f:param name="wDay" value="{win.day}"/>
-                                                        <f:param name="cal" value="{win.calendarName}"/>
-                                                    </h:outputText>
-
-                                                    <h:outputLink value="{wcs.text}" rendered="{win.type == 'URL'}"
-                                                                  converter="se.lnu.xmascal.TextConverter">
-                                                        <h:outputText value="{viewWindowBean.content}"
-                                                                      converter="se.lnu.xmascal.TextConverter"/>
-                                                    </h:outputLink>
-                        -->
-                    </h:panelGroup>
-                </f:facet>
-            </p:lightBox>
         </h:form>
     </section>
     <ui:insert name="footer">
