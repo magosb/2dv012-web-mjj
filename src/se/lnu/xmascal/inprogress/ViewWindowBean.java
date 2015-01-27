@@ -32,6 +32,7 @@ public class ViewWindowBean implements Serializable {
     private DataService dataService;
 
     private StreamedContent mediaContent;
+    private int date;
     private String text;
     private String url;
 
@@ -60,20 +61,20 @@ public class ViewWindowBean implements Serializable {
 
     public void open() {
         String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
-        int day = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("day"));
+        setDate(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("day")));
         String type = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("type");
-        System.out.println("open calender: " + calName +" window: " + day + " type: " + type);
+        System.out.println("open calender: " + calName +" window: " + date + " type: " + type);
 
         if(type.equals(Window.ContentType.TEXT.toString())) {
             try {
-                setText(dataService.getTextContent(calName, day));
+                setText(dataService.getTextContent(calName, date));
                 System.out.println("TEXT is: " + text);
             } catch (Exception e) {
                 setText("No data for this window.");
             }
         } else if (type.equals(Window.ContentType.URL.toString())){
             try {
-                setUrl(dataService.getTextContent(calName, day));
+                setUrl(dataService.getTextContent(calName, date));
                 System.out.println("URL is: " + url);
             } catch (Exception e) {
                 setUrl("No data for this window.");
@@ -93,7 +94,6 @@ public class ViewWindowBean implements Serializable {
                 e.printStackTrace();
             }
         }
-            System.out.println("Visible true!");
     }
 
     public StreamedContent getMediaContent(){
@@ -118,5 +118,13 @@ public class ViewWindowBean implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getDate() {
+        return date;
+    }
+
+    public void setDate(int date) {
+        this.date = date;
     }
 }
