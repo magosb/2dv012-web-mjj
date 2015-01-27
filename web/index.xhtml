@@ -33,15 +33,17 @@
         <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
             <h:panelGroup layout="block" class="thumbnail_container">
                 <h:link outcome="/view-calendar/index.xhtml">
-                    <p:graphicImage value="#{thumbnails.thumbnail}" alt="#{calendarName}" styleClass="thumbnail">
-                        <f:param name="name" value="#{calendarName}"/>
+                    <p:graphicImage value="#{dataService.calendarThumbnail}" alt="#{calendarName}" styleClass="thumbnail">
+                        <f:param name="cal" value="#{calendarName}"/>
                     </p:graphicImage>
                     <f:param name="cal" value="#{calendarName}"/>
                 </h:link>
                 <br/>
                 <h:panelGroup layout="block" class="lock_panel">
-                    <p:graphicImage name="/default/1_0/images/lock.png" styleClass="lock">
+                    <p:graphicImage name="/default/1_0/images/lock.png" styleClass="lock" rendered="#{thumbnails.isCalendarPrivate(calendarName)}">
+                        <f:param name="cal" value="#{calendarName}"/>
                     </p:graphicImage>
+                    <f:param name="cal" value="#{calendarName.toString}"/>
                 </h:panelGroup>
             </h:panelGroup>
         </ui:repeat>

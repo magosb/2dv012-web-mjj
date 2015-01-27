@@ -42,6 +42,16 @@ public class CalendarManager implements Serializable {
         return em.find(Calendar.class, name);
     }
 
+    public Calendar getCalendar(long numericId) {
+        TypedQuery<Calendar> q = em.createQuery("SELECT c FROM Calendar c WHERE c.numericId = :cname", Calendar.class);
+        q.setParameter("cname", numericId).setMaxResults(1);
+        Calendar result = null;
+        try {
+            result = q.getSingleResult();
+        } catch (Exception e) { // TODO: Narrow down
+        }
+        return result;
+    }
     /**
      * @param cal the <code>Calendar</code> to add to the database
      */

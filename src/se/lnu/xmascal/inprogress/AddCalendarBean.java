@@ -119,6 +119,7 @@ public class AddCalendarBean implements Serializable {
     }
 
     public void handleContentUpload(FileUploadEvent event) {
+        System.out.println("UploadedFile.getContentType(): " + event.getFile().getContentType());
         try {
             windowContent = handleFile(event.getFile().getInputstream());
         } catch (IOException e) {

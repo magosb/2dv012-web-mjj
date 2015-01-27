@@ -132,7 +132,7 @@ public class DataService implements Serializable {
      * @param day the day of the <code>Window</code>
      * @return the binary data representing the <code>Window</code> content
      */
-    private byte[] getWindowContent(String calendarName, int day) {
+    private synchronized byte[] getWindowContent(String calendarName, int day) {
         Query query = em.createQuery("SELECT w.content FROM Window w WHERE w.calendarName = :cname AND w.day = :wday");
         query.setParameter("cname", calendarName).setParameter("wday", day);
         return (byte[]) query.getSingleResult();
