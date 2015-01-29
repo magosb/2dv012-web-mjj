@@ -16,19 +16,8 @@
     </ui:insert>
 
     <section>
-        <h:outputLabel value="Hello, cruel world. 111"/>
-        <h:outputLink value="view-calendar/">View calendar</h:outputLink>,
-        <h:outputLink value="admin/">Admin start</h:outputLink>,
+        <h:outputLink value="admin/">Admin login</h:outputLink>,
         <h:outputLink value="admin/add-calendar/">Add calendar</h:outputLink>,
-        <h:outputLink value="admin/edit-calendar/">Edit calendar</h:outputLink>
-        <h:form>
-            <h:commandButton value="View calendar" action="view"/>
-            <h:commandButton value="To upload page" action="uploadFile"/>
-            <h:commandButton value="Admin start" action="admin"/>
-            <h:commandButton value="Add calendar" action="add"/>
-            <h:commandButton value="Edit calendar" action="edit"/>
-        </h:form>
-        <h:outputLabel value="Current date is now: #{calendarBean.currentDate}"/>
 
         <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
             <h:panelGroup layout="block" class="thumbnail_container">
