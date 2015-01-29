@@ -27,43 +27,46 @@
                 </p:graphicImage>
 
                 <h:panelGroup layout="block" class="content_lightbox">
-                    <p:lightBox id="lightbox" widgetVar="lb">
-                    <f:facet name="inline">
-                        <h:panelGroup layout="block" class="content_popup_day">
-                            <h:outputText id="dateID2" value="#{viewWindowBean.date}" styleClass="day_text"/></h:panelGroup>
-
-                        <p:media id="mediaPlayer2" value="#{viewWindowBean.mediaContent}"
-                                 styleClass="content_popup" player="flash"/>
-                    </f:facet>
+                    <p:lightBox widgetVar="lb">
+                        <f:facet name="inline">
+                            <h:panelGroup layout="block" class="content_popup_day">
+                                <h:outputText id="d" value="#{viewWindowBean.date}" styleClass="day_text"/>
+                                <p:media id="mp" value="#{viewWindowBean.mediaContent}"
+                                         styleClass="content_popup" player="flash">
+                                </p:media>
+                            </h:panelGroup>
+                        </f:facet>
                     </p:lightBox>
 
+                    <!-- Ett sätt utan lightboz, provar med det ibland med. -->
                     <p:dialog widgetVar="dlg" modal="true">
                         <h:panelGroup layout="block">
-                            <h:outputText id="dateID" value="#{viewWindowBean.date}" styleClass="day_text"/>
+                            <h:outputText id="d2" value="#{viewWindowBean.date}" styleClass="day_text"/>
                         </h:panelGroup>
 
-                        <p:graphicImage id="imageContent" value="#{viewWindowBean.mediaContent}"/>
+                        <p:graphicImage id="gi" value="#{viewWindowBean.mediaContent}"/>
 
-                        <p:media id="mediaPlayer" value="#{viewWindowBean.mediaContent}" player="flash" />
+                        <p:media id="mp2" value="#{viewWindowBean.mediaContent}" player="flash"/>
 
                     </p:dialog>
-                        <h:panelGroup layout="block" class="window_content">
-                            <ui:repeat value="#{viewWindowBean.windows}" var="win">
-                                <h:panelGroup layout="block" class="window_panel">
-                                    <p:commandLink action="#{viewWindowBean.open}" update=":viewContentId:mediaPlayer2, :viewContentId:dateID2" styleClass="window_cmdLink" oncomplete="PF('lb').show();">
-                                        <p:graphicImage class="window" id="imagewindow"
-                                                        name="/default/1_0/images/#{win.type}_icon.png"
-                                                        value="#{viewWindowBean.content}">
-                                            <h:outputText value="#{win.day}" styleClass="window_date"/>
-                                        </p:graphicImage>
-                                        <f:param name="day" value="#{win.day}"/>
-                                        <f:param name="cal" value="#{win.calendarName}"/>
-                                        <f:param name="type" value="#{win.type}"/>
-                                        <f:ajax render="imageContent"/>
-                                    </p:commandLink>
-                                </h:panelGroup>
-                            </ui:repeat>
-                        </h:panelGroup>
+                    <h:panelGroup layout="block" class="window_content">
+                        <ui:repeat value="#{viewWindowBean.windows}" var="win">
+                            <h:panelGroup layout="block" class="window_panel">
+                                <p:commandLink action="#{viewWindowBean.open}"
+                                               update=":viewContentId:d :viewContentId:mp" styleClass="window_cmdLink"
+                                               oncomplete="PF('lb').show();">
+                                    <p:graphicImage class="window" id="imagewindow"
+                                                    name="/default/1_0/images/#{win.type}_icon.png"
+                                                    value="#{viewWindowBean.content}">
+                                        <h:outputText value="#{win.day}" styleClass="window_date"/>
+                                    </p:graphicImage>
+                                    <f:param name="day" value="#{win.day}"/>
+                                    <f:param name="cal" value="#{win.calendarName}"/>
+                                    <f:param name="type" value="#{win.type}"/>
+                                </p:commandLink>
+                            </h:panelGroup>
+                        </ui:repeat>
+                    </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
         </h:form>

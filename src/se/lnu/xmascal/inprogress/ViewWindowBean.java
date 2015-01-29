@@ -1,5 +1,6 @@
 package se.lnu.xmascal.inprogress;
 
+import org.primefaces.model.ByteArrayContent;
 import org.primefaces.model.StreamedContent;
 import se.lnu.xmascal.DataService;
 import se.lnu.xmascal.ejb.CalendarManager;
@@ -10,6 +11,7 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.PhaseId;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -42,7 +44,6 @@ public class ViewWindowBean implements Serializable {
     public void preRenderListen(ComponentSystemEvent event) throws AbortProcessingException {
         if(calendar == null) {
             String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
-            System.out.println(calName);
             calendar = calendarManager.getCalendar(calName);
         }
     }
@@ -97,10 +98,12 @@ public class ViewWindowBean implements Serializable {
     }
 
     public StreamedContent getMediaContent(){
+        System.out.println("getMediaContent: " + mediaContent);
         return mediaContent;
     }
 
     public void setMediaContent(StreamedContent mediaContent) {
+        System.out.println("setMediaContent: " + mediaContent);
         this.mediaContent = mediaContent;
     }
 
