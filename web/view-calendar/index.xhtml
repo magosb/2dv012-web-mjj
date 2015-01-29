@@ -27,6 +27,7 @@
                 </p:graphicImage>
 
                 <h:panelGroup layout="block" class="content_lightbox">
+                    <!-- Ett sätt med lightboz  -->
                     <p:lightBox widgetVar="lb">
                         <f:facet name="inline">
                             <h:panelGroup layout="block" class="content_popup_day">
@@ -38,7 +39,7 @@
                         </f:facet>
                     </p:lightBox>
 
-                    <!-- Ett sätt utan lightboz, provar med det ibland med. -->
+                    <!-- Ett sätt utan lightboz, provar med det ibland  -->
                     <p:dialog widgetVar="dlg" modal="true">
                         <h:panelGroup layout="block">
                             <h:outputText id="d2" value="#{viewWindowBean.date}" styleClass="day_text"/>
@@ -47,14 +48,17 @@
                         <p:graphicImage id="gi" value="#{viewWindowBean.mediaContent}"/>
 
                         <p:media id="mp2" value="#{viewWindowBean.mediaContent}" player="flash"/>
-
                     </p:dialog>
+
+
                     <h:panelGroup layout="block" class="window_content">
                         <ui:repeat value="#{viewWindowBean.windows}" var="win">
                             <h:panelGroup layout="block" class="window_panel">
+                                <!-- Ändra för update och onComplete ifall du vill testa med den vanliga dialogen   -->
                                 <p:commandLink action="#{viewWindowBean.open}"
                                                update=":viewContentId:d :viewContentId:mp" styleClass="window_cmdLink"
                                                oncomplete="PF('lb').show();">
+
                                     <p:graphicImage class="window" id="imagewindow"
                                                     name="/default/1_0/images/#{win.type}_icon.png"
                                                     value="#{viewWindowBean.content}">
