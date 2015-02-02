@@ -16,8 +16,8 @@
 </h:head>
 <h:body>
     <ui:insert name="header">
-    <ui:include src="../header.xhtml"/>
-</ui:insert>
+        <ui:include src="../header.xhtml"/>
+    </ui:insert>
     <section>
         <h1><h:outputLabel value="#{viewWindowBean.name}"/></h1>
         <h:form prependId="false" id="viewContentId">
@@ -40,14 +40,13 @@
                     </p:lightBox>
 
                     <!-- Ett sätt utan lightboz, provar med det ibland  -->
-                    <p:dialog widgetVar="dlg" modal="true">
-                        <h:panelGroup layout="block">
-                            <h:outputText id="d2" value="#{viewWindowBean.date}" styleClass="day_text"/>
-                        </h:panelGroup>
+                    <p:dialog id="dialog" widgetVar="dlg" modal="true">
+                            <h:panelGroup layout="block">
+                                <h:outputText id="d2" value="#{viewWindowBean.date}" styleClass="day_text"/>
+                                <p:graphicImage id="gi" value="#{viewWindowBean.mediaContent}"/>
 
-                        <p:graphicImage id="gi" value="#{viewWindowBean.mediaContent}"/>
-
-                        <p:media id="mp2" value="#{viewWindowBean.mediaContent}" player="flash"/>
+                                <p:media id="mp2" value="#{viewWindowBean.mediaContent}" player="flash"/>
+                            </h:panelGroup>
                     </p:dialog>
 
 
@@ -56,8 +55,12 @@
                             <h:panelGroup layout="block" class="window_panel">
                                 <!-- Ändra för update och onComplete ifall du vill testa med den vanliga dialogen   -->
                                 <p:commandLink action="#{viewWindowBean.open}"
-                                               update=":viewContentId:d2 :viewContentId:mp2" styleClass="window_cmdLink"
-                                               oncomplete="PF('dlg').show();">
+                                               update=":viewContentId:dialog :viewContentId:d2 :viewContentId:gi :viewContentId:mp2" styleClass="window_cmdLink"
+                                               oncomplete="PF('dlg').show();"
+                                               onsuccess="PF('dlg').show()">
+                                    <p:ajax update=":viewContentId:dialog :viewContentId:mp2 :viewContentId:gi" event="click" onsuccess="PF('dlg').show()"
+                                            render=":viewContentId:mp2" />
+
 
                                     <p:graphicImage class="window" id="imagewindow"
                                                     name="/default/1_0/images/#{win.type}_icon.png"
@@ -67,6 +70,7 @@
                                     <f:param name="day" value="#{win.day}"/>
                                     <f:param name="cal" value="#{win.calendarName}"/>
                                     <f:param name="type" value="#{win.type}"/>
+
                                 </p:commandLink>
                             </h:panelGroup>
                         </ui:repeat>
