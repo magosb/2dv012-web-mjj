@@ -125,6 +125,7 @@ public class Calendar implements Serializable {
      * @return <code>true</code> if this calendar is private, otherwise <code>false</code>
      */
     public boolean isPrivate() {
+        //TODO Not correct? if null then the calendar is public?
         return (passPhrase == null || passPhrase.isEmpty());
     }
 

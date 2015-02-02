@@ -1,5 +1,6 @@
 package se.lnu.xmascal.inprogress;
 
+import org.primefaces.model.ByteArrayContent;
 import org.primefaces.model.StreamedContent;
 import se.lnu.xmascal.DataService;
 import se.lnu.xmascal.ejb.CalendarManager;
@@ -10,10 +11,11 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.PhaseId;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,31 +30,22 @@ public class ViewWindowBean implements Serializable {
     @EJB
     private CalendarManager calendarManager;
 
+    @Inject
+    private DataService dataService;
+
     private StreamedContent mediaContent;
+    private int date;
+    private String text;
+    private String url;
 
     public ViewWindowBean() {
     }
 
     public void preRenderListen(ComponentSystemEvent event) throws AbortProcessingException {
-        String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
-        calendar = calendarManager.getCalendar(calName);
-
-        //TODO remove when we can create a complete calendar.
-        // USED for testing:
-        List<Window> windows = new ArrayList<>();
-        for (int i = 1; i < 5; i++) {
-            windows.add(new Window(calName, i, "ada".getBytes(), Window.ContentType.PICTURE));
+        if(calendar == null) {
+            String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
+            calendar = calendarManager.getCalendar(calName);
         }
-        for (int i = 5; i < 10; i++) {
-            windows.add(new Window(calName, i, "ada".getBytes(), Window.ContentType.TEXT));
-        }
-        for (int i = 10; i < 15; i++) {
-            windows.add(new Window(calName, i, "ada".getBytes(), Window.ContentType.VIDEO));
-        }
-        for (int i = 15; i < 25; i++) {
-            windows.add(new Window(calName, i, "ada".getBytes(), Window.ContentType.URL));
-        }
-        calendar.setWindows(windows);
     }
 
     public String getName() {
@@ -69,30 +62,72 @@ public class ViewWindowBean implements Serializable {
 
     public void open() {
         String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
-        int wDay = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("wDay"));
+        setDate(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("day")));
         String type = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("type");
-        System.out.println("open calender: " + calName +" window: " + wDay + " type: " + type);
+        System.out.println("open calender: " + calName +" window: " + date + " type: " + type);
 
-        DataService d = new DataService();
-        System.out.println(Window.ContentType.TEXT);
-        if(type.equals("Text")) {
-            String text = d.getTextContent(calName, wDay);
-            System.out.println("TEXT is: " + text);
-        } else if (type.equals(Window.ContentType.URL)){
-            String text = d.getTextContent(calName, wDay);
-            System.out.println("URL is: " + text);
+        if(type.equals(Window.ContentType.TEXT.toString())) {
+            try {
+                setText(dataService.getTextContent(calName, date));
+                System.out.println("TEXT is: " + text);
+            } catch (Exception e) {
+                setText("No data for this window.");
+            }
+        } else if (type.equals(Window.ContentType.URL.toString())){
+            try {
+                setUrl(dataService.getTextContent(calName, date));
+                System.out.println("URL is: " + url);
+            } catch (Exception e) {
+                setUrl("No data for this window.");
+            }
         } else if (type.equals(Window.ContentType.VIDEO.toString())) {
-            System.out.println("MEDIA is: something..");
-            setMediaContent(d.getStreamedContent());
+            try {
+                setMediaContent(dataService.getStreamedContent());
+                System.out.println("MediaV is: " + mediaContent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (type.equals(Window.ContentType.PICTURE.toString())) {
+            try {
+                setMediaContent(dataService.getStreamedContent());
+                System.out.println("MediaP is: " + mediaContent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
     public StreamedContent getMediaContent(){
+        System.out.println("getMediaContent: " + mediaContent);
         return mediaContent;
     }
 
     public void setMediaContent(StreamedContent mediaContent) {
+        System.out.println("setMediaContent: " + mediaContent);
         this.mediaContent = mediaContent;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getDate() {
+        return date;
+    }
+
+    public void setDate(int date) {
+        this.date = date;
     }
 }

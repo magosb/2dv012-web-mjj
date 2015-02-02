@@ -46,8 +46,8 @@ body {
 }
 
 header {
-    background: url(#{resource[ 'default:images/banner.png' ]}) top no-repeat;
-    height: 350px;
+    background: url(#{resource[ 'default:images/header.png' ]}) top no-repeat;
+    height: 260px;
     width: 1000px;
     margin: auto;
 }
@@ -175,9 +175,12 @@ h2#date2 {
 }
 
 #date_wrapper {
-    float: right;
-    margin-right: 75px;
-    margin-top: 90px;
+    position: absolute;
+    left: 0;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+    height: 100px;
 }
 
 
