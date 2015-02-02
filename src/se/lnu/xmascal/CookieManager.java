@@ -92,7 +92,7 @@ public class CookieManager implements Serializable {
      * @param calendarId the numeric ID of the <code>Calendar</code> whose <code>CalendarCookie</code> to retrieve
      * @return the <code>CalendarCookie</code> that represents the <code>Calendar</code> with the given numeric ID, or
      * <code>null</code> if no such cookie exists
-     * @throws <code>UnsupportedOperationException</code> if the cookie found has invalid data
+     * @throws UnsupportedOperationException if the cookie found has invalid data
      */
     public synchronized CalendarCookie getCalendarCookie(long calendarId) throws UnsupportedOperationException {
         Cookie cookie = getCookie(String.valueOf(calendarId));

@@ -5,7 +5,7 @@ import java.util.Base64;
 
 /**
  * This class represents a Calendar cookie in the Christmas Calendar web application. Its purpose is to provide
- * for a more easily management of the data in each such cookie, as well as encoding/decoding to/from Base64 Basic
+ * for easier management of the data in each such cookie, as well as encoding/decoding to/from Base64 Basic
  * as defined by java.util.Base64.
  *
  * @author Jerry Strand
@@ -23,8 +23,9 @@ public class CalendarCookie {
      *                by the user or not. The windows are numerated in ascending order and <code>true</code> represents
      *                an opened window while <code>false</code> represents a closed window. If this parameter is
      *                <code>null</code>, no windows are considered opened
+     * @throws IllegalArgumentException if the number of given windows are not exactly 24
      */
-    public CalendarCookie(long calendarId, String passphrase, boolean[] windows) throws IllegalArgumentException { // TODO: Add exception to JavaDoc
+    public CalendarCookie(long calendarId, String passphrase, boolean[] windows) throws IllegalArgumentException {
         if (windows == null) {
             windows = new boolean[WINDOWS_PER_CALENDAR];
         } else if (windows.length != WINDOWS_PER_CALENDAR) {
@@ -36,8 +37,10 @@ public class CalendarCookie {
     }
 
     /**
-     *
-     * @param cookie the <code>Cookie</code> from which the <code>CalendarCookie</code> shall be constructed. // TODO: Clarify format it needs to follow
+     * Creates a new <code>CalendarCookie</code> with the numeric calendar ID, windows and passphrase found in the given
+     * cookie. The format of the given cookie's value and name must match the one explained in the javadoc for
+     * {@link #toCookie() toCookie()}
+     * @param cookie the <code>Cookie</code> from which the <code>CalendarCookie</code> shall be constructed.
      * @throws IllegalArgumentException if the given cookie has a non integer calendar ID, has a null value, does not
      * have 24 window values and/or if at least one of the window values is neither 0 or 1
      */
@@ -58,14 +61,14 @@ public class CalendarCookie {
             passphrase = new String(Base64.getDecoder().decode(tokens[1]));
         }
 
-        char[] charr = tokens[0].toCharArray();
-        if (charr.length != 24) {
+        char[] winChArr = tokens[0].toCharArray();
+        if (winChArr.length != 24) {
             throw new IllegalArgumentException("Calendar cookie does not have 24 window values");
         }
 
         windows = new boolean[24];
         for (int i = 0; i < 24; i++) {
-            switch (charr[i]) {
+            switch (winChArr[i]) {
                 case '1':
                     windows[i] = true;
                     break;
@@ -103,13 +106,15 @@ public class CalendarCookie {
     }
 
     /**
-     * The format of the cookie's value is as follows:<br>
+     * Formats and returns a <code>Cookie</code> version of this <code>CalendarCookie</code>. The name of the cookie
+     * is the numeric ID of the <code>Calendar</code>. The format of the cookie's value is as follows:<br>
      * The first 24 characters are either '0' or '1'. A 0 represents a window that the user has not opened, and a '1'
      * represents a window that the user has opened. The opened/closed status of each window is enumerated in ascending
      * order, starting with the first window and ending with the last window.<br>
      * Optionally, if the calendar that this cookie represents is private, and the user has chosen to store the
      * passphrase in this cookie, the windows' opened/closed status will be followed by a '|' and the Base 64 Basic
-     * encoded string version of that passphrase.
+     * encoded string version of that passphrase.<br>
+     * Example cookie value: "111100000000000000000000|xJkP97"
      *
      * @return a <code>Cookie</code> with the name and value properties set
      */
