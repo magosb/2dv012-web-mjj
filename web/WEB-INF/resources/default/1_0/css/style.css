@@ -65,6 +65,8 @@ section {
     margin: auto;
     /*clear: both;*/
     width: 1000px;
+    height: auto;
+
     border-radius: 15px;
 }
 
@@ -468,3 +470,4 @@ input[type="submit"]:hover {
 .errorMessage {
     color: red;
 }
+.clear { clear: both; }

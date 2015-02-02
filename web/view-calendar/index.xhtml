@@ -56,8 +56,8 @@
                             <h:panelGroup layout="block" class="window_panel">
                                 <!-- Ändra för update och onComplete ifall du vill testa med den vanliga dialogen   -->
                                 <p:commandLink action="#{viewWindowBean.open}"
-                                               update=":viewContentId:d :viewContentId:mp" styleClass="window_cmdLink"
-                                               oncomplete="PF('lb').show();">
+                                               update=":viewContentId:d2 :viewContentId:mp2" styleClass="window_cmdLink"
+                                               oncomplete="PF('dlg').show();">
 
                                     <p:graphicImage class="window" id="imagewindow"
                                                     name="/default/1_0/images/#{win.type}_icon.png"
