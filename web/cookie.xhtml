@@ -6,16 +6,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:debug hotkey="d"/>
-<f:metadata>
-    <f:event type="preRenderView" listener="#{cookieViewBean.checkAuthCookie}"/>
-</f:metadata>
 <h:form id="notAuth" rendered="#{!cookieViewBean.authorized}" prependId="false">
     <h2>Enter the passphrase for CALENDAR_NAME to view it</h2>
     <h:inputSecret id="passphrase" value="#{cookieViewBean.passphrase}" required="true"/>
     <h:message for="passphrase" errorClass="errorMessage" showDetail="false" showSummary="true"/>
     <br/>
-    <h:commandButton value="#{msgs.buttonView}" action="#{cookieViewBean.authCheck()}">
-        <f:ajax execute="passphrase remember" render="notAuth auth"></f:ajax>
+    <h:commandButton value="#{msgs.buttonView}" action="#{cookieViewBean.validatePassphrase()}">
+        <f:ajax execute="passphrase remember" render="notAuth auth" />
     </h:commandButton>
     <h:selectBooleanCheckbox id="remember" value="#{cookieViewBean.remember}" />
     <h:outputLabel for="remember" value="#{msgs.savePassphraseCookie}" />

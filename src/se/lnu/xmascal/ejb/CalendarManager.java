@@ -97,10 +97,18 @@ public class CalendarManager implements Serializable {
     }
 
     /**
-     * @return
+     * @return a <code>List</code> of the names of all <code>Calendars</code> in the database
      */
     public List<String> getAllCalendarNames() {
         TypedQuery<String> theQuery = em.createQuery("SELECT c.name FROM Calendar c", String.class);
+        return theQuery.getResultList();
+    }
+
+    /**
+     * @return a <code>List</code> of the numeric IDs of all <code>Calendars</code> in the database
+     */
+    public List<Long> getAllCalendarIds() {
+        TypedQuery<Long> theQuery = em.createQuery("SELECT c.numericId FROM Calendar c", Long.class);
         return theQuery.getResultList();
     }
 }

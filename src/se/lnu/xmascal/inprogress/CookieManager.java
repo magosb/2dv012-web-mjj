@@ -1,21 +1,25 @@
 package se.lnu.xmascal.inprogress;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
 /**
- * Created by doode on 2015-01-13.
+ * This class is an ApplicationScoped bean used for setting and retrieving client cookies.
+ *
+ * @author Jerry Strand
  */
+@Named
+@ApplicationScoped
 public class CookieManager implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public CookieManager() {
     }
-
-    // TODO: Prepend "cal" to calendarName. Or, simpler: add ID column to calendar table and use that
 
     /**
      * Adds a request for the client to set a cookie with the given parameters.
@@ -85,32 +89,24 @@ public class CookieManager implements Serializable {
     }
 
     /**
-     *
-     * @param calendarId
-     * @return or <code>null</code> if no cookie with the given calendarId exists
-     * @throws UnsupportedOperationException
+     * @param calendarId the numeric ID of the <code>Calendar</code> whose <code>CalendarCookie</code> to retrieve
+     * @return the <code>CalendarCookie</code> that represents the <code>Calendar</code> with the given numeric ID, or
+     * <code>null</code> if no such cookie exists
+     * @throws <code>UnsupportedOperationException</code> if the cookie found has invalid data
      */
-    public synchronized CalendarCookie getCalendarCookie(int calendarId) throws UnsupportedOperationException {
+    public synchronized CalendarCookie getCalendarCookie(long calendarId) throws UnsupportedOperationException {
         Cookie cookie = getCookie(String.valueOf(calendarId));
         if (cookie == null) {
             return null;
         } else {
             try {
-                CalendarCookie calCookie = new CalendarCookie(cookie); // TODO: Perhaps have a makeCalendarCookie in this class instead?
+                CalendarCookie calCookie = new CalendarCookie(cookie);
                 return calCookie;
             } catch (IllegalArgumentException e) {
                 throw new UnsupportedOperationException(
-                        "A CalendarCookie cannot be constructed with value from the cookie with the given calendarId");
+                        "A CalendarCookie cannot be constructed with value from the cookie with the given calendarId",e);
             }
         }
     }
-
-    /* TODO: Implement password restriction based on this:
-     * The value of a cookie may consist of any printable ASCII character (! through ~, unicode \u0021 through \u007E)
-     * excluding , and ; and excluding whitespace. The name of the cookie also excludes = as that is the delimiter
-     * between the name and value. The cookie standard RFC2965 is more limiting but not implemented by browsers.
-     *
-     * passphrase|0|1|0|0|1|0|0|0|0
-     */
 
 }

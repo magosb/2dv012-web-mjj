@@ -11,7 +11,8 @@ import java.util.Base64;
  * @author Jerry Strand
  */
 public class CalendarCookie {
-    private int calendarId;
+    private static final int WINDOWS_PER_CALENDAR = 24;
+    private long calendarId;
     private String passphrase;
     private boolean[] windows;
 
@@ -20,12 +21,13 @@ public class CalendarCookie {
      * @param passphrase the passphrase of the calendar represented by this cookie, or <code>null</code> if it has no passphrase
      * @param windows an array of exactly 24 boolean values that represent whether a certain window has been opened
      *                by the user or not. The windows are numerated in ascending order and <code>true</code> represents
-     *                an opened window while <code>false</code> represents a closed windw
+     *                an opened window while <code>false</code> represents a closed window. If this parameter is
+     *                <code>null</code>, no windows are considered opened
      */
-    public CalendarCookie(int calendarId, String passphrase, boolean[] windows) {
+    public CalendarCookie(long calendarId, String passphrase, boolean[] windows) throws IllegalArgumentException { // TODO: Add exception to JavaDoc
         if (windows == null) {
-            throw new IllegalArgumentException("argument 'windows' may not be null");
-        } else if (windows.length != 24) {
+            windows = new boolean[WINDOWS_PER_CALENDAR];
+        } else if (windows.length != WINDOWS_PER_CALENDAR) {
             throw new IllegalArgumentException("length of argument 'windows' must be 24");
         }
         this.calendarId = calendarId;
@@ -76,11 +78,11 @@ public class CalendarCookie {
         }
     }
 
-    public int getCalendarId() {
+    public long getCalendarId() {
         return calendarId;
     }
 
-    public void setCalendarId(int calendarId) {
+    public void setCalendarId(long calendarId) {
         this.calendarId = calendarId;
     }
 

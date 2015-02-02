@@ -32,6 +32,13 @@ public class ThumbnailBean implements Serializable {
     }
 
     /**
+     * @return a <code>List</code> of the numeric IDs of all <code>Calendar</code>s in the system
+     */
+    public synchronized List<Long> getCalendarIds() {
+        return calendarManager.getAllCalendarIds();
+    }
+
+    /**
      * This methods returns true or false if the given calendar is private or not.
      *
      * @param cal The calendar to check if it is private or not.
