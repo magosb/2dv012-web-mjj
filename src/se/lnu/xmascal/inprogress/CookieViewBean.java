@@ -1,5 +1,7 @@
 package se.lnu.xmascal.inprogress;
 
+import se.lnu.xmascal.CalendarCookie;
+import se.lnu.xmascal.CookieManager;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
 

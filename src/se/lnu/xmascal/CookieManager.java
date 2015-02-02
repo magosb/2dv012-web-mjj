@@ -1,4 +1,4 @@
-package se.lnu.xmascal.inprogress;
+package se.lnu.xmascal;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;

@@ -1,4 +1,4 @@
-package se.lnu.xmascal.inprogress;
+package se.lnu.xmascal;
 
 import javax.servlet.http.Cookie;
 import java.util.Base64;
