@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+        >
+<body>
+<ui:composition>
+    <h2>Enter the passphrase for CALENDAR_NAME to view it</h2>
+    <h:inputSecret id="passphrase" value="#{cookieViewBean.passphrase}" required="true"/>
+    <h:message for="passphrase" errorClass="errorMessage" showDetail="false" showSummary="true"/>
+
+    <br/>
+    <h:commandButton value="#{msgs.buttonView}" action="#{cookieViewBean.validatePassphrase()}">
+        <f:ajax execute="passphrase remember" render="notAuth auth"/>
+    </h:commandButton>
+    <h:selectBooleanCheckbox id="remember" value="#{cookieViewBean.remember}"/>
+    <h:outputLabel for="remember" value="#{msgs.savePassphraseCookie}"/>
+</ui:composition>
+</body>
+</html>

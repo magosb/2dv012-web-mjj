@@ -18,12 +18,18 @@
     <ui:insert name="header">
         <ui:include src="../header.xhtml"/>
     </ui:insert>
+
+
     <section>
         <h1><h:outputLabel value="#{viewWindowBean.name}"/></h1>
-        <h:form prependId="false" id="viewContentId">
+        <h:form id="notAuth" rendered="#{false}" prependId="false">
+            <ui:include src="/passPhrase.xhtml"></ui:include>
+        </h:form>
+
+        <h:form id="viewContentId" rendered="#{!cookieViewBean.authorized}" prependId="false">
             <h:panelGroup layout="block" class="window_container">
                 <p:graphicImage value="#{dataService.calendarBackground}" styleClass="window_background">
-                    <f:param name="cal" value="#{viewWindowBean.name}"/>
+                    <f:param name="cal" value="#{viewWindowBean.id}"/>
                 </p:graphicImage>
 
                 <h:panelGroup layout="block" class="content_lightbox">
@@ -56,8 +62,7 @@
                                 <!-- Ändra för update och onComplete ifall du vill testa med den vanliga dialogen   -->
                                 <p:commandLink action="#{viewWindowBean.open}"
                                                update=":viewContentId:dialog :viewContentId:d2 :viewContentId:gi :viewContentId:mp2" styleClass="window_cmdLink"
-                                               oncomplete="PF('dlg').show();"
-                                               onsuccess="PF('dlg').show()">
+                                               oncomplete="PF('dlg').show();">
                                     <p:ajax update=":viewContentId:dialog :viewContentId:mp2 :viewContentId:gi" event="click" onsuccess="PF('dlg').show()"
                                             render=":viewContentId:mp2" />
 

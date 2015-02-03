@@ -16,23 +16,26 @@
     </ui:insert>
 
     <section>
+
         <h:outputLink value="admin/">Admin login</h:outputLink>,
         <h:outputLink value="admin/add-calendar/">Add calendar</h:outputLink>,
 
-        <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
+        <ui:repeat value="#{thumbnails.calendarIds}" var="id">
             <h:panelGroup layout="block" class="thumbnail_container">
                 <h:link outcome="/view-calendar/index.xhtml">
-                    <p:graphicImage value="#{dataService.calendarThumbnail}" alt="#{calendarName}" styleClass="thumbnail">
-                        <f:param name="cal" value="#{calendarName}"/>
+                    <p:graphicImage value="#{dataService.calendarThumbnail}" alt="#{id}"
+                                    styleClass="thumbnail">
+                        <f:param name="cal" value="#{id}"/>
                     </p:graphicImage>
-                    <f:param name="cal" value="#{calendarName}"/>
+                    <f:param name="cal" value="#{id}"/>
                 </h:link>
-                <br/>
-                <h:panelGroup layout="block" class="lock_panel">
-                    <p:graphicImage name="/default/1_0/images/lock.png" styleClass="lock" rendered="#{thumbnails.isCalendarPrivate(calendarName)}">
-                        <f:param name="cal" value="#{calendarName}"/>
+
+                <h:panelGroup layout="block" class="lock_panel"
+                              rendered="#{thumbnails.isCalendarPrivate(id)}">
+                    <p:graphicImage name="/default/1_0/images/lock.png" styleClass="lock">
+                        <f:param name="cal" value="#{id}"/>
                     </p:graphicImage>
-                    <f:param name="cal" value="#{calendarName.toString}"/>
+                    <f:param name="cal" value="#{id}"/>
                 </h:panelGroup>
             </h:panelGroup>
         </ui:repeat>

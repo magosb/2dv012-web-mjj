@@ -43,8 +43,9 @@ public class ViewWindowBean implements Serializable {
 
     public void preRenderListen(ComponentSystemEvent event) throws AbortProcessingException {
         if(calendar == null) {
-            String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
-            calendar = calendarManager.getCalendar(calName);
+            Long cal = Long.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal"));
+            calendar = calendarManager.getCalendar(cal);
+            System.out.println("Cal is: " +calendar);
         }
     }
 
@@ -54,6 +55,10 @@ public class ViewWindowBean implements Serializable {
 
     public void setName(String name) {
         calendar.setName(name);
+    }
+
+    public Long getId() {
+        return calendar.getNumericId();
     }
 
     public List<Window> getWindows() {
