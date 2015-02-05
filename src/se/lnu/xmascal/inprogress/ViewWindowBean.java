@@ -66,7 +66,7 @@ public class ViewWindowBean implements Serializable {
     }
 
     public void open() {
-        String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
+        int calName = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal"));
         int day = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("day"));
         setDate(day);
         String type = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("type");
