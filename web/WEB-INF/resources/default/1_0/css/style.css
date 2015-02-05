@@ -46,8 +46,8 @@ body {
 }
 
 header {
-    background: url(#{resource[ 'default:images/header.png' ]}) top no-repeat;
-    height: 260px;
+    background: url(#{resource[ 'default:images/banner.png' ]}) top no-repeat;
+    height: 255px;
     width: 1000px;
     margin: auto;
 }
