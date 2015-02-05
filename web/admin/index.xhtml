@@ -14,19 +14,18 @@
     <ui:insert name="header">
         <ui:include src="../header.xhtml"/>
     </ui:insert>
-    <section class="admin_panel">
-        <h:form>
-            <div class="admin_panelpart">
-                <h:commandButton value="Log out" action="#{admin.logout}"/>
-            </div>
-            <div class="admin_panelpart">
-                Currently logged in as <h:outputText id="username" value="#{admin.username}"/>
-            </div>
-        </h:form>
-    </section>
     <section>
 
-
+        <div class="admin_panel">
+            <h:form>
+                <div class="admin_panelpart">
+                    <h:commandButton value="Log out" action="#{admin.logout}"/>
+                </div>
+                <div class="admin_panelpart">
+                    Currently logged in as <h:outputText id="username" value="#{admin.username}"/>
+                </div>
+            </h:form>
+        </div>
         <h:form>
             <h:panelGroup layout="block">
                 <h:commandButton action="add" styleClass="add_button"/>
@@ -57,6 +56,9 @@
                 </h:panelGroup>
             </ui:repeat>
         </h:form>
+
+
+        <br class="clear" />;
     </section>
     <ui:insert name="footer">
         <ui:include src="../footer.xhtml"/>

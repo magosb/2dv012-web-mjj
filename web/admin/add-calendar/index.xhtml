@@ -88,6 +88,8 @@
                     <h:outputText id="text123" value="Calendar has been saved!" rendered="#{not empty newCalendar.name}"/>
                 </h:panelGroup>
             </h:form>
+
+        <br class="clear" />;
         </section>
         <section>
             <h:outputLabel value="#{viewWindowBean.name}"/>
@@ -108,6 +110,8 @@
             </h:form>
             <!-- This is the background image. It shall not be here! -->
             <p:graphicImage value="#{viewWindowBean.background}"></p:graphicImage>
+
+            <br class="clear" />;
     </section>
 
     <ui:insert name="footer" >
