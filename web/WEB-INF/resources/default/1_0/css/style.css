@@ -383,12 +383,12 @@ h2#date2 {
         }
 }
 
-@keyframes leftDoorOpen {
-    from {
+@keyframes leftDoorOpenMoz {
+    0% {
         transform: rotateY(0deg);
         transform-origin: 0% 0%;
     }
-    to {
+    100% {
         transform: rotateY(100deg);
         transform-origin: 0% 0%;
     }
@@ -410,7 +410,7 @@ h2#date2 {
     -webkit-animation-fill-mode: both;
     -webkit-animation-iteration-count: 1;
 
-    animation: leftDoorOpen 1s ease 1s;
+    animation: leftDoorOpenMoz 1s ease 1s;
     animation-delay: 0s;
     animation-fill-mode: both;
     animation-iteration-count: 1;
