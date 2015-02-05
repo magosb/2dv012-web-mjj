@@ -63,6 +63,7 @@ footer {
 section {
     background-color: rgba(255, 255, 255, 0.54);
     margin: auto;
+    padding: 10px;
     /*clear: both;*/
     width: 1000px;
     height: auto;
@@ -233,6 +234,8 @@ h2#date2 {
     width: 100px;
     height: 100px;
     margin: 15px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 2px #888888;
 }
 
 .thumbnail {
@@ -242,8 +245,9 @@ h2#date2 {
     left: 0;
     right: 0;
     margin: auto;
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
 }
 
 .thumbnail_container:hover {
@@ -253,20 +257,24 @@ h2#date2 {
     -moz-transform: scale(1.1, 1.1);
     -o-transform: scale(1.1, 1.1);
     -ms-transform: scale(1.1, 1.1);
+    box-shadow: 7px 7px 5px #888888;
 }
 
 .add_button {
     background-color: transparent !important;
     background-image: url(#{resource[ 'default:images/add_button.png' ]}) !important;
+    border: none !important;
     float: left;
+    position: relative;
     width: 100px;
     height: 100px;
-    border: 1px solid grey;
-    margin: 15px;
+    margin: 15px !important;
+    margin-top: 15px !important;
+    border-radius: 10px;
 }
 
 .add_button:hover {
-    background-image: url(#{resource[ 'default:images/add_button.png' ]}) !important;
+    border: none !important;
     transform: scale(1.1, 1.1);
     -webkit-transform: scale(1.1, 1.1);
     -moz-transform: scale(1.1, 1.1);
