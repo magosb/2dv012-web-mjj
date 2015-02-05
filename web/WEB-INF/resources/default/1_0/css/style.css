@@ -63,7 +63,8 @@ footer {
 section {
     background-color: rgba(255, 255, 255, 0.54);
     margin: auto;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     /*clear: both;*/
     width: 1000px;
     height: auto;
@@ -315,7 +316,6 @@ h2#date2 {
 .window_panel {
     position: relative;
     float: left;
-    border: 1px solid white;
     width: 75px;
     height: 75px;
     margin-right: 0;
@@ -325,7 +325,6 @@ h2#date2 {
 }
 
 .window_panel:hover {
-    border: 1px solid grey;
 }
 
 .window_container {
@@ -367,6 +366,34 @@ h2#date2 {
     text-decoration: none;
 }
 
+#leftDoor{
+    background-color:red;
+    left:0px;
+    -webkit-animation: leftDoorOpen 4s ease 4s;
+    -webkit-animation-fill-mode: forwards;
+
+}
+
+@-webkit-keyframes leftDoorOpen {
+       0% { -webkit-transform: rotateY(0deg) scale(1,1) skew(0deg,0deg);
+        -webkit-transform-origin: 0% 0%; }
+        100% {
+            -webkit-transform: rotateY(100deg) scale(0.85, 1) skew(0deg, 10deg);
+            -webkit-transform-origin: 0% 0%;
+        }
+}
+
+@keyframes leftDoorOpen {
+    from {
+        transform: rotateY(0deg);
+        transform-origin: 0% 0%;
+    }
+    to {
+        transform: rotateY(100deg);
+        transform-origin: 0% 0%;
+    }
+}
+
 .flip-container{
     /*perspective*/
     -webkit-perspective:1000;
@@ -378,18 +405,15 @@ h2#date2 {
 
 .flipped {
     /*transform*/
-    -webkit-transform-origin: left;
-    -webkit-animation-timing-function: linear; /* Chrome, Safari, Opera */
-    animation-timing-function: linear;
-    -webkit-transition:0.1s;
-    -moz-transition:0.1s;
-    -o-transition:0.1s;
-    transition:0.1s;
-    -webkit-transform:rotateY(100deg);
-    -moz-transform:rotateY(100deg);
-    -ms-transform:rotateY(100deg);
-    -o-transform:rotateY(100deg);
-    transform:rotateY(100deg);
+    -webkit-animation: leftDoorOpen 1s ease 1s;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-fill-mode: both;
+    -webkit-animation-iteration-count: 1;
+
+    animation: leftDoorOpen 1s ease 1s;
+    animation-delay: 0s;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
 }
 .flip-container, .front, .back{
     width:75px;
@@ -413,7 +437,7 @@ h2#date2 {
     position:relative;
 }
 
-.back{
+.back {
 
     background-color: #555555;
     /*backface-visibility*/
@@ -423,29 +447,30 @@ h2#date2 {
     -o-backface-visibility:hidden;
     backface-visibility:hidden;
     position:absolute;
-    top:0;
-    left:0;
-}
-
-.front{
-    -webkit-backface-visibility:hidden;
-    -moz-backface-visibility:hidden;
-    -ms-backface-visibility:hidden;
-    -o-backface-visibility:hidden;
-    backface-visibility:hidden;
-    position:absolute;
-    top:0;
-    left:0;
-    z-index:2;
-}
-/* back, initially hidden pane */
-.back{
     /*transform*/
     -webkit-transform:rotateY(180deg);
     -moz-transform:rotateY(180deg);
     -ms-transform:rotateY(180deg);
     -o-transform:rotateY(180deg);
     transform:rotateY(180deg);
+    top:0;
+    left:0;
+}
+
+.front{
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:2;
+}
+
+
+
+.front:hover {
+    transform-origin: left;
+    -webkit-transform-origin: left;
+    -webkit-transform: scale(0.85,1) skew(0deg,10deg);
+    transform: scale(0.85,1) skew(0deg,10deg);
 }
 
 #login {
