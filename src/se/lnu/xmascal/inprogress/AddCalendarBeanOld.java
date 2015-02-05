@@ -4,6 +4,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
+import se.lnu.xmascal.model.Window;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -14,6 +15,10 @@ import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.GregorianCalendar;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 
 // <!-- <h:selectOneRadio id="isPublic" value="#{newCalendar.public}" onchange="submit()" valueChangeListener="#{newCalendar.update}"> TODO: This will submit entire form? Change to separate form? -->
@@ -24,9 +29,9 @@ import java.io.Serializable;
  * @author Jerry Strand
  */
 //@DeclareRoles("XmasCalAdmin")
-@Named("newCalendar")
+@Named("newCalendarOld")
 @ViewScoped
-public class AddCalendarBean implements Serializable {
+public class AddCalendarBeanOld implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EJB
@@ -38,9 +43,12 @@ public class AddCalendarBean implements Serializable {
     private Calendar calendar = new Calendar();
     private boolean isPublic = true;
 
-    // TODO: Save Calendar in DB when next button is clicked (needed to get ID used for redirection to edit page).
-    // Set saved to true when save button is clicked. Add @PreDestroy method to this bean to remove calendar from DB if saved is false
-    private boolean saved = false;
+
+    // Change the current date here:
+    private final int CURRENT_DATE = 4;
+    private java.util.Calendar currentDate = new GregorianCalendar();
+
+    // TODO: Will probably need to keep a list of Windows here, that the admin has added on Add Calendar page
 
     public String getName() {
         return name;
@@ -66,13 +74,17 @@ public class AddCalendarBean implements Serializable {
         this.passPhrase = passPhrase;
     }
 
-    /**
-     *
-     * @param event
-     */
+    public int getWindowNumber() {
+        return windowNumber;
+    }
+
+    public void setWindowNumber(int windowNumber) {
+        this.windowNumber = windowNumber;
+    }
+
     public void handleBackgroundUpload(FileUploadEvent event) {
         try {
-            background = handleFileUpload(event.getFile().getInputstream());
+            background = handleFile(event.getFile().getInputstream());
         } catch (IOException e) {
             e.printStackTrace(); // TODO: Send error message to client
         }
@@ -80,27 +92,71 @@ public class AddCalendarBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    /**
-     *
-     * @param event
-     */
     public void handleThumbnailUpload(FileUploadEvent event) {
         try {
             event.getFile().getContents();
-            thumbnail = handleFileUpload(event.getFile().getInputstream());
+            thumbnail = handleFile(event.getFile().getInputstream());
         } catch (IOException e) {
             e.printStackTrace(); // TODO: Send error message to client
         }
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+
+    // --------------------------------------
+    // WINDOW CONFIG RELATED --------------->
+    private int windowNumber;
+    private byte[] windowContent;
+    private Window.ContentType contentType = Window.ContentType.PICTURE;
+    private static Map<String, Window.ContentType> contentTypeItems;
+    static {
+        contentTypeItems = new LinkedHashMap<>();
+        contentTypeItems.put(Window.ContentType.PICTURE.toString(), Window.ContentType.PICTURE);
+        contentTypeItems.put(Window.ContentType.VIDEO.toString(), Window.ContentType.VIDEO);
+        contentTypeItems.put(Window.ContentType.AUDIO.toString(), Window.ContentType.AUDIO); // label, value
+        contentTypeItems.put(Window.ContentType.URL.toString(), Window.ContentType.URL);
+        contentTypeItems.put(Window.ContentType.TEXT.toString(), Window.ContentType.TEXT);
+    }
+
+    public void handleContentUpload(FileUploadEvent event) {
+        System.out.println("UploadedFile.getContentType(): " + event.getFile().getContentType());
+        try {
+            windowContent = handleFile(event.getFile().getInputstream());
+        } catch (IOException e) {
+            e.printStackTrace(); // TODO: Send error message to client
+        }
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void saveWindowContent() {
+        Window window = new Window(name, windowNumber, windowContent, contentType);
+        System.out.println(contentType);
+        // TODO: THIS WILL FAIL IF THE WINDOW HAS ALREADY BEEN ADDED!
+        calendarManager.addWindow(window);
+        //calendar = calendarManager.update(calendar); // TODO: Does it matter if calendar is assigned the returned one? Returned calendar is detached?
+    }
+
+    public Window.ContentType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(Window.ContentType contentType) {
+        this.contentType = contentType;
+    }
+
+    public Map<String, Window.ContentType> getContentTypeItems() {
+        return contentTypeItems;
+    }
+    // <----------  END WINDOW CONFIG RELATED
+    // --------------------------------------
 
     /**
      *
      * @param is
      * @return
      */
-    private byte[] handleFileUpload(InputStream is) {
+    private byte[] handleFile(InputStream is) {
         byte[] data = null;
         try {
             data = new byte[is.available()]; // TODO: THIS MIGHT NOT READ ALL BYTES!!
@@ -124,6 +180,59 @@ public class AddCalendarBean implements Serializable {
         System.out.print("isPublic was '" + isPublic + "'");
         isPublic = (Boolean) event.getNewValue();
         System.out.println(", now changed to '" + isPublic + "'");
+    }
+
+
+    public List<Calendar> getAllCalendars() {
+        return calendarManager.getAllCalendars();
+    }
+
+    /**
+     * Sends the provided msg as an error message using the 'messages' tag on the facelet of the current page.
+     *
+     * @param msg the error message to be set
+     */
+    private void sendErrorMsg(String msg) {
+        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null);
+        FacesContext.getCurrentInstance().addMessage("", facesMessage); // TODO: Do we need to specify anything for ""?
+    }
+
+    /**
+     * Sends the provided msg as an info message using the 'messages' tag on the facelet of the current page.
+     *
+     * @param msg the info message to be set
+     */
+    private void sendInfoMsg(String msg) {
+        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, null);
+        FacesContext.getCurrentInstance().addMessage("", facesMessage); // TODO: Do we need to specify anything for ""?
+    }
+
+    /**
+     * Checks for <code>null</code> attributes and if found, sends error message(s) to the current facelet.
+     *
+     * @return <code>true</code> if any attributes are <code>null</code>
+     */
+    private boolean hasNullErrors() {
+        boolean hasErrors = false;
+
+        if (name == null || name.isEmpty()) { // TODO: Need better validation: empty String? Too short? Etc
+            sendErrorMsg("Invalid name.");
+            hasErrors = true;
+        }
+        if (background == null) {// TODO: Need better validation: empty String? Too short? Etc
+            sendErrorMsg("Invalid background.");
+            hasErrors = true;
+        }
+        if (thumbnail == null) {// TODO: Need better validation: empty String? Too short? Etc
+            sendErrorMsg("Invalid thumbnail.");
+            hasErrors = true;
+        }
+        if (passPhrase == null || passPhrase.isEmpty()) {// TODO: Need better validation: empty String? Too short? Etc
+            sendErrorMsg("Invalid pass phrase.");
+            hasErrors = true;
+        }
+
+        return hasErrors;
     }
 
     /**
@@ -184,51 +293,19 @@ public class AddCalendarBean implements Serializable {
     }
 
     /**
-     * Checks for <code>null</code> attributes and if found, sends error message(s) to the current facelet.
+     * This method returns the current date. Notice this methods is also used to manuplitate which current date it
+     * currently is.
      *
-     * @return <code>true</code> if any attributes are <code>null</code>
+     * @author Johan Widén
+     * @return int with the current date.
      */
-    private boolean hasNullErrors() {
-        boolean hasErrors = false;
-
-        if (name == null || name.isEmpty()) { // TODO: Need better validation: empty String? Too short? Etc
-            sendErrorMsg("Invalid name.");
-            hasErrors = true;
-        }
-        if (background == null) {// TODO: Need better validation: empty String? Too short? Etc
-            sendErrorMsg("Invalid background.");
-            hasErrors = true;
-        }
-        if (thumbnail == null) {// TODO: Need better validation: empty String? Too short? Etc
-            sendErrorMsg("Invalid thumbnail.");
-            hasErrors = true;
-        }
-        if (passPhrase == null || passPhrase.isEmpty()) {// TODO: Need better validation: empty String? Too short? Etc
-            sendErrorMsg("Invalid pass phrase.");
-            hasErrors = true;
-        }
-
-        return hasErrors;
+    public int getCurrentDate() {
+        currentDate.set(java.util.Calendar.YEAR, 2014);
+        currentDate.set(java.util.Calendar.MONTH, 11);
+        currentDate.set(java.util.Calendar.DAY_OF_MONTH, CURRENT_DATE);
+        return currentDate.get(java.util.Calendar.DATE);
     }
 
-    /**
-     * Sends the provided msg as an error message using the 'messages' tag on the facelet of the current page.
-     *
-     * @param msg the error message to be set
-     */
-    private void sendErrorMsg(String msg) {
-        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null);
-        FacesContext.getCurrentInstance().addMessage("", facesMessage); // TODO: Do we need to specify anything for ""?
-    }
 
-    /**
-     * Sends the provided msg as an info message using the 'messages' tag on the facelet of the current page.
-     *
-     * @param msg the info message to be set
-     */
-    private void sendInfoMsg(String msg) {
-        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, null);
-        FacesContext.getCurrentInstance().addMessage("", facesMessage); // TODO: Do we need to specify anything for ""?
-    }
 
 }

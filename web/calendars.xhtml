@@ -7,15 +7,15 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 <h:head></h:head>
 <h:body>
-    <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
-        <h:link outcome="/view-calendar/index.xhtml">
-            <p:graphicImage value="#{dataService.calendarThumbnail}" alt="#{calendarName}">
-                <f:param name="cal" value="#{calendarName}"/>
+    <ui:repeat value="#{thumbnails.calendarIds}" var="id">
+        <h:link outcome="/cookie.xhtml">
+            <p:graphicImage value="#{dataService.calendarThumbnail}">
+                <f:param name="cal" value="#{id}"/>
             </p:graphicImage>
-            <f:param name="cal" value="#{calendarName}"/>
+            <f:param name="cal" value="#{id}"/>
         </h:link>
         <h:link outcome="/window.xhtml">
-            <f:param name="cal" value="#{calendarName}"/>
+            <f:param name="cal" value="#{id}"/>
             Add window
         </h:link>
         <br/>

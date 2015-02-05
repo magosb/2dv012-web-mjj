@@ -16,6 +16,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,8 +44,8 @@ public class ViewWindowBean implements Serializable {
 
     public void preRenderListen(ComponentSystemEvent event) throws AbortProcessingException {
         if(calendar == null) {
-            String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
-            calendar = calendarManager.getCalendar(calName);
+            Long cal = Long.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal"));
+            calendar = calendarManager.getCalendar(cal);
         }
     }
 
@@ -56,13 +57,18 @@ public class ViewWindowBean implements Serializable {
         calendar.setName(name);
     }
 
+    public Long getId() {
+        return calendar.getNumericId();
+    }
+
     public List<Window> getWindows() {
         return calendar.getWindows();
     }
 
     public void open() {
-        String calName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal");
-        setDate(Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("day")));
+        int calName = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal"));
+        int day = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("day"));
+        setDate(day);
         String type = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("type");
         System.out.println("open calender: " + calName +" window: " + date + " type: " + type);
 
