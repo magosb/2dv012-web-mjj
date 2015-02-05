@@ -359,52 +359,85 @@ h2#date2 {
     text-decoration: none;
 }
 
-#f1_container {
-    position: relative;
-    width: 75px;
-    height: 75px;
-    z-index: 1;
+.flip-container{
+    /*perspective*/
+    -webkit-perspective:1000;
+    -moz-perspective:1000;
+    -ms-perspective:1000;
+    -o-perspective:1000;
+    perspective:1000;
 }
-#f1_card {
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -o-transform-style: preserve-3d;
 
-    transition: all 1.0s linear;
-    -moz-transition: all 1.0s linear;
-    transition: all 1.0s linear;
+.flipped {
+    /*transform*/
+    -webkit-transform-origin: left;
+    -webkit-animation-timing-function: linear; /* Chrome, Safari, Opera */
+    animation-timing-function: linear;
+    -webkit-transition:0.1s;
+    -moz-transition:0.1s;
+    -o-transition:0.1s;
+    transition:0.1s;
+    -webkit-transform:rotateY(100deg);
+    -moz-transform:rotateY(100deg);
+    -ms-transform:rotateY(100deg);
+    -o-transform:rotateY(100deg);
+    transform:rotateY(100deg);
 }
-#f1_container:hover #f1_card {
-    transform: rotateY(180deg);
-    -moz-transform: rotateY(180deg);
-    -o-transform: rotateY(180deg);
-    transform: rotateY(180deg)
+.flip-container, .front, .back{
+    width:75px;
+    height:75px;
 }
-.face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -o-backface-visibility: hidden;
-    backface-visibility: hidden;
+
+.flipper {
+    /*transition*/
+    -webkit-animation-timing-function: linear; /* Chrome, Safari, Opera */
+    animation-timing-function: linear;
+    -webkit-transition:0.2s;
+    -moz-transition:0.2s;
+    -o-transition:0.2s;
+    transition:0.2s;
+    /*transform-style*/
+    -webkit-transform-style:preserve-3d;
+    -moz-transform-style:preserve-3d;
+    -ms-transform-style:preserve-3d;
+    -o-transform-style:preserve-3d;
+    transform-style:preserve-3d;
+    position:relative;
 }
-.face.back {
-    display: block;
-    -webkit-transform: rotateY(180deg);
-    -webkit-box-sizing: border-box;
-    -moz-transform: rotateY(180deg);
-    -moz-box-sizing: border-box;
-    -o-transform: rotateY(180deg);
-    -o-box-sizing: border-box;
-    transform: rotateY(180deg);
-    box-sizing: border-box;
-    padding: 10px;
-    color: white;
-    text-align: center;
-    background-color: #aaa;
+
+.back{
+
+    background-color: #555555;
+    /*backface-visibility*/
+    -webkit-backface-visibility:hidden;
+    -moz-backface-visibility:hidden;
+    -ms-backface-visibility:hidden;
+    -o-backface-visibility:hidden;
+    backface-visibility:hidden;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.front{
+    -webkit-backface-visibility:hidden;
+    -moz-backface-visibility:hidden;
+    -ms-backface-visibility:hidden;
+    -o-backface-visibility:hidden;
+    backface-visibility:hidden;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:2;
+}
+/* back, initially hidden pane */
+.back{
+    /*transform*/
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg);
+    -ms-transform:rotateY(180deg);
+    -o-transform:rotateY(180deg);
+    transform:rotateY(180deg);
 }
 
 #login {
