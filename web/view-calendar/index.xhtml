@@ -48,15 +48,16 @@
                                 <p:lightBox id="lb">
                                     <p:commandLink styleClass="window_cmdLink">
 
-                                        <div class="flip-container" onclick="this.classList.toggle('flipped')">
+                                        <div class="flip-container">
                                             <div class="flipper">
-                                                <div class="front">
-                                                    <p:graphicImage class="window" id="imagewindow"  name="/default/1_0/images/#{win.type}_icon.png" value="#{viewWindowBean.content}">
-                                                        <h:outputText value="#{win.day}" styleClass="window_date"/>
+                                                <div class="window_cover" onclick="this.classList.toggle('flipped')">
+                                                    <p:graphicImage class="window"  name="/default/1_0/images/#{win.type}_icon.png" value="#{viewWindowBean.content}">
                                                     </p:graphicImage>
                                                 </div>
                                                 <div class="back">
-                                                    <p> Inside </p>
+                                                    <p:graphicImage class="window" id="imagewindow"  name="/default/1_0/images/#{win.type}_icon.png" value="#{viewWindowBean.content}">
+                                                        <h:outputText value="#{win.day}" styleClass="window_date"/>
+                                                    </p:graphicImage>
                                                 </div>
                                             </div>
                                         </div>
