@@ -2,6 +2,7 @@ package se.lnu.xmascal;
 
 import org.primefaces.model.ByteArrayContent;
 import org.primefaces.model.StreamedContent;
+import se.lnu.xmascal.model.Calendar;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
@@ -10,6 +11,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 
 /**
@@ -190,9 +192,19 @@ public class DataService implements Serializable {
     }
 
     private synchronized byte[] getWindowContent(long calendarId, int day) {
-        Query query = em.createQuery("SELECT w.content FROM Window w WHERE w.numericId = :id AND w.day = :wday");
-        query.setParameter("id", calendarId).setParameter("wday", day);
-        return (byte[]) query.getSingleResult();
+        // Query query = em.createQuery("SELECT w.content FROM Window w WHERE w.numericId = :id AND w.day = :wday");
+        // Query query = em.createQuery("SELECT w.content FROM Window w WHERE w.numericId = :id AND w.day = :wday");
+        // query.setParameter("id", calendarId).setParameter("wday", day);
+
+        TypedQuery<Calendar> q = em.createQuery("SELECT c FROM Calendar c WHERE c.numericId = :cname", Calendar.class);
+        q.setParameter("cname", calendarId).setMaxResults(1);
+        Calendar result = null;
+        try {
+            result = q.getSingleResult();
+        } catch (Exception e) { // TODO: Narrow down
+        }
+        return result.getWindows().get(day).getContent();
+        // return (byte[]) query.getSingleResult();
     }
 
 }
