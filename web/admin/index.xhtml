@@ -26,39 +26,41 @@
                 </div>
             </h:form>
         </div>
-        <h:form>
+        <h:form id="content">
             <h:panelGroup layout="block">
                 <h:commandButton action="add" styleClass="add_button"/>
             </h:panelGroup>
-            <ui:repeat value="#{thumbnails.calendarNames}" var="calendarName">
+            <ui:repeat value="#{thumbnails.calendarIds}" var="id">
                 <h:panelGroup layout="block" class="thumbnail_container">
-                    <p:graphicImage value="#{dataService.calendarThumbnail}" alt="#{calendarName}" styleClass="thumbnail">
-                        <f:param name="cal" value="#{calendarName}"/>
+                    <p:graphicImage value="#{dataService.calendarThumbnail}" alt="#{id}" styleClass="thumbnail">
+                        <f:param name="cal" value="#{id}"/>
                     </p:graphicImage>
-                    <f:param name="cal" value="#{calendarName}"/>
+                    <f:param name="cal" value="#{id}"/>
                     <br/>
                     <h:panelGroup layout="block" class="edit_panel">
                         <h:link outcome="edit">
                             <p:graphicImage name="/default/1_0/images/edit.png" styleClass="lock">
                             </p:graphicImage>
-                            <f:param name="cal" value="#{calendarName}"/>
+                            <f:param name="cal" value="#{id}"/>
                         </h:link>
                     </h:panelGroup>
                     <h:panelGroup layout="block" class="delete_panel">
-                        <p:lightBox id="lighbox">
-                            <p:graphicImage name="/default/1_0/images/delete.png" styleClass="lock">
-                            </p:graphicImage>
-                            <f:facet name="inline">
-                                <p:media value="#{dataService.streamedContent}" width="400" height="225" player="flash"/>
-                            </f:facet>
-                        </p:lightBox>
+                        <p:commandLink action="#{admin.removeCalendar()}" ajax="true">
+                            <h:graphicImage name="/default/1_0/images/delete.png" styleClass="lock"/>
+                            <p:confirm header="Delete calendar" message="Are you sure?" icon="ui-icon-alert" />
+                            <f:param name="cal" value="#{id}"/>
+                            <p:ajax update=":content" event="click" render=":content"/>
+                        </p:commandLink>
+                        <p:confirmDialog global="true" showEffect="fade">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check">
+                            </p:commandButton>
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
                     </h:panelGroup>
                 </h:panelGroup>
             </ui:repeat>
         </h:form>
-
-
-        <br class="clear" />;
     </section>
     <ui:insert name="footer">
         <ui:include src="../footer.xhtml"/>

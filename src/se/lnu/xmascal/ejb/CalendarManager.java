@@ -61,7 +61,6 @@ public class CalendarManager implements Serializable {
 
     /**
      * @param window the <code>Window</code> to add to the database
-     * @return
      */
     public void addWindow(Window window) {
         em.persist(window);
@@ -83,7 +82,8 @@ public class CalendarManager implements Serializable {
      * @param cal the <code>Calendar</code> to be removed. This entity needs to be attached
      */
     public void remove(Calendar cal) {
-        em.remove(cal);
+        // Checks if the entity is managed by EntityManager#contains() and if not, then make it managed by EntityManager#merge() //Johan
+        em.remove(em.contains(cal) ? cal : em.merge(cal));
     }
 
     /**
