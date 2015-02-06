@@ -70,7 +70,6 @@ public class ViewWindowBean implements Serializable {
         int day = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("day"));
         setDate(day);
         String type = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("type");
-        System.out.println("open calender: " + calName +" window: " + date + " type: " + type);
 
         if(type.equals(Window.ContentType.TEXT.toString())) {
             try {

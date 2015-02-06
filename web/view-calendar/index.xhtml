@@ -69,7 +69,7 @@
                                         <h:panelGroup id="c" layout="block" styleClass="content_popup">
                                             <h:outputText value="#{win.day}"  styleClass="day_text"/>
 
-                                            <p:media value="http://cdn.screenrant.com/wp-content/uploads/star-wars-episode-7-start-date.jpg" player="flash"  rendered="#{win.type == 'Picture' || win.type == 'Audio' || win.type == 'Video'}">
+                                            <p:media value="#{dataService.streamedContent}" player="flash"  rendered="#{win.type == 'Picture' || win.type == 'Audio' || win.type == 'Video'}">
                                                 <f:param name="day" value="#{win.day}"/>
                                                 <f:param name="cal" value="#{viewWindowBean.id}"/>
                                             </p:media>
