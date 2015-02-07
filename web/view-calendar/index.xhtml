@@ -47,19 +47,18 @@
                             <h:panelGroup layout="block" class="window_panel">
                                 <p:lightBox id="lb">
                                     <p:commandLink styleClass="window_cmdLink">
-
-                                        <div class="flip-container">
-                                            <div class="flipper">
-                                                <div class="window_cover" onclick="this.classList.toggle('flipped')">
-                                                    <p:graphicImage class="window"  name="/default/1_0/images/#{win.type}_icon.png" value="#{viewWindowBean.content}">
-                                                    </p:graphicImage>
-                                                </div>
-                                                <div class="back">
-                                                    <p:graphicImage class="window" id="imagewindow"  name="/default/1_0/images/#{win.type}_icon.png" value="#{viewWindowBean.content}">
-                                                        <h:outputText value="#{win.day}" styleClass="window_date"/>
-                                                    </p:graphicImage>
-                                                </div>
-                                            </div>
+                                        <div class="back">
+                                            <p:graphicImage class="window" id="imagewindow"
+                                                            name="/default/1_0/images/#{win.type}_icon.png"
+                                                            value="#{viewWindowBean.content}">
+                                                <h:outputText value="#{win.day}" styleClass="window_date"/>
+                                            </p:graphicImage>
+                                        </div>
+                                        <div class="window_cover" onclick="this.classList.toggle('flipped')">
+                                            <p:graphicImage class="window"
+                                                            name="/default/1_0/images/#{win.type}_icon.png"
+                                                            value="#{viewWindowBean.content}">
+                                            </p:graphicImage>
                                         </div>
 
                                         <f:ajax event="click" update="c" render="c"/>
@@ -67,19 +66,22 @@
 
                                     <f:facet name="inline">
                                         <h:panelGroup id="c" layout="block" styleClass="content_popup">
-                                            <h:outputText value="#{win.day}"  styleClass="day_text"/>
+                                            <h:outputText value="#{win.day}" styleClass="day_text"/>
 
-                                            <p:media value="#{dataService.streamedContent}" player="flash"  rendered="#{win.type == 'Picture' || win.type == 'Audio' || win.type == 'Video'}">
+                                            <p:media value="#{dataService.streamedContent}" styleClass="content_centered" player="flash"
+                                                     rendered="#{win.type == 'Picture' || win.type == 'Audio' || win.type == 'Video'}">
                                                 <f:param name="day" value="#{win.day}"/>
                                                 <f:param name="cal" value="#{viewWindowBean.id}"/>
                                             </p:media>
 
-                                            <h:outputText value="Text: #{dataService.textContent}" rendered="#{win.type == 'Text'}" >
+                                            <h:outputText value="Text: #{dataService.textContent}"
+                                                          styleClass="content_centered" rendered="#{win.type == 'Text'}">
                                                 <f:param name="day" value="#{win.day}"/>
                                                 <f:param name="cal" value="#{viewWindowBean.id}"/>
                                             </h:outputText>
 
-                                            <h:outputLink value="#{dataService.textContent}" rendered="#{win.type == 'URL'}">
+                                            <h:outputLink value="#{dataService.textContent}"
+                                                          styleClass="content_centered" rendered="#{win.type == 'URL'}">
                                                 <h:outputText value="URL: #{dataService.textContent}">
                                                     <f:param name="day" value="#{win.day}"/>
                                                     <f:param name="cal" value="#{viewWindowBean.id}"/>
