@@ -51,14 +51,11 @@
                                             <p:graphicImage class="window" id="imagewindow"
                                                             name="/default/1_0/images/#{win.type}_icon.png"
                                                             value="#{viewWindowBean.content}">
-                                                <h:outputText value="#{win.day}" styleClass="window_date"/>
+                                                <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                             </p:graphicImage>
                                         </div>
                                         <div class="window_cover" onclick="this.classList.toggle('flipped')">
-                                            <p:graphicImage class="window"
-                                                            name="/default/1_0/images/#{win.type}_icon.png"
-                                                            value="#{viewWindowBean.content}">
-                                            </p:graphicImage>
+                                                <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
                                         </div>
 
                                         <f:ajax event="click" update="c" render="c"/>
