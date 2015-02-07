@@ -1,7 +1,9 @@
 package se.lnu.xmascal.inprogress;
 
 import se.lnu.xmascal.ejb.AdminManager;
+import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Admin;
+import se.lnu.xmascal.model.Calendar;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.security.DeclareRoles;
@@ -17,7 +19,8 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * This class is a ViewScoped Managed Bean for the Admin class.
+ * This class is a SessionScoped Managed Bean for the Admin class.
+ * @author Johan Widén
  */
 @DeclareRoles("XmasCalAdmin")
 @Named("admin")
@@ -28,6 +31,10 @@ public class AdminBean implements Serializable {
     @EJB
     private AdminManager adminManager;
     private Admin admin;
+
+    @EJB
+    private CalendarManager calendarManager;
+    Calendar calendar;
 
     public String getUsername() {
         return admin.getUsername();
@@ -72,8 +79,6 @@ public class AdminBean implements Serializable {
 
     /**
      * Logs out the admin.
-     *
-     * @author Johan Widén, Jerry Strand
      */
     public void logout() {
         ExternalContext ctx = FacesContext.getCurrentInstance().getExternalContext();
@@ -89,4 +94,12 @@ public class AdminBean implements Serializable {
 
     }
 
+    /**
+     * Delete the calendar passed by the RequestParameter 'cal'.
+     */
+    public void removeCalendar() {
+        int cal = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal"));
+        calendar = calendarManager.getCalendar(cal);
+        calendarManager.remove(calendar);
+    }
 }

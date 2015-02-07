@@ -16,10 +16,6 @@
     </ui:insert>
 
     <section>
-
-        <h:outputLink value="admin/">Admin login</h:outputLink>,
-        <h:outputLink value="admin/add-calendar/">Add calendar</h:outputLink>,
-
         <ui:repeat value="#{thumbnails.calendarIds}" var="id">
             <h:panelGroup layout="block" class="thumbnail_container">
                 <h:link outcome="/view-calendar/index.xhtml">
@@ -39,9 +35,7 @@
                 </h:panelGroup>
             </h:panelGroup>
         </ui:repeat>
-
-        <br class="clear" />;
-
+        <br class="clear" />
     </section>
 
     <ui:insert name="footer">
