@@ -188,7 +188,7 @@ h2#date2 {
 }
 
 .window_date_closed {
-    position: relative;
+    position: absolute;
     bottom: 0;
     top: 5px;
     left: 0;
@@ -344,6 +344,8 @@ h2#date2 {
     float: left;
     width: 75px;
     height: 75px;
+    background-color: maroon;
+    border: dashed 1px floralwhite;
     margin-right: 0;
     margin-left: 54px;
     margin-top: 40px;
@@ -375,12 +377,6 @@ h2#date2 {
 
     margin: auto;
 }
-
-/*.window_content {
-    position: relative;
-    margin: 0 auto;
-    z-index: 2;
-}*/
 
 .window_cmdLink:hover{
     text-decoration: none;
@@ -428,17 +424,17 @@ h2#date2 {
     animation-iteration-count: 1;
 }
 
-.window_cover, .back, .window_closed{
+.window_cover, .back{
     width:75px;
     height:75px;
-    background-color: maroon;
-    border: dashed 1px floralwhite;
     top:0;
     left:0;
 
 }
 
 .window_cover {
+    background-color: maroon;
+    border: dashed 1px floralwhite;
     position:absolute;
     z-index:100;
 }

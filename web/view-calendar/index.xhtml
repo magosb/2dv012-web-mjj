@@ -43,19 +43,19 @@
                         <f:param name="cal" value="#{viewWindowBean.id}"/>
                     </p:graphicImage>
 
-                    <h:panelGroup layout="block" class="window_content">
+                    <h:panelGroup layout="block">
                         <ui:repeat value="#{viewWindowBean.windows}" var="win">
 
                             <h:panelGroup layout="block" class="window_panel">
-                                <p:lightBox id="lb">
+                                <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
+                                <p:lightBox id="lb" rendered="#{win.day le calendarBean.currentDay}">
 
-                                    <p:commandLink styleClass="window_cmdLink" rendered="#{win.day le calendarBean.currentDay}">
+                                    <p:commandLink styleClass="window_cmdLink">
 
                                         <div class="back">
                                             <p:graphicImage class="window" id="imagewindow"
                                                             name="/default/1_0/images/#{win.type}_icon.png"
                                                             value="#{viewWindowBean.content}">
-                                                <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                             </p:graphicImage>
                                         </div>
 
@@ -65,12 +65,6 @@
                                         </div>
 
                                         <f:ajax event="click" update="c" render="c"/>
-                                    </p:commandLink>
-
-                                    <p:commandLink rendered="#{win.day gt calendarBean.currentDay}">
-                                        <div class="window_closed">
-                                            <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
-                                        </div>
                                     </p:commandLink>
 
                                     <f:facet name="inline">
