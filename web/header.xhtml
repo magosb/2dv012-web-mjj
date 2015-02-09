@@ -10,7 +10,7 @@
     <h:link outcome="home">
         <header>
             <div id="date_wrapper">
-                <p:calendar id="inline" value="#{calendarBean.currentDate}" mindate="12/01/15" maxdate="12/24/15"
+                <p:calendar id="inline" pattern="EEE, dd MMM, yyyy"  value="#{calendarBean.currentDateAsDate}"
                             mode="popup" showOn="button" readonly="true" effect="slideDown"/>
             </div>
         </header>

@@ -40,7 +40,7 @@ html {
 body {
     font: 1.4rem Courier New, Courier, Monospaced;
     text-align: center;
-    width: 95%;
+    width: 90%;
     margin: 0 auto; /* center */
     padding: 0;
     border-radius: 15px;
@@ -127,7 +127,7 @@ a:visited {
 
 a:hover {
     color: #c60513;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 a:active {
@@ -428,24 +428,18 @@ h2#date2 {
     animation-iteration-count: 1;
 }
 
-.window_cover, .back{
+.window_cover, .back, .window_closed{
     width:75px;
     height:75px;
-}
-
-.back {
     background-color: maroon;
     border: dashed 1px floralwhite;
     top:0;
     left:0;
+
 }
 
 .window_cover {
     position:absolute;
-    background-color: maroon;
-    border: dashed 1px floralwhite;
-    top:0;
-    left:0;
     z-index:100;
 }
 
