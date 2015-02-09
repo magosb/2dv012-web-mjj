@@ -26,7 +26,7 @@ del {
 }
 
 html {
-    background: url(#{resource[ 'default:images/background5.jpg' ]}) no-repeat center center fixed;
+    background: url(#{resource[ 'default:images/background6.jpg' ]}) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -38,36 +38,36 @@ html {
 }
 
 body {
-    background: rgba(255, 255, 255, 0.54);
     font: 1.4rem Courier New, Courier, Monospaced;
     text-align: center;
-    width: 90%;
+    width: 95%;
     margin: 0 auto; /* center */
     padding: 0;
     border-radius: 15px;
 }
 
 header {
-    background: url(#{resource[ 'default:images/banner.png' ]}) no-repeat center;
-    height: 255px;
+    background: url(#{resource[ 'default:images/header6.png' ]}) bottom center no-repeat;
+    height: 240px;
     width: 100%;
-    margin-top: 0;
-    margin: auto;
+    margin: 0;
 }
 
 footer {
+    background-color: #ffffff;
     position: relative;
     clear: both;
-    margin: auto;
-    padding: 10px;
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
     width: 100%;
     text-align: center !important;
 }
 
 section {
-    margin: auto;
-    margin-bottom: 0;
-    margin-top: 0;
+    padding-top: 2px;
+    background-color: #ffffff;
+    margin: 0;
     /*clear: both;*/
     width: 100%;
     height: auto;
@@ -207,9 +207,8 @@ h2#date2 {
 #date_wrapper {
     position: absolute;
     left: 0;
-    top: 100px;
     right: 0;
-    bottom: 0;
+    top: 170px;
     height: 100px;
 }
 
@@ -444,6 +443,7 @@ h2#date2 {
 .window_cover {
     position:absolute;
     background-color: maroon;
+    border: dashed 1px floralwhite;
     top:0;
     left:0;
     z-index:100;

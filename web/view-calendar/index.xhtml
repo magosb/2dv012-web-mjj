@@ -54,12 +54,13 @@
                                                 <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                             </p:graphicImage>
                                         </div>
-                                        <div class="window_cover" onclick="this.classList.toggle('flipped')">
-                                                <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
-                                        </div>
 
                                         <f:ajax event="click" update="c" render="c"/>
                                     </p:commandLink>
+
+                                    <div class="window_cover" onclick="this.classList.toggle('flipped')">
+                                        <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
+                                    </div>
 
                                     <f:facet name="inline">
                                         <h:panelGroup id="c" layout="block" styleClass="content_popup">
