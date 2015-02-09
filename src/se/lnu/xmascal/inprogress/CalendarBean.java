@@ -10,8 +10,11 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * This class is a ViewScoped Managed Bean for the Calendar class.
@@ -204,6 +207,37 @@ public class CalendarBean implements Serializable {
         currentDate.set(java.util.Calendar.MONTH, 11);
         currentDate.set(java.util.Calendar.DAY_OF_MONTH, CURRENT_DATE);
         return currentDate.get(java.util.Calendar.DATE);
+    }
+
+    /**
+     * This method returns the current date. Notice this methods is also used to manuplitate which current date it
+     * currently is.
+     *
+     * @author Magdalena
+     * @return Date with the current date.
+     */
+    public Date getCurrentDateAsDate() {
+
+        //Generate a date for Jan. 9, 2013, 10:11:12 AM
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(2015, java.util.Calendar.DECEMBER, 4); //Year, month and day of month
+        Date date = cal.getTime();
+
+        return date;
+    }
+
+    /**
+     * This method returns the current day. Notice this methods is also used to manuplitate which current day it
+     * currently is.
+     *
+     * @author Magdalena Osbakk
+     * @return int with the current day.
+     */
+    public int getCurrentDay() {
+        java.util.Calendar calendar = java.util.Calendar.getInstance(TimeZone.getDefault());
+        int day = calendar.get(java.util.Calendar.DATE);
+
+        return 4;
     }
 
 }
