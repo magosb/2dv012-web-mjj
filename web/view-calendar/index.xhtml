@@ -63,10 +63,10 @@
                                             <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
                                         </div>
 
-                                        <f:ajax event="click" update="c" render="c"/>
+                                        <f:ajax event="click" update="c" render="c" execute="#{viewWindowBean.setIsOpened()}"/>
                                     </p:commandLink>
 
-                                    <!-- For cookies: doesnt work
+
 
                                    <p:commandLink styleClass="window_cmdLink" rendered="#{viewWindowBean.isOpened} == true">
 
@@ -78,7 +78,7 @@
                                         </div>
 
                                         <f:ajax event="click" update="c" render="c"/>
-                                    </p:commandLink>-->
+                                    </p:commandLink>
 
                                     <f:facet name="inline">
                                         <h:panelGroup id="c" layout="block" styleClass="content_popup">

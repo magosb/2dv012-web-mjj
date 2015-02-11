@@ -25,6 +25,7 @@ public class CookieViewBean implements Serializable {
     private boolean remember = false;
     private boolean authorized = false;
     private Calendar calendar = null;
+    private boolean[] openedWindows = new boolean[24];
 
     @Inject
     CookieManager cookieManager;
@@ -46,7 +47,7 @@ public class CookieViewBean implements Serializable {
             authorized = true;
         } else {
             CalendarCookie cookie = cookieManager.getCalendarCookie(calendar.getNumericId());
-
+            openedWindows = cookie.getWindows();
             // Cookie must exist and have a passphrase matching that of the calendar for the client to be authorized
             authorized = (cookie != null && cookie.getPassphrase().equals(calendar.getPassPhrase()));
         }
@@ -120,6 +121,22 @@ public class CookieViewBean implements Serializable {
         } else {
             authorized = false;
         }
+    }
+
+    /*for cookies doesnt work*/
+    public boolean getIsOpened(int windowNr) {
+         /*save that the window is opened in cookie*/
+        CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
+        boolean[] windows = calendarCookie.getWindows();
+        return windows[windowNr];
+    }
+
+    public void setIsOpened(int windowNr) {
+        /*save that the window is opened in cookie*/
+        CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
+        boolean[] windows = calendarCookie.getWindows();
+        windows[windowNr] = true;
+        calendarCookie.setWindows(windows);
     }
 
 }
