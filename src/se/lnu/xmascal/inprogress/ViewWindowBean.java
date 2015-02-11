@@ -2,6 +2,7 @@ package se.lnu.xmascal.inprogress;
 
 import org.primefaces.model.ByteArrayContent;
 import org.primefaces.model.StreamedContent;
+import se.lnu.xmascal.CalendarCookie;
 import se.lnu.xmascal.DataService;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
@@ -135,4 +136,23 @@ public class ViewWindowBean implements Serializable {
     public void setDate(int date) {
         this.date = date;
     }
+
+
+    /*for cookies doesnt work*/
+    /*public boolean getIsOpened() {
+         /*save that the window is opened in cookie*/
+        /*CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
+        boolean[] windows = calendarCookie.getWindows();
+        isOpened = windows[date];
+        return windows[date];
+    }
+
+    public void setIsOpened() {
+        /*save that the window is opened in cookie*/
+       /* CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
+        boolean[] windows = calendarCookie.getWindows();
+        windows[date] = true;
+        isOpened = true;
+        calendarCookie.setWindows(windows);
+    }*/
 }

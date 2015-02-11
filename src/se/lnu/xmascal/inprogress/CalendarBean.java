@@ -237,7 +237,8 @@ public class CalendarBean implements Serializable {
         java.util.Calendar calendar = java.util.Calendar.getInstance(TimeZone.getDefault());
         int day = calendar.get(java.util.Calendar.DATE);
 
-        return 4;
+        return 2;
     }
+
 
 }
