@@ -50,10 +50,6 @@ public class CookieViewBean implements Serializable {
 
             if(cookie != null) {
                 openedWindows = cookie.getWindows();
-            } else {
-                for(boolean b: openedWindows) {
-                    b = false;
-                }
             }
             // Cookie must exist and have a passphrase matching that of the calendar for the client to be authorized
             authorized = (cookie != null && cookie.getPassphrase().equals(calendar.getPassPhrase()));
