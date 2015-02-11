@@ -27,7 +27,7 @@
             </h:form>
         </div>
         <h:form id="content">
-            <h:panelGroup layout="block">
+            <h:panelGroup layout="block" styleClass="add_button_container">
                 <h:commandButton action="add" styleClass="add_button"/>
             </h:panelGroup>
             <ui:repeat value="#{thumbnails.calendarIds}" var="id">
@@ -61,6 +61,7 @@
                 </h:panelGroup>
             </ui:repeat>
         </h:form>
+        <br class="clear" />
     </section>
     <ui:insert name="footer">
         <ui:include src="../footer.xhtml"/>

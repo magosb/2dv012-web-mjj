@@ -15,26 +15,33 @@
 
     <section class="panel">
         <!-- enctype="multipart/form-data" -->
-        <h:form enctype="multipart/form-data"
+        <h:form id= "form" enctype="multipart/form-data"
                 prependId="false"> <!-- Multipart is required for the fileUpload, but will it mess the rest up? Check StackOverflow post about FileUpload in wizard -->
 
             <p:panel header="Calendar details">
                 <h:outputLabel for="calendarName" value="Name:"/>
-                <h:inputText id="calendarName" value="#{newCalendar.name}" required="true"/>
+                <h:inputText id="calendarName" value="#{newCalendar.name}" required="true">
+                    <f:validateLength minimum="3" />
+                    <f:ajax process="@this" update="@form"/>
+                        </h:inputText>
                 <h:message for="calendarName" errorClass="errorMessage" showDetail="false" showSummary="true"/>
+
                 <br/>
 
                 <!-- public/private -->
                 <h:selectOneRadio id="isPublic" value="#{newCalendar.public}" required="true">
                     <f:selectItem itemValue="#{true}" itemLabel="Public"/>
                     <f:selectItem itemValue="#{false}" itemLabel="Private"/>
-                    <f:ajax event="valueChange" execute="@this" render="passPhrase"/>
+                    <f:ajax event="valueChange" execute="@this" render="passPhrase" process="@this" update="@form"/>
                 </h:selectOneRadio>
                 <h:message for="isPublic" errorClass="errorMessage" showDetail="false" showSummary="true"/>
                 <br/>
                 <h:outputLabel for="passPhrase"
                                value="Passphrase"/> <!-- TODO: Should be a password/secret field -->
-                <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}" disabled="#{newCalendar.public}" required="true"/>
+                <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}" disabled="#{newCalendar.public == true}" required="true">
+                    <f:validateLength minimum="2" />
+                    <f:ajax process="@this" update="@form"/>
+                        </h:inputText>
                 <h:message for="passPhrase" errorClass="errorMessage" showDetail="false" showSummary="true"/>
 <!-- TODO: Need to specify minimum length for passphrase -->
                 <!-- background -->
