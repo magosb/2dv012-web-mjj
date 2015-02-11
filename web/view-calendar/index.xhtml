@@ -50,7 +50,7 @@
                                 <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                 <p:lightBox id="lb" rendered="#{win.day le calendarBean.currentDay}">
 
-                                    <p:commandLink styleClass="window_cmdLink"  rendered="#{cookieViewBean.getIsOpened(win.day)} == false">
+                                    <p:commandLink styleClass="window_cmdLink"  rendered="#{!cookieViewBean.getIsOpened(win.day)}">
 
                                         <div class="back">
                                             <p:graphicImage class="window" id="imagewindow"
@@ -70,7 +70,7 @@
 
 
 
-                                   <p:commandLink styleClass="window_cmdLink" rendered="#{cookieViewBean.getIsOpened(win.day)} == true">
+                                   <p:commandLink styleClass="window_cmdLink" rendered="#{cookieViewBean.getIsOpened(win.day)}">
 
                                         <div class="back">
                                             <p:graphicImage class="window" id="imagewindowopen"
