@@ -20,7 +20,7 @@
 
             <p:panel header="Calendar details">
                 <h:outputLabel for="calendarName" value="Name:"/>
-                <h:inputText id="calendarName" value="#{newCalendar.name}" required="true">
+                <h:inputText id="calendarName" value="#{newCalendar.name}" required="true" >
                     <f:validateLength minimum="3" />
                     <f:ajax process="@this" update="@form"/>
                         </h:inputText>

@@ -67,6 +67,20 @@
                                         <f:ajax event="click" update="c" render="c"/>
                                     </p:commandLink>
 
+                                    <!-- For cookies: doesnt work
+
+                                   <p:commandLink styleClass="window_cmdLink" rendered="#{viewWindowBean.isOpened} == true">
+
+                                        <div class="back">
+                                            <p:graphicImage class="window" id="imagewindowopen"
+                                                            name="/default/1_0/images/#{win.type}_icon.png"
+                                                            value="#{viewWindowBean.content}">
+                                            </p:graphicImage>
+                                        </div>
+
+                                        <f:ajax event="click" update="c" render="c"/>
+                                    </p:commandLink>-->
+
                                     <f:facet name="inline">
                                         <h:panelGroup id="c" layout="block" styleClass="content_popup">
                                             <h:outputText value="#{win.day}" styleClass="day_text"/>

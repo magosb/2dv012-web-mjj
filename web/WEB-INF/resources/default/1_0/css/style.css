@@ -317,7 +317,7 @@ h2#date2 {
 
 .add_button_container:hover {
     background: url(#{resource[ 'default:images/add_button.png' ]}) no-repeat;
-    background-size: coverv;
+    background-size: cover;
     transform: scale(1.111, 1.111);
     -webkit-transform: scale(1.111, 1.111);
     -moz-transform: scale(1.111, 1.111);
