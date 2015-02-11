@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 
 <h:form>
-    <h:dataTable value="#{thumbnails.calendarNames}" var="calendarName"
+    <h:dataTable value="#{thumbnails.calendarIds}" var="calendarName"
                  styleClass="characterTable"
                  headerClass="characterTableHeader"
                  rowClasses="characterTableOddRow,characterTableEvenRow" border="1" cellpadding="5">
@@ -28,10 +28,12 @@
                 <f:param name="day" value="1"/>
             </p:graphicImage>
         </h:column>
+        <ui:remove>
         <h:column>
             <f:facet name="header">Window 1 text</f:facet>
             <h:outputText value="#{dataService.getTextContent(calendarName, 1).substring(0, 10)}"/>
         </h:column>
+        </ui:remove>
         <h:column>
             <f:facet name="header">Background</f:facet>
             <p:graphicImage value="#{dataService.calendarBackground}" alt="#{calendarName} background"  width="200">
