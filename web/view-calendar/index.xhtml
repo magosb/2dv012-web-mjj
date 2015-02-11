@@ -62,9 +62,6 @@
                                         <div class="window_cover" onclick="this.classList.toggle('flipped')">
                                             <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
                                         </div>
-
-                                        <f:param name="windowNr" value="#{win.day}"></f:param>
-
                                         <f:ajax event="click" update="c" render="c" execute="#{cookieViewBean.setIsOpened(win.day)}"/>
                                     </p:commandLink>
 
@@ -79,7 +76,11 @@
                                             </p:graphicImage>
                                         </div>
 
-                                       <f:param name="windowNr" value="#{win.day}"></f:param>
+                                       <div class="window_cover_opened">
+                                           <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
+                                       </div>
+
+                                        <f:ajax event="click" update="c" render="c" execute="#{cookieViewBean.setIsOpened(win.day)}"/>
 
                                         <f:ajax event="click" update="c" render="c"/>
                                     </p:commandLink>
