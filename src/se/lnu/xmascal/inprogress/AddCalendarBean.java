@@ -159,6 +159,7 @@ public class AddCalendarBean implements Serializable {
      */
     public String save() {
         if (hasNullErrors()) {
+            System.out.println("errors");
             return null;
         }
         if (calendarManager.exists(name)) {

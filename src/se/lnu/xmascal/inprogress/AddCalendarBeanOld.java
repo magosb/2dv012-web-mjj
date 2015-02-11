@@ -130,7 +130,8 @@ public class AddCalendarBeanOld implements Serializable {
     }
 
     public void saveWindowContent() {
-        Window window = new Window(name, windowNumber, windowContent, contentType);
+        String calName = calendarManager.getName(Long.parseLong(name));
+        Window window = new Window(calName, windowNumber, windowContent, contentType);
         System.out.println(contentType);
         // TODO: THIS WILL FAIL IF THE WINDOW HAS ALREADY BEEN ADDED!
         calendarManager.addWindow(window);
