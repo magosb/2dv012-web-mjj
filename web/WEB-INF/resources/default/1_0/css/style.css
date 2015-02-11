@@ -455,13 +455,13 @@ h2#date2 {
     height:75px;
     top:0;
     left:0;
+    position:absolute;
 
 }
 
 .window_cover {
     background-color: maroon;
     border: dashed 1px floralwhite;
-    position:absolute;
     z-index:100;
 }
 
