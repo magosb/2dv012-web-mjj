@@ -3,6 +3,7 @@ package se.lnu.xmascal.inprogress;
 import org.primefaces.model.ByteArrayContent;
 import org.primefaces.model.StreamedContent;
 import se.lnu.xmascal.CalendarCookie;
+import se.lnu.xmascal.CookieManager;
 import se.lnu.xmascal.DataService;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
@@ -23,6 +24,7 @@ import java.util.List;
 /**
  * @author Johan Widén
  * @author Jerry Strand
+ * @author magdalenaosbakk
  */
 @Named
 @ViewScoped
@@ -35,10 +37,17 @@ public class ViewWindowBean implements Serializable {
     @Inject
     private DataService dataService;
 
+    @Inject
+    private CookieManager cookieManager;
+
     private StreamedContent mediaContent;
     private int date;
     private String text;
     private String url;
+
+    private boolean isOpened;
+
+
 
     public ViewWindowBean() {
     }
@@ -139,9 +148,9 @@ public class ViewWindowBean implements Serializable {
 
 
     /*for cookies doesnt work*/
-    /*public boolean getIsOpened() {
+    public boolean getIsOpened() {
          /*save that the window is opened in cookie*/
-        /*CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
+        CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
         boolean[] windows = calendarCookie.getWindows();
         isOpened = windows[date];
         return windows[date];
@@ -149,10 +158,10 @@ public class ViewWindowBean implements Serializable {
 
     public void setIsOpened() {
         /*save that the window is opened in cookie*/
-       /* CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
+       CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
         boolean[] windows = calendarCookie.getWindows();
         windows[date] = true;
         isOpened = true;
         calendarCookie.setWindows(windows);
-    }*/
+    }
 }
