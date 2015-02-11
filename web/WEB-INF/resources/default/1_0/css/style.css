@@ -26,50 +26,57 @@ del {
 }
 
 html {
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    font-size: 62.5%;;
-}
-
-body {
-    background: url(#{resource[ 'default:images/background5.jpg' ]}) no-repeat center center fixed;
+    background: url(#{resource[ 'default:images/background6.jpg' ]}) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 62.5%;
+}
+
+body {
     font: 1.4rem Courier New, Courier, Monospaced;
     text-align: center;
-    width: 100%;
+    width: 90%;
     margin: 0 auto; /* center */
     padding: 0;
+    border-radius: 15px;
 }
 
 header {
-    background: url(#{resource[ 'default:images/banner.png' ]}) top no-repeat;
-    height: 255px;
-    width: 1000px;
-    margin: auto;
+    background: url(#{resource[ 'default:images/header6.png' ]}) bottom center no-repeat;
+    height: 240px;
+    width: 100%;
+    margin: 0;
 }
 
 footer {
-    background-color: rgba(255, 255, 255, 0.54);
+    background-color: rgba(255,255,255,0.16);
+    position: relative;
     clear: both;
-    margin: auto;
-    width: 1000px;
-    border-radius: 15px;
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    text-align: center !important;
 }
 
 section {
-    background-color: rgba(255, 255, 255, 0.54);
-    margin: auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 2px;
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.16) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0.16))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0.16) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0.16) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0.16) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0.16) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#29ffffff',GradientType=0 ); /* IE6-9 */
+    margin: 0;
     /*clear: both;*/
-    width: 1000px;
+    width: 100%;
     height: auto;
-
-    border-radius: 15px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -112,10 +119,6 @@ h6 {
 p {
     font-family: Courier New, Courier, Monospaced;
     font-size: 1.4rem;
-    line-height: 1.5rem;
-    text-align: left;
-    margin-left: 30px;
-    margin-right: 30px;
 }
 
 a:link {
@@ -130,7 +133,7 @@ a:visited {
 
 a:hover {
     color: #c60513;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 a:active {
@@ -143,6 +146,18 @@ a:focus {
     outline: 1px dotted;
 }
 
+hr {
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-color: ivory;
+    border-width: 1px;
+    margin: 0 auto;
+    width: 80%;
+}
 
 h2#date1 {
     color: black;
@@ -160,20 +175,37 @@ h2#date2 {
     padding: 0;
 }
 
-.window_date {
+.window_date_opened {
     position: relative;
     bottom: 0;
-    top: 30px;
+    top: 5px;
     left: 0;
     right: 0;
 
     margin: auto;
-    z-index: 1000;
+    z-index: 3;
     font-family: Courier New, Courier, Monospaced;
-    font-size: 3.0rem;
+    font-size: 60px;
     font-weight: bolder;
     color: #ffffff;
-    opacity: 0.5;
+    opacity: 0.75;
+    text-shadow: 2px 2px #ff0000;
+
+}
+
+.window_date_closed {
+    position: absolute;
+    bottom: 0;
+    top: 5px;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+    z-index: 3;
+    font-family: Courier New, Courier, Monospaced;
+    font-size: 60px;
+    font-weight: bolder;
+    color: #ffffff;
     text-shadow: 2px 2px #ff0000;
 
 }
@@ -181,9 +213,8 @@ h2#date2 {
 #date_wrapper {
     position: absolute;
     left: 0;
-    top: 100px;
     right: 0;
-    bottom: 0;
+    top: 170px;
     height: 100px;
 }
 
@@ -232,8 +263,8 @@ h2#date2 {
     background: url(#{resource[ 'default:images/background2.jpg' ]}) repeat;
     float: left;
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     margin: 15px;
     border-radius: 10px;
     box-shadow: 5px 5px 2px #888888;
@@ -246,18 +277,18 @@ h2#date2 {
     left: 0;
     right: 0;
     margin: auto;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border-radius: 10px;
 }
 
 .thumbnail_container:hover {
     background: url(#{resource[ 'default:images/background.jpg' ]}) repeat;
-    transform: scale(1.1, 1.1);
-    -webkit-transform: scale(1.1, 1.1);
-    -moz-transform: scale(1.1, 1.1);
-    -o-transform: scale(1.1, 1.1);
-    -ms-transform: scale(1.1, 1.1);
+    transform: scale(1.111, 1.111);
+    -webkit-transform: scale(1.111, 1.111);
+    -moz-transform: scale(1.111, 1.111);
+    -o-transform: scale(1.111, 1.111);
+    -ms-transform: scale(1.111, 1.111);
     box-shadow: 7px 7px 5px #888888;
 }
 
@@ -267,8 +298,8 @@ h2#date2 {
     border: none !important;
     float: left;
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     margin: 15px !important;
     margin-top: 15px !important;
     border-radius: 10px;
@@ -276,11 +307,11 @@ h2#date2 {
 
 .add_button:hover {
     border: none !important;
-    transform: scale(1.1, 1.1);
-    -webkit-transform: scale(1.1, 1.1);
-    -moz-transform: scale(1.1, 1.1);
-    -o-transform: scale(1.1, 1.1);
-    -ms-transform: scale(1.1, 1.1);
+    transform: scale(1.111, 1.111);
+    -webkit-transform: scale(1.111, 1.111);
+    -moz-transform: scale(1.111, 1.111);
+    -o-transform: scale(1.111, 1.111);
+    -ms-transform: scale(1.111, 1.111);
 }
 
 .edit_button {
@@ -301,7 +332,7 @@ h2#date2 {
     padding-bottom: 20px;
     background-color: rgba(255, 255, 255, 0.75);
     height: auto;
-    width: 1000px;
+    width: 100%;
 }
 
 .window {
@@ -313,18 +344,18 @@ h2#date2 {
     margin: 0;
 }
 
+
 .window_panel {
     position: relative;
     float: left;
     width: 75px;
     height: 75px;
+    background-color: rgba(109,0,25,1);
+    border: dashed 1px floralwhite;
     margin-right: 0;
     margin-left: 54px;
     margin-top: 40px;
     margin-bottom: 45px;
-}
-
-.window_panel:hover {
 }
 
 .window_container {
@@ -351,15 +382,6 @@ h2#date2 {
     right: 0;
 
     margin: auto;
-}
-
-.window_content {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
 }
 
 .window_cmdLink:hover{
@@ -390,18 +412,9 @@ h2#date2 {
         transform-origin: 0% 0%;
     }
     100% {
-        transform: rotateY(100deg);
+        transform: rotateY(100deg) scale(0.85, 1) skew(0deg, 10deg);
         transform-origin: 0% 0%;
     }
-}
-
-.flip-container{
-    /*perspective*/
-    -webkit-perspective:1000;
-    -moz-perspective:1000;
-    -ms-perspective:1000;
-    -o-perspective:1000;
-    perspective:1000;
 }
 
 .flipped {
@@ -415,40 +428,31 @@ h2#date2 {
     animation-delay: 0s;
     animation-fill-mode: both;
     animation-iteration-count: 1;
+
+    background: rgb(109,0,25); /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(109,0,25,1) 0%, rgba(143,2,34,1) 44%, rgba(196,82,84,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(109,0,25,1)), color-stop(44%,rgba(143,2,34,1)), color-stop(100%,rgba(196,82,84,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, rgba(109,0,25,1) 0%,rgba(143,2,34,1) 44%,rgba(196,82,84,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, rgba(109,0,25,1) 0%,rgba(143,2,34,1) 44%,rgba(196,82,84,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, rgba(109,0,25,1) 0%,rgba(143,2,34,1) 44%,rgba(196,82,84,1) 100%); /* IE10+ */
+    background: linear-gradient(to right, rgba(109,0,25,1) 0%,rgba(143,2,34,1) 44%,rgba(196,82,84,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6d0019', endColorstr='#c45254',GradientType=1 ); /* IE6-9 */
+
 }
-.flip-container, .window_cover, .back{
+
+.window_cover, .back{
     width:75px;
     height:75px;
-}
-
-.flipper {
-    /*transition*/
-    -webkit-animation-timing-function: linear; /* Chrome, Safari, Opera */
-    animation-timing-function: linear;
-    -webkit-transition:0.2s;
-    -moz-transition:0.2s;
-    -o-transition:0.2s;
-    transition:0.2s;
-    /*transform-style*/
-    -webkit-transform-style:preserve-3d;
-    -moz-transform-style:preserve-3d;
-    -ms-transform-style:preserve-3d;
-    -o-transform-style:preserve-3d;
-    transform-style:preserve-3d;
-    position:relative;
-}
-
-.back {
     top:0;
     left:0;
+
 }
 
 .window_cover {
+    background-color: maroon;
+    border: dashed 1px floralwhite;
     position:absolute;
-    background-color: #555555;
-    top:0;
-    left:0;
-    z-index:2;
+    z-index:100;
 }
 
 
@@ -462,6 +466,15 @@ h2#date2 {
     transition:0.2s
     -webkit-transform: scale(0.90,1) skew(0deg,5deg);
     transform: scale(0.90,1) skew(0deg,5deg);
+
+    background: rgb(109,0,25); /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(109,0,25,1) 0%, rgba(143,2,34,1) 44%, rgba(196,82,84,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(109,0,25,1)), color-stop(44%,rgba(143,2,34,1)), color-stop(100%,rgba(196,82,84,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, rgba(109,0,25,1) 0%,rgba(143,2,34,1) 44%,rgba(196,82,84,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, rgba(109,0,25,1) 0%,rgba(143,2,34,1) 44%,rgba(196,82,84,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, rgba(109,0,25,1) 0%,rgba(143,2,34,1) 44%,rgba(196,82,84,1) 100%); /* IE10+ */
+    background: linear-gradient(to right, rgba(109,0,25,1) 0%,rgba(143,2,34,1) 44%,rgba(196,82,84,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6d0019', endColorstr='#c45254',GradientType=1 ); /* IE6-9 */
 }
 
 #login {
@@ -489,41 +502,48 @@ h2#date2 {
     color: white;
 }
 
-.content_lightbox {
-    width:500px;
-    height: 400px;
-    background-color: transparent;
-}
-
-.content_popup {
-    background-color: white;
-    height: 400px;
-    width: 500px;
-}
-
-.content_popup_day {
-    width:500px;
-    height: 0px;
-    position: relative;
+/*.content_lightbox {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom: 0;
     margin: auto;
-    margin-top: 0;
-    background: transparent;
+}*/
+
+
+/*Lightbox styling*/
+.content_popup {
+    display:inline-block;
+    position:relative;
+
+}
+
+.content_wrapper {
+
+}
+
+.content_centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .day_text {
     position: absolute;
-    bottom: 20px;
-    margin: auto;
-    margin-bottom: 0px;
-    text-align: center;
+    top: -10rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-family: Courier New, Courier, Monospaced;
     font-size: 10rem;
     font-weight: bolder;
     color: #ffffff;
     text-shadow: 2px 2px 5px black;
-    z-index: 2;
+    z-index: 3;
 }
 
+/*Admin panel styling*/
 .admin_panelpart {
     background-color: rgba(255, 255, 255, 0.00);
     width: 25%;
@@ -537,6 +557,8 @@ h2#date2 {
     -webkit-transition: opacity 1s;
 }
 
+
+/*forms*/
 form {
     background-color: rgba(255, 255, 255, 0.00);
     padding: 2% 2%;
