@@ -5,6 +5,7 @@ import org.primefaces.event.FlowEvent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
 
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -39,8 +40,15 @@ public class AddCalendarBean implements Serializable {
     private boolean isPublic = true;
 
     // TODO: Save Calendar in DB when next button is clicked (needed to get ID used for redirection to edit page).
-    // Set saved to true when save button is clicked. Add @PreDestroy method to this bean to remove calendar from DB if saved is false
-    private boolean saved = false;
+    // Set baseConfigured to true when save button is clicked. Add @PreDestroy method to this bean to remove calendar from DB if baseConfigured is false
+    private boolean baseConfigured = false;
+
+    @PreDestroy
+    private void cleanUp() { // TODO: Actually, this should be done when the save button is clicked?
+        if (!baseConfigured) { // Name, background, thumbnail weren't entered
+            // TODO: Remove from DB, set background/thumbnail to null
+        }
+    }
 
     public String getName() {
         return name;
@@ -87,7 +95,7 @@ public class AddCalendarBean implements Serializable {
     public void handleThumbnailUpload(FileUploadEvent event) {
         try {
             event.getFile().getContents();
-            thumbnail = handleFileUpload(event.getFile().getInputstream());
+            thumbnail = handleFileUpload(event.getFile().getInputstream()); // TODO: Test what happens if Save is clicked while upload is being done
         } catch (IOException e) {
             e.printStackTrace(); // TODO: Send error message to client
         }
@@ -131,19 +139,19 @@ public class AddCalendarBean implements Serializable {
      * message is sent if the calendar was updated successfully.
      */
     // public void update(ValueChangeEvent e) TODO: Might be able to use this instead/in conjunction?
-    public void update() { // TODO: calendar.set... may not work, since the Calendar may be detached. Need to use em.merge
-        if (hasNullErrors()) {
-            return;
-        }
-        if (calendar == null) {
-            calendar = calendarManager.getCalendar(name);
-        }
-        calendar.setName(name);
-        calendar.setBackground(background);
-        calendar.setThumbnail(thumbnail);
-        calendar.setPassPhrase(passPhrase);
-        sendInfoMsg("Calendar has been updated.");
-    }
+    //public void update() { // TODO: calendar.set... may not work, since the Calendar may be detached. Need to use em.merge
+    //    if (hasNullErrors()) {
+    //        return;
+    //    }
+    //    if (calendar == null) {
+    //        calendar = calendarManager.getCalendar(name);
+    //    }
+    //    calendar.setName(name);
+    //    calendar.setBackground(background);
+    //    calendar.setThumbnail(thumbnail);
+    //    calendar.setPassPhrase(passPhrase);
+    //    sendInfoMsg("Calendar has been updated.");
+    //}
 
     /**
      * Adds the managed calendar. Error messages are sent to the current facelet if any attributes are null and if a

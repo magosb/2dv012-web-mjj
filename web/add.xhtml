@@ -15,75 +15,54 @@
 
     <section class="panel">
         <!-- enctype="multipart/form-data" -->
-        <h:form enctype="multipart/form-data" prependId="false"> <!-- Multipart is required for the fileUpload, but will it mess the rest up? Check StackOverflow post about FileUpload in wizard -->
+        <h:form enctype="multipart/form-data"
+                prependId="false"> <!-- Multipart is required for the fileUpload, but will it mess the rest up? Check StackOverflow post about FileUpload in wizard -->
 
-            <ui:remove><p:growl id="growl" sticky="true" showDetail="true"/></ui:remove>
+            <p:panel header="Calendar details">
+                <h:outputLabel for="calendarName" value="Name:"/>
+                <h:inputText id="calendarName" value="#{newCalendar.name}" required="true"/>
+                <h:message for="calendarName" errorClass="errorMessage" showDetail="false" showSummary="true"/>
+                <br/>
 
-            <p:wizard flowListener="#{newCalendar.onFlowProcess}">
-                <p:tab id="details" title="Details">
-                    <p:panel header="Calendar Details">
-                        <h:panelGrid columns="2" columnClasses="label, value">
-                            <h:outputLabel for="calendarName" value="Calendar name:"/>
-                            <h:inputText id="calendarName" value="#{newCalendar.name}" required="true"/>
-                            <h:message for="calendarName" errorClass="errorMessage" showDetail="false" showSummary="true"/>
-                            <br/>
+                <!-- public/private -->
+                <h:selectOneRadio id="isPublic" value="#{newCalendar.public}" required="true">
+                    <f:selectItem itemValue="#{true}" itemLabel="Public"/>
+                    <f:selectItem itemValue="#{false}" itemLabel="Private"/>
+                    <f:ajax event="valueChange" execute="@this" render="passPhrase"/>
+                </h:selectOneRadio>
+                <h:message for="isPublic" errorClass="errorMessage" showDetail="false" showSummary="true"/>
+                <br/>
+                <h:outputLabel for="passPhrase"
+                               value="Passphrase"/> <!-- TODO: Should be a password/secret field -->
+                <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}" disabled="#{newCalendar.public}" required="true"/>
+                <h:message for="passPhrase" errorClass="errorMessage" showDetail="false" showSummary="true"/>
+<!-- TODO: Need to specify minimum length for passphrase -->
+                <!-- background -->
+                <h:outputLabel for="bgUploader" value="Background picture (Max 10MB)"/>
+                <p:fileUpload id="bgUploader"
+                              fileUploadListener="#{newCalendar.handleBackgroundUpload}"
+                              mode="advanced"
+                              update="messages"
+                              sizeLimit="10000000"
+                              fileLimit="1"
+                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
 
-                            <!-- public/private -->
-                            <h:selectOneRadio id="isPublic" value="#{newCalendar.public}"
-                                              valueChangeListener="#{newCalendar.update}"> <!-- TODO: disable/enable passphrase depening on this value. This will submit entire form? Change to separate form? -->
-                                <f:selectItem itemValue="#{true}" itemLabel="Public"/>
-                                <f:selectItem itemValue="#{false}" itemLabel="Private"/>
-                            </h:selectOneRadio>
-                            <br/>
+                <!-- thumbnail -->
+                <h:outputLabel for="thumbnailUploader" value="Thumbnail (Max 1MB)"/>
+                <p:fileUpload id="thumbnailUploader"
+                              fileUploadListener="#{newCalendar.handleThumbnailUpload}"
+                              mode="advanced"
+                              update="messages"
+                              sizeLimit="1000000"
+                              fileLimit="1"
+                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                <p:growl id="messages" showDetail="true" for="bgUploader thumbnailUploader"/>
 
-                            <!-- public/private -->
-                            <h:outputLabel for="passPhrase" value="Pass phrase"/> <!-- TODO: Should be a password/secret field -->
-                            <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}"/>
-                        </h:panelGrid>
-                    </p:panel>
-                </p:tab>
-
-                <p:tab id="background" title="Background">
-                    <p:panel header="Calendar background">
-                        <p:messages/>
-                        <h:panelGrid columns="2" columnClasses="label, value">
-                            <!-- background -->
-                            <h:outputLabel for="bgUploader" value="Background image"/>
-                            <p:fileUpload id="bgUploader"
-                                          fileUploadListener="#{newCalendar.handleBackgroundUpload}"
-                                          mode="advanced"
-                                          update="messages"
-                                          sizeLimit="100000000"
-                                          fileLimit="1"
-                                          allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac)$/"/>
-
-                            <!-- thumbnail -->
-                            <h:outputLabel for="thumbnailUploader" value="Thumbnail"/>
-                            <p:fileUpload id="thumbnailUploader"
-                                          fileUploadListener="#{newCalendar.handleThumbnailUpload}"
-                                          mode="advanced"
-                                          update="messages"
-                                          sizeLimit="100000000"
-                                          fileLimit="1"
-                                          allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac)$/"/>
-                            <p:growl id="messages" showDetail="true"/>
-                        </h:panelGrid>
-                        <p:commandButton value="Save" action="#{newCalendar.save}"
-                                         ajax="no"/> <!--  update="growl" process="@this" -->
-                        <!-- TODO: Try nesting param inside the commandButton, set param to name of calendar on submit -->
-                    </p:panel>
-                </p:tab>
-            </p:wizard>
-        </h:form>
-
-        <h:form id="form" prependId="false">
-            <h:inputText id="name2" value="#{newCalendar.name}"/>
-            <h:commandButton value="Test render"><!--  update="growl" process="@this" -->
-                <f:ajax execute="name2" render="textParent"/>
-            </h:commandButton>
-            <h:panelGroup id="textParent">
-                <h:outputText id="text123" value="Calendar has been saved!" rendered="#{not empty newCalendar.name}"/>
-            </h:panelGroup>
+                <p:commandButton value="Save" action="#{newCalendar.save}" ajax="no"/>
+                <!-- TODO: As long as the method in action above (newCalendar.save) returns an outcome, we're good? -->
+                <!--  update="growl" process="@this" -->
+                <!-- TODO: Try nesting param inside the commandButton, set param to name of calendar on submit -->
+            </p:panel>
         </h:form>
     </section>
 

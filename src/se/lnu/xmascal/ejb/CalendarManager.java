@@ -52,6 +52,7 @@ public class CalendarManager implements Serializable {
         }
         return result;
     }
+
     /**
      * @param cal the <code>Calendar</code> to add to the database
      */
