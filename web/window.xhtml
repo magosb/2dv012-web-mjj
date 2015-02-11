@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 <f:metadata>
-    <f:viewParam name="cal" value="#{newCalendar.name}"/>
+    <f:viewParam name="cal" value="#{newCalendarOld.name}"/>
 </f:metadata>
 <h:head></h:head>
 <h:body>
@@ -15,23 +15,23 @@
         <p:growl id="messages" showDetail="true"/>
 
         <h:outputLabel for="windowNumber" value="Window number:"/>
-        <h:inputText id="windowNumber" value="#{newCalendar.windowNumber}"/>
+        <h:inputText id="windowNumber" value="#{newCalendarOld.windowNumber}"/>
         <!-- public/private -->
-        <h:selectOneRadio id="contentType" value="#{newCalendar.contentType}" layout="pageDirection">
-            <f:selectItems value="#{newCalendar.contentTypeItems}"/>
+        <h:selectOneRadio id="contentType" value="#{newCalendarOld.contentType}" layout="pageDirection">
+            <f:selectItems value="#{newCalendarOld.contentTypeItems}"/>
         </h:selectOneRadio>
         <br/>
         <!-- background -->
         <h:outputLabel for="contentUploader" value="Content"/>
         <p:fileUpload id="contentUploader"
-                      fileUploadListener="#{newCalendar.handleContentUpload}"
+                      fileUploadListener="#{newCalendarOld.handleContentUpload}"
                       mode="advanced"
                       update="messages"
                       sizeLimit="100000000"
                       fileLimit="1"
                       allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac|txt)$/"/> <!-- TODO: Change, depending on chosen content type? -->
 
-        <h:commandButton value="#{msgs.buttonSave}" action="#{newCalendar.saveWindowContent}"/>
+        <h:commandButton value="#{msgs.buttonSave}" action="#{newCalendarOld.saveWindowContent}"/>
     </h:form>
 </h:body>
 </html>
