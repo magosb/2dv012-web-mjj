@@ -47,6 +47,9 @@ public class ViewWindowBean implements Serializable {
 
     private boolean isOpened;
 
+    private CalendarCookie calendarCookie;
+    private boolean[] windows;
+
 
 
     public ViewWindowBean() {
@@ -144,24 +147,5 @@ public class ViewWindowBean implements Serializable {
 
     public void setDate(int date) {
         this.date = date;
-    }
-
-
-    /*for cookies doesnt work*/
-    public boolean getIsOpened() {
-         /*save that the window is opened in cookie*/
-        CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
-        boolean[] windows = calendarCookie.getWindows();
-        isOpened = windows[date];
-        return windows[date];
-    }
-
-    public void setIsOpened() {
-        /*save that the window is opened in cookie*/
-       CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
-        boolean[] windows = calendarCookie.getWindows();
-        windows[date] = true;
-        isOpened = true;
-        calendarCookie.setWindows(windows);
     }
 }

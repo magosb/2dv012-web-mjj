@@ -50,7 +50,7 @@
                                 <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                 <p:lightBox id="lb" rendered="#{win.day le calendarBean.currentDay}">
 
-                                    <p:commandLink styleClass="window_cmdLink">
+                                    <p:commandLink styleClass="window_cmdLink"  rendered="#{cookieViewBean.getIsOpened(win.day)} == false">
 
                                         <div class="back">
                                             <p:graphicImage class="window" id="imagewindow"
@@ -63,12 +63,14 @@
                                             <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
                                         </div>
 
-                                        <f:ajax event="click" update="c" render="c" execute="#{viewWindowBean.setIsOpened()}"/>
+                                        <f:param name="windowNr" value="#{win.day}"></f:param>
+
+                                        <f:ajax event="click" update="c" render="c" execute="#{cookieViewBean.setIsOpened(win.day)}"/>
                                     </p:commandLink>
 
 
 
-                                   <p:commandLink styleClass="window_cmdLink" rendered="#{viewWindowBean.isOpened} == true">
+                                   <p:commandLink styleClass="window_cmdLink" rendered="#{cookieViewBean.getIsOpened(win.day)} == true">
 
                                         <div class="back">
                                             <p:graphicImage class="window" id="imagewindowopen"
@@ -76,6 +78,8 @@
                                                             value="#{viewWindowBean.content}">
                                             </p:graphicImage>
                                         </div>
+
+                                       <f:param name="windowNr" value="#{win.day}"></f:param>
 
                                         <f:ajax event="click" update="c" render="c"/>
                                     </p:commandLink>

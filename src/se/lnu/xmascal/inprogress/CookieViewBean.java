@@ -47,7 +47,14 @@ public class CookieViewBean implements Serializable {
             authorized = true;
         } else {
             CalendarCookie cookie = cookieManager.getCalendarCookie(calendar.getNumericId());
-            openedWindows = cookie.getWindows();
+
+            if(cookie != null) {
+                openedWindows = cookie.getWindows();
+            } else {
+                for(boolean b: openedWindows) {
+                    b = false;
+                }
+            }
             // Cookie must exist and have a passphrase matching that of the calendar for the client to be authorized
             authorized = (cookie != null && cookie.getPassphrase().equals(calendar.getPassPhrase()));
         }
@@ -115,7 +122,7 @@ public class CookieViewBean implements Serializable {
         } else if (calendar.getPassPhrase() == null || calendar.getPassPhrase().equals(passphrase)) {
             authorized = true;
             if (remember) {
-                CalendarCookie cookie = new CalendarCookie(calendar.getNumericId(), passphrase, null);
+                CalendarCookie cookie = new CalendarCookie(calendar.getNumericId(), passphrase, openedWindows);
                 cookieManager.setCalendarCookie(cookie);
             }
         } else {
@@ -127,16 +134,18 @@ public class CookieViewBean implements Serializable {
     public boolean getIsOpened(int windowNr) {
          /*save that the window is opened in cookie*/
         CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
-        boolean[] windows = calendarCookie.getWindows();
-        return windows[windowNr];
+        if(calendarCookie  != null) {
+            boolean[] windows = calendarCookie.getWindows();
+            return windows[windowNr];
+        } else {
+            return false;
+        }
     }
 
     public void setIsOpened(int windowNr) {
         /*save that the window is opened in cookie*/
-        CalendarCookie calendarCookie = cookieManager.getCalendarCookie(calendar.getNumericId());
-        boolean[] windows = calendarCookie.getWindows();
-        windows[windowNr] = true;
-        calendarCookie.setWindows(windows);
+        openedWindows[windowNr] = true;
+        validatePassphrase();
     }
 
 }
