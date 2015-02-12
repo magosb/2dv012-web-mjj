@@ -17,7 +17,10 @@
         <h:form id="form" enctype="multipart/form-data" prependId="false">
 
             <h:messages id="messages"/>
-            <p:panel header="Calendar details">
+            <p:panel id= "panel-details" header="Calendar details">
+
+                <!-- enable focus component -->
+                <p:focus context="panel-details" />
 
                 <!-- name -->
                 <h:outputLabel for="calendarName" value="#{msgs.lCalendarName}"/>
@@ -65,7 +68,10 @@
                               fileLimit="1"
                               allowTypes="/(\.|\/)(gif|jpe?g|png)$/" required="true"/>
 
-                <p:commandButton value="#{msgs.buttonSave}" action="#{newCalendar.save}" ajax="no"/>
+                <p:commandButton value="#{msgs.buttonSave}" action="#{newCalendar.save}">
+                    <f:ajax event="click" render="@form"/>
+
+                </p:commandButton>
                 <!--  update="growl" process="@this" -->
             </p:panel>
         </h:form>
