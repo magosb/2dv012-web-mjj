@@ -3,6 +3,7 @@ package se.lnu.xmascal.inprogress;
 import org.primefaces.event.FileUploadEvent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
+import se.lnu.xmascal.model.Window;
 
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -13,6 +14,8 @@ import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 // <!-- <h:selectOneRadio id="isPublic" value="#{newCalendar.public}" onchange="submit()" valueChangeListener="#{newCalendar.update}"> TODO: This will submit entire form? Change to separate form? -->
@@ -122,7 +125,6 @@ public class AddCalendarBean implements Serializable {
             passPhrase = null; // To make sure passPhrase is null in database
         }
         if (hasNullErrors()) {
-            System.out.println("errors");
             return null;
         }
         if (calendarManager.exists(name)) {
@@ -131,6 +133,13 @@ public class AddCalendarBean implements Serializable {
         }
 
         calendar = new Calendar(name, background, thumbnail, passPhrase);
+        List<Window> windows = new ArrayList<>();
+        byte[] defaultMessage = "No content has been added to this window.".getBytes();
+        for (int i = 0; i < 24; i++) {
+            windows.add(new Window(calendar.getName(), i, defaultMessage, Window.ContentType.TEXT));
+        }
+        calendar.setWindows(windows);
+
         calendarManager.add(calendar);
         sendInfoMsg("Calendar has been added.");
 
