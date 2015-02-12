@@ -77,9 +77,10 @@ public class EditCalendarBean implements Serializable {
     }
 
 
-
+    /**
+     * Saves the window content
+     */
     public void saveWindowContent() {
-        System.out.println(calendar.getName() + "  " + day + "  " + windowContent + "   " + contentType + "  " + text);
         Window window;
         if(contentType.equals(Window.ContentType.PICTURE) || contentType.equals(Window.ContentType.VIDEO) || contentType.equals(Window.ContentType.AUDIO)) {
             window = new Window(calendar.getName(), day, windowContent, contentType);
@@ -97,7 +98,6 @@ public class EditCalendarBean implements Serializable {
             window = new Window(calendar.getName(), day, text.getBytes(), contentType);
         }
         calendarManager.updateWindow(window);
-        //calendar = calendarManager.update(calendar); // TODO: Does it matter if calendar is assigned the returned one? Returned calendar is detached?
     }
 
     public void handleContentUpload(FileUploadEvent event) {
