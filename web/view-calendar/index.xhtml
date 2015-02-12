@@ -46,12 +46,12 @@
                         <ui:repeat value="#{viewCalendarBean.windows}" var="win">
 
                             <h:panelGroup layout="block" class="window_panel">
-                                <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                 <p:lightBox id="lb" rendered="#{win.day le calendarBean.currentDay}">
 
                                     <p:commandLink action="#{cookieViewBean.setIsOpened(win.day)}" styleClass="window_cmdLink" rendered="#{!cookieViewBean.getIsOpened(win.day)}">
                                         <div class="back">
                                             <p:graphicImage class="window" id="imagewindow" name="/default/1_0/images/#{win.type}_icon.png"/>
+                                            <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                         </div>
 
                                         <div class="window_cover" onclick="this.classList.toggle('flipped')">
@@ -63,6 +63,7 @@
                                    <p:commandLink styleClass="window_cmdLink" rendered="#{cookieViewBean.getIsOpened(win.day)}">
                                         <div class="back">
                                             <p:graphicImage class="window" id="imagewindowopen" name="/default/1_0/images/#{win.type}_icon.png"/>
+                                            <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                         </div>
 
                                        <div class="window_cover_opened">
@@ -96,6 +97,7 @@
                                         </h:panelGroup>
                                     </f:facet>
                                 </p:lightBox>
+                                <h:outputText value="#{win.day}" styleClass="window_date_opened" rendered="#{win.day gt calendarBean.currentDay}"/>
                             </h:panelGroup>
                         </ui:repeat>
                     </h:panelGroup>
