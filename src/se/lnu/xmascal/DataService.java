@@ -18,6 +18,7 @@ import java.io.Serializable;
  * This class is responsible for making binary database data available in a number of ways.
  *
  * @author Jerry Strand
+ * @author Johan Widen
  */
 @Named
 @ApplicationScoped
@@ -46,9 +47,6 @@ public class DataService implements Serializable {
 
         // Image is being requested. Return a real StreamedContent with the image bytes.
         else {
-            //String calName = context.getExternalContext().getRequestParameterMap().get("cal");
-            //return new ByteArrayContent(getCalendarThumbnail(calName));
-
             try {
                 long calId = Long.parseLong(context.getExternalContext().getRequestParameterMap().get("cal"));
                 return new ByteArrayContent(getCalendarThumbnail(calId));
@@ -59,17 +57,9 @@ public class DataService implements Serializable {
     }
 
     /**
-     * @param calendarName the name of the <code>Calendar</code> whose thumbnail shall be retrieved
+     * @param calendarId the id of the <code>Calendar</code> whose thumbnail shall be retrieved
      * @return the binary data that represents the thumbnail
      */
-    @Deprecated
-    private byte[] getCalendarThumbnail(String calendarName) {
-        Query query = em.createQuery("SELECT c.thumbnail FROM Calendar c WHERE c.name = :cname");
-        query.setParameter("cname", calendarName);
-        return (byte[]) query.getSingleResult();
-    }
-
-    // TODO: Javadoc
     private byte[] getCalendarThumbnail(long calendarId) {
         Query query = em.createQuery("SELECT c.thumbnail FROM Calendar c WHERE c.numericId = :id");
         query.setParameter("id", calendarId);
@@ -92,9 +82,6 @@ public class DataService implements Serializable {
 
         // Image is being requested. Return a real StreamedContent with the image bytes.
         else {
-            // String calName = context.getExternalContext().getRequestParameterMap().get("cal");
-            // return new ByteArrayContent(getCalendarBackground(calName));
-
             try {
                 long calId = Long.parseLong(context.getExternalContext().getRequestParameterMap().get("cal"));
                 return new ByteArrayContent(getCalendarBackground(calId));
@@ -105,16 +92,9 @@ public class DataService implements Serializable {
     }
 
     /**
-     * @param calendarName the name of the <code>Calendar</code> whose background shall be retrieved
+     * @param calendarId the id of the <code>Calendar</code> whose background shall be retrieved
      * @return the binary data representing the background
      */
-    @Deprecated
-    private byte[] getCalendarBackground(String calendarName) {
-        Query query = em.createQuery("SELECT c.background FROM Calendar c WHERE c.name = :cname");
-        query.setParameter("cname", calendarName);
-        return (byte[]) query.getSingleResult();
-    }
-
     private byte[] getCalendarBackground(long calendarId) {
         Query query = em.createQuery("SELECT c.background FROM Calendar c WHERE c.numericId = :id");
         query.setParameter("id", calendarId);
@@ -135,13 +115,8 @@ public class DataService implements Serializable {
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             return new ByteArrayContent();
         }
-
         // Image is being requested. Return a real StreamedContent with the image bytes.
         else {
-            // String calName = context.getExternalContext().getRequestParameterMap().get("cal");
-            // int winDay = Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("day"));
-            // return new ByteArrayContent(getWindowContent(calName, winDay));
-
             try {
                 Long calId = Long.parseLong(context.getExternalContext().getRequestParameterMap().get("cal"));
                 int winDay = Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("day"));
@@ -159,11 +134,6 @@ public class DataService implements Serializable {
      * When the client browser uses the generated URL to request the content, this method will check for request
      * parameters "cal" and "day" and return the actual content of that <code>Calendar Window</code>.
      */
-    @Deprecated
-    public synchronized String getTextContent(String calName, int winDay) {
-        return new String(getWindowContent(calName, winDay));
-    }
-
     public synchronized String getTextContent(long calId, int winDay) {
         return new String(getWindowContent(calId, winDay));
     }
@@ -180,22 +150,11 @@ public class DataService implements Serializable {
     }
 
     /**
-     * @param calendarName the name of the <code>Calendar</code> whose <code>Window</code> content to retrieve
+     * @param calendarId the id of the <code>Calendar</code> whose <code>Window</code> content to retrieve
      * @param day the day of the <code>Window</code>
      * @return the binary data representing the <code>Window</code> content
      */
-    @Deprecated
-    private synchronized byte[] getWindowContent(String calendarName, int day) {
-        Query query = em.createQuery("SELECT w.content FROM Window w WHERE w.calendarName = :cname AND w.day = :wday");
-        query.setParameter("cname", calendarName).setParameter("wday", day);
-        return (byte[]) query.getSingleResult();
-    }
-
     private synchronized byte[] getWindowContent(long calendarId, int day) {
-        // Query query = em.createQuery("SELECT w.content FROM Window w WHERE w.numericId = :id AND w.day = :wday");
-        // Query query = em.createQuery("SELECT w.content FROM Window w WHERE w.numericId = :id AND w.day = :wday");
-        // query.setParameter("id", calendarId).setParameter("wday", day);
-
         TypedQuery<Calendar> q = em.createQuery("SELECT c FROM Calendar c WHERE c.numericId = :cname", Calendar.class);
         q.setParameter("cname", calendarId).setMaxResults(1);
         Calendar result = null;
@@ -203,8 +162,7 @@ public class DataService implements Serializable {
             result = q.getSingleResult();
         } catch (Exception e) { // TODO: Narrow down
         }
-        return result.getWindows().get(day).getContent();
-        // return (byte[]) query.getSingleResult();
+        return result.getWindows().get(day-1).getContent();
     }
 
 }

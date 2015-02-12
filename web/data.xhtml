@@ -28,12 +28,34 @@
                 <f:param name="day" value="1"/>
             </p:graphicImage>
         </h:column>
-        <ui:remove>
+        <h:column>
+            <f:facet name="header">Window 2 picture</f:facet>
+            <p:graphicImage value="#{dataService.streamedContent}" alt="#{calendarName} day 2 streamed content"  width="200">
+                <f:param name="cal" value="#{calendarName}"/>
+                <f:param name="day" value="2"/>
+            </p:graphicImage>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Window 3 picture</f:facet>
+            <p:graphicImage value="#{dataService.streamedContent}" alt="#{calendarName} day 3 streamed content"  width="200">
+                <f:param name="cal" value="#{calendarName}"/>
+                <f:param name="day" value="3"/>
+            </p:graphicImage>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Window 4 picture</f:facet>
+            <p:graphicImage value="#{dataService.streamedContent}" alt="#{calendarName} day 4 streamed content"  width="200">
+                <f:param name="cal" value="#{calendarName}"/>
+                <f:param name="day" value="4"/>
+            </p:graphicImage>
+        </h:column>
         <h:column>
             <f:facet name="header">Window 1 text</f:facet>
-            <h:outputText value="#{dataService.getTextContent(calendarName, 1).substring(0, 10)}"/>
+            <h:outputText value="#{dataService.textContent}">
+                <f:param name="cal" value="#{calendarName}"/>
+                <f:param name="day" value="1"/>
+            </h:outputText>
         </h:column>
-        </ui:remove>
         <h:column>
             <f:facet name="header">Background</f:facet>
             <p:graphicImage value="#{dataService.calendarBackground}" alt="#{calendarName} background"  width="200">
