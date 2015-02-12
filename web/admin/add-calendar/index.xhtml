@@ -22,59 +22,78 @@
                 <!-- enable focus component -->
                 <p:focus context="panel-details" />
 
-                <!-- name -->
-                <h:outputLabel for="calendarName" value="#{msgs.lCalendarName}"/>
-                <h:inputText id="calendarName" label="#{msgs.lCalendarName}" value="#{newCalendar.name}" required="true">
-                    <f:validateLength minimum="3" maximum="63"/>
-                    <f:ajax process="@this" update="@form"/>
-                </h:inputText>
-                <h:message for="calendarName" errorClass="errorMessage" showDetail="false" showSummary="true"/>
-                <br/>
+                <h:panelGroup styleClass="admin_panelpart">
 
-                <!-- public/private -->
-                <h:selectOneRadio id="isPublic" value="#{newCalendar.public}" required="true">
-                    <f:selectItem itemValue="#{true}" itemLabel="#{msgs.lPublic}"/>
-                    <f:selectItem itemValue="#{false}" itemLabel="#{msgs.lPrivate}"/>
-                    <f:ajax event="valueChange" execute="@this" render="passPhrase" process="@this" update="@form"/>
-                </h:selectOneRadio>
-                <h:message for="isPublic" errorClass="errorMessage" showDetail="false" showSummary="true"/>
-                <br/>
-                <h:outputLabel for="passPhrase" value="#{msgs.lPassphrase}"/>
-                <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}" disabled="#{newCalendar.public == true}"
-                             required="true">
-                    <f:validateLength minimum="5" maximum="31"/>
-                    <f:ajax process="@this" update="@form"/>
-                </h:inputText>
-                <h:message for="passPhrase" errorClass="errorMessage" showDetail="false" showSummary="true"/>
-                <br/>
+                    <!-- name -->
+                    <h:outputLabel for="calendarName" value="#{msgs.lCalendarName}"/>
+                    <br></br>
+                    <h:inputText id="calendarName" label="#{msgs.lCalendarName}" value="#{newCalendar.name}" required="true" styleClass="calendar_input">
+                        <f:validateLength minimum="3" maximum="63"/>
+                        <f:ajax process="@this" update="@form"/>
+                    </h:inputText>
+                    <br></br>
+                    <h:message for="calendarName" errorClass="errorMessage" showDetail="false" showSummary="true"/>
+                    <br/>
 
-                <!-- background -->
-                <h:outputLabel for="bgUploader" value="#{msgs.lBgPicture}"/>
-                <p:fileUpload id="bgUploader"
-                              fileUploadListener="#{newCalendar.handleBackgroundUpload}"
-                              mode="advanced"
-                              update="messages"
-                              sizeLimit="10000000"
-                              fileLimit="1"
-                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/" required="true"/>
+                    <!-- public/private -->
+                    <h:selectOneRadio id="isPublic" value="#{newCalendar.public}" required="true">
+                        <f:selectItem itemValue="#{true}" itemLabel="#{msgs.lPublic}"/>
+                        <f:selectItem itemValue="#{false}" itemLabel="#{msgs.lPrivate}"/>
+                        <f:ajax event="valueChange" execute="@this" render="passPhrase" process="@this" update="@form"/>
+                    </h:selectOneRadio>
 
-                <!-- thumbnail -->
-                <h:outputLabel for="thumbnailUploader" value="#{msgs.lThumbnail}"/>
-                <p:fileUpload id="thumbnailUploader"
-                              fileUploadListener="#{newCalendar.handleThumbnailUpload}"
-                              mode="advanced"
-                              update="messages"
-                              sizeLimit="1000000"
-                              fileLimit="1"
-                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/" required="true"/>
+                    <br/>
+                    <h:message for="isPublic" errorClass="errorMessage" showDetail="false" showSummary="true" styleClass="calendar_input"/>
+                    <h:outputLabel for="passPhrase" value="#{msgs.lPassphrase}"/>
+                    <br></br>
+                    <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}" disabled="#{newCalendar.public == true}"
+                                 required="true">
+                        <f:validateLength minimum="5" maximum="31"/>
+                        <f:ajax process="@this" update="@form"/>
+                    </h:inputText>
+                    <h:message for="passPhrase" errorClass="errorMessage" showDetail="false" showSummary="true"/>
 
-                <p:commandButton value="#{msgs.buttonSave}" action="#{newCalendar.save}">
+                </h:panelGroup>
+
+
+                <h:panelGroup styleClass="admin_panelpart">
+                    <!-- background -->
+                    <h:outputLabel for="bgUploader" value="#{msgs.lBgPicture}"/> <br></br>
+                    <br></br>
+                    <p:fileUpload id="bgUploader"
+                                  fileUploadListener="#{newCalendar.handleBackgroundUpload}"
+                                  mode="advanced"
+                                  update="messages"
+                                  sizeLimit="10000000"
+                                  fileLimit="1"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" required="true"/>
+                    <br></br>
+
+                    <!-- thumbnail -->
+                    <h:outputLabel for="thumbnailUploader" value="#{msgs.lThumbnail}"/> <br></br>
+                    <br></br>
+                    <p:fileUpload id="thumbnailUploader"
+                                  fileUploadListener="#{newCalendar.handleThumbnailUpload}"
+                                  mode="advanced"
+                                  update="messages"
+                                  sizeLimit="1000000"
+                                  fileLimit="1"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" required="true"/>
+
+
+                    <br></br>
+
+                        </h:panelGroup>
+
+                <br></br>
+                <p:commandButton value="#{msgs.buttonSave}" action="#{newCalendar.save}" styleClass="styledButton">
                     <f:ajax event="click" render="@form"/>
-
                 </p:commandButton>
                 <!--  update="growl" process="@this" -->
+                <br class="clear" />
             </p:panel>
         </h:form>
+        <br class="clear" />
     </section>
 
     <ui:insert name="footer">
