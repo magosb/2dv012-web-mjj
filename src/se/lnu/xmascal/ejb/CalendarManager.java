@@ -15,6 +15,7 @@ import java.util.List;
  * A stateless Enterprise JavaBean used for database transactions involving the <code>Admin</code> entity class.
  *
  * @author Jerry Strand
+ * @author Johan Widen
  */
 @Stateless
 public class CalendarManager implements Serializable {
@@ -80,6 +81,15 @@ public class CalendarManager implements Serializable {
      */
     public void addWindow(Window window) {
         em.persist(window);
+    }
+
+    /**
+     * Updates the window.
+     * @author Johan, the rest is Jerry! ;)
+     * @param window the <code>Window</code> to update in the database
+     */
+    public void updateWindow(Window window) {
+        em.merge(window);
     }
 
     /**
