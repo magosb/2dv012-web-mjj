@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * A stateless Enterprise JavaBean used for database transactions involving the <code>Admin</code> entity class.
@@ -79,6 +80,24 @@ public class CalendarManager implements Serializable {
         } catch (Exception e) { // TODO: Narrow down
         }
         return result;
+    }
+
+    public void renameCalendar(long numericId, String newName) throws UnsupportedOperationException {
+        if (exists(newName)) {
+            throw new UnsupportedOperationException("A calendar with the name '" + newName + "' already exists");
+        }
+        TypedQuery<Calendar> q = em.createQuery("SELECT c FROM Calendar c WHERE c.numericId = :id", Calendar.class);
+        q.setParameter("id", numericId).setMaxResults(1);
+
+        try {
+            Calendar result = q.getSingleResult();
+            if (result == null) {
+                throw new UnsupportedOperationException("No calendar with the numeric id " + numericId + "' exists");
+            }
+            result.setName(newName);
+        } catch (Exception e) { // TODO: Narrow down
+            throw new UnsupportedOperationException(e);
+        }
     }
 
     /**
