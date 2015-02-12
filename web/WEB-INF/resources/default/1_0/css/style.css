@@ -614,15 +614,13 @@ h2#date2 {
 /*Admin panel styling*/
 .admin_panelpart {
     background-color: rgba(255, 255, 255, 0.00);
-    width: 25%;
+    width: 45%;
     height: 20%;
     margin-top: 0;
     margin-bottom: 5px;
     margin-left: 5px;
     margin-right: 5px;
     float: left;
-    transition: opacity 1s;
-    -webkit-transition: opacity 1s;
 }
 
 
@@ -676,7 +674,13 @@ input[type="submit"]:hover {
 
 }
 
+form .styledButton {
+    width: 50%;
+}
+
 .errorMessage {
     color: red;
 }
 .clear { clear: both; }
+
+
