@@ -150,10 +150,8 @@ public class CookieViewBean implements Serializable {
      */
     public boolean getIsOpened(int windowNr) {
         if (calendarCookie != null) {
-            System.out.println("getIsOpened: cookie is NOT null");
             return calendarCookie.getWindows()[windowNr - 1]; // Zero indexed array. 0 is day 1, 23 is day 24
         } else {
-            System.out.println("getIsOpened: cookie IS null");
             return false;
         }
     }

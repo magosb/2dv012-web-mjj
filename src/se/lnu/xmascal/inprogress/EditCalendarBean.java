@@ -83,7 +83,17 @@ public class EditCalendarBean implements Serializable {
         Window window;
         if(contentType.equals(Window.ContentType.PICTURE) || contentType.equals(Window.ContentType.VIDEO) || contentType.equals(Window.ContentType.AUDIO)) {
             window = new Window(calendar.getName(), day, windowContent, contentType);
-        } else{
+        } else if(contentType.equals(Window.ContentType.URL)) {
+            String url;
+            if(text.startsWith("www")) {
+                url = "http://" + text;
+            } else if(text.startsWith("http://")) {
+                url = text;
+            } else {
+                url = "http://www." + text;
+            }
+            window = new Window(calendar.getName(), day, url.getBytes(), contentType);
+        } else {
             window = new Window(calendar.getName(), day, text.getBytes(), contentType);
         }
         calendarManager.updateWindow(window);
