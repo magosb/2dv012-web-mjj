@@ -223,8 +223,9 @@ public class EditCalendarBean implements Serializable {
             if(calendarManager.exists(calendar.getName())) {
                 sendErrorMsg("A calendar named '" + calendar.getName() + "' already exists!");
             } else {
-                // TODO CHANGE TO RENAME Method.
+                // TODO UPDATE AS WELL?.
                 calendarManager.renameCalendar(calendar.getNumericId(), calendar.getName());
+                sendInfoMsg("Calendar has been renamed.");
             }
         } else {
             calendarManager.update(calendar);
