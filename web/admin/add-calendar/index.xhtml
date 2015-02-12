@@ -25,8 +25,7 @@
                 <h:panelGroup styleClass="admin_panelpart">
 
                     <!-- name -->
-                    <h:outputLabel for="calendarName" value="#{msgs.lCalendarName}"/>
-                    <br></br>
+                    <h:outputLabel for="calendarName" value="#{msgs.lCalendarName}"/><br></br>
                     <h:inputText id="calendarName" label="#{msgs.lCalendarName}" value="#{newCalendar.name}" required="true" styleClass="calendar_input">
                         <f:validateLength minimum="3" maximum="63"/>
                         <f:ajax process="@this" update="@form"/>
@@ -44,8 +43,7 @@
 
                     <br/>
                     <h:message for="isPublic" errorClass="errorMessage" showDetail="false" showSummary="true" styleClass="calendar_input"/>
-                    <h:outputLabel for="passPhrase" value="#{msgs.lPassphrase}"/>
-                    <br></br>
+                    <h:outputLabel for="passPhrase" value="#{msgs.lPassphrase}"/><br></br>
                     <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}" disabled="#{newCalendar.public == true}"
                                  required="true">
                         <f:validateLength minimum="5" maximum="31"/>
