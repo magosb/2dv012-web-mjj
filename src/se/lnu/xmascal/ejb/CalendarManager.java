@@ -86,27 +86,15 @@ public class CalendarManager implements Serializable {
         if (exists(newName)) {
             throw new UnsupportedOperationException("A calendar with the name '" + newName + "' already exists");
         }
-        TypedQuery<Calendar> q = em.createQuery("SELECT c FROM Calendar c WHERE c.numericId = :id", Calendar.class);
-        q.setParameter("id", numericId).setMaxResults(1);
-
         try {
-            Calendar result = q.getSingleResult();
-            if (result == null) {
-                throw new UnsupportedOperationException("No calendar with the numeric id " + numericId + "' exists");
-            }
-            result.setName(newName);
-        } catch (Exception e) { // TODO: Narrow down
-            throw new UnsupportedOperationException(e);
+            em.createQuery("UPDATE Calendar c SET c.name = :newName WHERE c.numericId = :id")
+                    .setParameter("newName", newName)
+                    .setParameter("id", numericId)
+                    .executeUpdate();
+        } catch (Exception e) {
+            throw new UnsupportedOperationException(
+                    "Unable to rename calendar with numeric id " + numericId + " to '" + newName + "'", e);
         }
-    }
-
-    // TODO: FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIX
-    public void rename2(long id, String newName) {
-        String jpqlUpdate = "UPDATE Calendar c SET c.name = :newName WHERE c.numericId = :id";
-        int updatedEntities = em.createQuery(jpqlUpdate)
-                .setParameter("newName", newName)
-                .setParameter("id", id)
-                .executeUpdate();
     }
 
     /**

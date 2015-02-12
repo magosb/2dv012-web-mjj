@@ -48,12 +48,9 @@
                             <h:panelGroup layout="block" class="window_panel">
                                 <p:lightBox id="lb" rendered="#{win.day le calendarBean.currentDay}">
 
-                                    <p:commandLink action="#{cookieViewBean.setIsOpened(win.day)}"
-                                                   styleClass="window_cmdLink"
-                                                   rendered="#{!cookieViewBean.getIsOpened(win.day)}">
+                                    <p:commandLink action="#{cookieViewBean.setIsOpened(win.day)}" styleClass="window_cmdLink" rendered="#{!cookieViewBean.getIsOpened(win.day)}">
                                         <div class="back">
-                                            <p:graphicImage class="window" id="imagewindow"
-                                                            name="/default/1_0/images/#{win.type}_icon.png"/>
+                                            <p:graphicImage class="window" id="imagewindow" name="/default/1_0/images/#{win.type}_icon.png"/>
                                             <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                         </div>
 
@@ -63,58 +60,50 @@
                                         <f:ajax event="click"/>
                                     </p:commandLink>
 
-                                    <p:commandLink styleClass="window_cmdLink"
-                                                   rendered="#{cookieViewBean.getIsOpened(win.day)}">
+                                   <p:commandLink styleClass="window_cmdLink" rendered="#{cookieViewBean.getIsOpened(win.day)}">
                                         <div class="back">
-                                            <p:graphicImage class="window" id="imagewindowopen"
-                                                            name="/default/1_0/images/#{win.type}_icon.png"/>
+                                            <p:graphicImage class="window" id="imagewindowopen" name="/default/1_0/images/#{win.type}_icon.png"/>
                                             <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                         </div>
 
-                                        <div class="window_cover_opened">
-                                            <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
-                                        </div>
-                                    </p:commandLink>
+                                       <div class="window_cover_opened">
+                                           <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
+                                       </div>
+                                   </p:commandLink>
 
                                     <f:facet name="inline">
                                         <h:panelGroup layout="block" styleClass="content_popup">
                                             <h:outputText value="#{win.day}" styleClass="day_text"/>
 
-                                            <p:media value="#{dataService.streamedContent}"
-                                                     styleClass="content_centered" player="flash"
+                                            <p:media value="#{dataService.streamedContent}" styleClass="content_centered" player="flash"
                                                      rendered="#{win.type == 'Picture' || win.type == 'Audio' || win.type == 'Video'}">
                                                 <f:param name="day" value="#{win.day}"/>
                                                 <f:param name="cal" value="#{viewCalendarBean.id}"/>
                                             </p:media>
 
-                                            <h:outputText value="Text: #{dataService.textContent}"
-                                                              styleClass="content_text"
-                                                              rendered="#{win.type == 'Text'}">
+                                            <h:outputText value="Text: #{dataService.textContent}" styleClass="content_centered" rendered="#{win.type == 'Text'}">
+                                                <f:param name="day" value="#{win.day}"/>
+                                                <f:param name="cal" value="#{viewCalendarBean.id}"/>
+                                            </h:outputText>
+
+                                            <h:outputLink value="#{dataService.textContent}" styleClass="content_centered" rendered="#{win.type == 'URL'}">
+                                                <h:outputText value="URL: #{dataService.textContent}">
                                                     <f:param name="day" value="#{win.day}"/>
                                                     <f:param name="cal" value="#{viewCalendarBean.id}"/>
                                                 </h:outputText>
-
-                                                <h:outputLink value="#{dataService.textContent}"
-                                                              rendered="#{win.type == 'URL'}" styleClass="content_text">
-                                                    <h:outputText value="URL: #{dataService.textContent}" >
-                                                        <f:param name="day" value="#{win.day}"/>
-                                                        <f:param name="cal" value="#{viewCalendarBean.id}"/>
-                                                    </h:outputText>
-                                                    <f:param name="day" value="#{win.day}"/>
-                                                    <f:param name="cal" value="#{viewCalendarBean.id}"/>
-                                                </h:outputLink>
+                                                <f:param name="day" value="#{win.day}"/>
+                                                <f:param name="cal" value="#{viewCalendarBean.id}"/>
+                                            </h:outputLink>
                                         </h:panelGroup>
                                     </f:facet>
                                 </p:lightBox>
-                                <h:outputText value="#{win.day}" styleClass="window_date_opened"
-                                              rendered="#{win.day gt calendarBean.currentDay}"/>
+                                <h:outputText value="#{win.day}" styleClass="window_date_opened" rendered="#{win.day gt calendarBean.currentDay}"/>
                             </h:panelGroup>
                         </ui:repeat>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:form>
         </h:form>
-        <br class="clear"/>
     </section>
     <ui:insert name="footer">
         <ui:include src="../footer.xhtml"/>

@@ -138,20 +138,6 @@ public class DataService implements Serializable {
         return new String(getWindowContent(calId, winDay));
     }
 
-    public synchronized String getTextContent() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        try {
-            System.out.println("Trying to get text...");
-            Long calId = Long.parseLong(context.getExternalContext().getRequestParameterMap().get("cal"));
-            System.out.println(calId);
-            int winDay = Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("day"));
-            System.out.println(winDay);
-            return new String(getWindowContent(calId, winDay));
-        } catch (NumberFormatException e) {
-            return null; // TODO: How will this affect the client? Does it matter?
-        }
-    }
-
     /**
      * @param calendarId the id of the <code>Calendar</code> whose <code>Window</code> content to retrieve
      * @param day the day of the <code>Window</code>
