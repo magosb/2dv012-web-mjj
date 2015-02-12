@@ -158,6 +158,8 @@ public class AddCalendarBean implements Serializable {
             hasErrors = true;
         }
         if (thumbnail == null) {// TODO: Need better validation: empty String? Too short? Etc
+            FacesContext.getCurrentInstance().validationFailed();
+            // Add an appropriate faces message which can be displayed in a message component which autoupdates for instance.
             sendErrorMsg("Invalid thumbnail.");
             hasErrors = true;
         }

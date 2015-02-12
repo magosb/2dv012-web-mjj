@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head lang="en">
+    <link rel="shortcut icon" type="image/x-icon" href="#{resource['default:images/fav_ico.ico']}"/>
+    <title>Add calendar</title>
+    <h:outputStylesheet library="default" name="css/style.css"/>
+</h:head>
+<h:body>
+    <ui:insert name="header" >
+        <ui:include src="../../header.xhtml" />
+    </ui:insert>
+
+    <section class="admin_panel">
+            <!-- enctype="multipart/form-data" -->
+            <h:form enctype="multipart/form-data"> <!-- Multipart is required for the fileUpload, but will it mess the rest up? Check StackOverflow post about FileUpload in wizard -->
+
+                <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                <p:wizard flowListener="#{newCalendar.onFlowProcess}">
+                    <p:tab id="details" title="Details">
+                        <p:panel header="Calendar Details">
+                            <p:messages/>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputLabel for="name" value="Calendar name:"/>
+                                <h:inputText id="name" value="#{newCalendar.name}">
+                                    <f:validateLength minimum="3" />
+                                    <f:ajax event="valueChange" process="@this" update="@form"/>
+                                        </h:inputText>
+                                <h:message for="name" errorClass="errorMessage" showDetail="false" showSummary="true"/>
+                                <br/>
+
+                                <!-- public/private -->
+                                <h:selectOneRadio id="isPublic" value="#{newCalendar.public}"
+                                                  valueChangeListener="#{newCalendar.update}"> <!-- TODO: This will submit entire form? Change to separate form? -->
+                                    <f:selectItem itemValue="#{true}" itemLabel="Public"/>
+                                    <f:selectItem itemValue="#{false}" itemLabel="Private"/>
+                                    <f:ajax event="valueChange" process="@this" update="@form"/>
+                                </h:selectOneRadio>
+                                <h:message for="isPublic" errorClass="errorMessage" showDetail="false" showSummary="true"/>
+                                <br/>
+
+                                <!-- public/private -->
+                                <h:outputLabel for="passPhrase"
+                                               value="Pass phrase" /> <!-- TODO: Should be a password/secret field -->
+                                <h:inputText id="passPhrase" value="#{newCalendar.passPhrase}" disabled="#{newCalendar.public == true}" required="false">
+                                    <f:validateLength minimum="2" />
+                                    <f:ajax event="valueChange" process="@this" update="@form"/>
+                                </h:inputText>
+                                <h:message for="passPhrase" errorClass="errorMessage" showDetail="true" showSummary="true"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="background" title="Background">
+                        <p:panel header="Calendar background">
+                            <p:messages/>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <!-- background -->
+                                <h:outputLabel for="bgUploader" value="Background image"/>
+                                <p:fileUpload id="bgUploader"
+                                              fileUploadListener="#{newCalendar.handleBackgroundUpload}"
+                                              mode="advanced"
+                                              update="messages"
+                                              sizeLimit="100000000"
+                                              fileLimit="1"
+                                              allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac)$/"/>
+
+                                <!-- thumbnail -->
+                                <h:outputLabel for="thumbnailUploader" value="Thumbnail"/>
+                                <p:fileUpload id="thumbnailUploader"
+                                              fileUploadListener="#{newCalendar.handleThumbnailUpload}"
+                                              mode="advanced"
+                                              update="messages"
+                                              sizeLimit="100000000"
+                                              fileLimit="1"
+                                              allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac)$/"/>
+                                <p:growl id="messages" showDetail="true"/>
+                            </h:panelGrid>
+                            <p:commandButton value="Save" action="#{newCalendar.save}"
+                                             ajax="no"/> <!--  update="growl" process="@this" -->
+                        </p:panel>
+                    </p:tab>
+                </p:wizard>
+            </h:form>
+
+            <h:form id="form" prependId="false">
+                <h:inputText id="name2" value="#{newCalendar.name}"/>
+                <h:commandButton value="Test render"><!--  update="growl" process="@this" -->
+                    <f:ajax execute="name2" render="textParent" />
+                </h:commandButton>
+                <h:panelGroup id="textParent">
+                    <h:outputText id="text123" value="Calendar has been saved!" rendered="#{not empty newCalendar.name}"/>
+                </h:panelGroup>
+            </h:form>
+
+        <br class="clear" />;
+        </section>
+    <ui:insert name="footer" >
+        <ui:include src="../../footer.xhtml" />
+    </ui:insert>
+</h:body>
+</html>
