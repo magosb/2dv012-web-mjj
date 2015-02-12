@@ -100,6 +100,15 @@ public class CalendarManager implements Serializable {
         }
     }
 
+    // TODO: FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIX
+    public void rename2(long id, String newName) {
+        String jpqlUpdate = "UPDATE Calendar c SET c.name = :newName WHERE c.numericId = :id";
+        int updatedEntities = em.createQuery(jpqlUpdate)
+                .setParameter("newName", newName)
+                .setParameter("id", id)
+                .executeUpdate();
+    }
+
     /**
      * @param cal the <code>Calendar</code> to add to the database
      */
