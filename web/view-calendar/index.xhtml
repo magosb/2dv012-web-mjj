@@ -49,8 +49,7 @@
                                 <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
                                 <p:lightBox id="lb" rendered="#{win.day le calendarBean.currentDay}">
 
-                                    <p:commandLink styleClass="window_cmdLink"  rendered="#{!cookieViewBean.getIsOpened(win.day)}">
-
+                                    <p:commandLink action="#{cookieViewBean.setIsOpened(win.day)}" styleClass="window_cmdLink" rendered="#{!cookieViewBean.getIsOpened(win.day)}">
                                         <div class="back">
                                             <p:graphicImage class="window" id="imagewindow" name="/default/1_0/images/#{win.type}_icon.png"/>
                                         </div>
@@ -58,7 +57,7 @@
                                         <div class="window_cover" onclick="this.classList.toggle('flipped')">
                                             <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
                                         </div>
-                                        <f:ajax event="click" execute="#{cookieViewBean.setIsOpened(win.day)}"/>
+                                        <f:ajax event="click"/>
                                     </p:commandLink>
 
                                    <p:commandLink styleClass="window_cmdLink" rendered="#{cookieViewBean.getIsOpened(win.day)}">
@@ -69,7 +68,6 @@
                                        <div class="window_cover_opened">
                                            <h:outputText value="#{win.day}" styleClass="window_date_closed"/>
                                        </div>
-                                        <f:ajax event="click" execute="#{cookieViewBean.setIsOpened(win.day)}"/>
                                    </p:commandLink>
 
                                     <f:facet name="inline">
