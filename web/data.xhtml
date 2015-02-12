@@ -37,10 +37,7 @@
         </h:column>
         <h:column>
             <f:facet name="header">Window 1 text</f:facet>
-            <h:outputText value="Text: #{dataService.textContent}">
-                <f:param name="cal" value="#{calendarName}"/>
-                <f:param name="day" value="1"/>
-            </h:outputText>
+            <h:outputText value="Text: #{dataService.getTextContent(calendarName, 1)}"></h:outputText>
         </h:column>
         <h:column>
             <f:facet name="header">Background</f:facet>
