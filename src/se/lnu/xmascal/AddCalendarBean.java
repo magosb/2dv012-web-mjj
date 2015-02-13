@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is a ViewScoped Managed Bean for the addition of calendars to the application.
+ * This class is a ViewScoped Managed Bean used for the addition of calendars to the application.
  *
  * @author Jerry Strand
  */
