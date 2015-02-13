@@ -1,7 +1,5 @@
 package se.lnu.xmascal;
 
-import se.lnu.xmascal.CalendarCookie;
-import se.lnu.xmascal.CookieManager;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
 
@@ -14,15 +12,18 @@ import javax.inject.Named;
 import java.io.Serializable;
 
 /**
+ * This class is a ViewScoped Managed Bean used for authorization, as well as retrieving and setting the
+ * opened/closed status of a calendar window, using a cookie.
+ *
  * @author Jerry Strand
  */
 @Named
 @ViewScoped
-public class CookieViewBean implements Serializable {
+public class CookieBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final String CAL_REQ_PARAM_NAME = "cal";
     private String passphrase = null;
-    private boolean remember = false;
+    private boolean remember = false; // Whether or not the passphrase shall be set in the cookie
     private boolean authorized = false;
     private Calendar calendar = null;
     private CalendarCookie calendarCookie = null;
@@ -42,7 +43,7 @@ public class CookieViewBean implements Serializable {
     private void init() {
         calendar = getCalendar();
         if (calendar == null) {
-            authorized = false; // TODO: Need better way to handle this. What to do here? Calendar does not exist
+            authorized = false;
         } else if (calendar.getPassPhrase() == null) {
             authorized = true;
         } else {
@@ -108,10 +109,9 @@ public class CookieViewBean implements Serializable {
      * If the passphrase is correct the client is considered authorized to view the calendar. If the client wishes for
      * the passphrase to be remembered, a cookie will be set.
      */
-    // TODO: IF THE CLIENT DOES NOT SET THE REMEMBER CHECKBOX, OPENED WINDOWS WILL NOT BE REMEMBERED!
     public void validatePassphrase() {
         if (calendar == null) { // Due to calendar with given request param ID not existing
-            authorized = false; // TODO: Need better way to handle this. What to do here? Calendar does not exist
+            authorized = false;
         } else if (calendar.getPassPhrase() == null) {
             authorized = true;
 
@@ -133,7 +133,7 @@ public class CookieViewBean implements Serializable {
                     calendarCookie = new CalendarCookie(calendar.getNumericId(), passphrase, null);
                     cookieManager.setCalendarCookie(calendarCookie);
 
-                    // passphrase cannot be null here, since calendar's passphrase is not null, and matches entered pass
+                    // Passphrase cannot be null here, since calendar's passphrase is not null, and matches entered pass
                 } else if (!passphrase.equals(calendarCookie.getPassphrase())) {
                     calendarCookie.setPassphrase(passphrase);
                     cookieManager.setCalendarCookie(calendarCookie);
@@ -145,27 +145,28 @@ public class CookieViewBean implements Serializable {
     }
 
     /**
-     * @param windowNr
-     * @return
+     * @param windowDay the day of the window whose opened/closed status shall be retrieved
+     * @return <code>true</code> if the cookie managed by this <code>CookieBean</code> has the given window set to open,
+     * else <code>false</code>
      */
-    public boolean getIsOpened(int windowNr) {
+    public boolean getIsOpened(int windowDay) {
         if (calendarCookie != null) {
-            return calendarCookie.getWindows()[windowNr - 1]; // Zero indexed array. 0 is day 1, 23 is day 24
+            return calendarCookie.getWindows()[windowDay - 1]; // Zero indexed array. 0 is day 1, 23 is day 24
         } else {
             return false;
         }
     }
 
     /**
-     * @param windowNr
+     * @param windowDay the day of the window which shall be set to opened
      */
-    public void setIsOpened(int windowNr) {
+    public void setIsOpened(int windowDay) {
         if (calendarCookie == null) {
 
             // If calendarCookie is null, user has chosen not to be remembered earlier -- do not store passphrase
             calendarCookie = new CalendarCookie(calendar.getNumericId(), null, null);
         }
-        calendarCookie.getWindows()[windowNr - 1] = true; // Zero indexed array. 0 is day 1, 23 is day 24
+        calendarCookie.getWindows()[windowDay - 1] = true; // Zero indexed array. 0 is day 1, 23 is day 24
         cookieManager.setCalendarCookie(calendarCookie);
     }
 
