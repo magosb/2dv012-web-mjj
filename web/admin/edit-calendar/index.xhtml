@@ -93,7 +93,7 @@
                     <f:param name="cal" value="#{editCalendar.id}"/>
                 </p:graphicImage>
 
-                <h:panelGroup layout="block">
+                <h:panelGroup layout="block" styleClass="window_panel_container">
                     <ui:repeat value="#{editCalendar.windows}" var="win">
 
                         <h:panelGroup layout="block" class="window_panel">
@@ -129,7 +129,7 @@
                                                       mode="advanced" sizeLimit="100000000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac|txt)$/"/>
 
                                         <h:commandButton value="#{msgs.buttonSave}" action="#{editCalendar.saveWindowContent}" onComplete="PF('dlg').hide();">
-                                            <f:ajax execute="@form" render="@form"/>
+                                            <f:ajax execute="@form" render="@all" update="@all"/>
                                         </h:commandButton>
                                     </h:panelGrid>
                                 </h:form>

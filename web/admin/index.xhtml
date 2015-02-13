@@ -49,10 +49,10 @@
                             <h:graphicImage name="/default/1_0/images/delete.png" styleClass="lock"/>
                             <p:confirm header="Delete calendar" message="Are you sure?" icon="ui-icon-alert" />
                             <f:param name="cal" value="#{id}"/>
-                            <p:ajax update=":content" event="click" render=":content"/>
+                            <p:ajax update=":content" event="click" render="@form"/>
                         </p:commandLink>
                         <p:confirmDialog global="true" showEffect="fade">
-                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update = ":content">
                             </p:commandButton>
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
