@@ -370,7 +370,7 @@ h2#date2 {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 900px;
+    height: 700px;
     max-width: 900px;
     min-width: 450px;
     /* For Firefox browser */
@@ -675,8 +675,9 @@ form {
 
 form#content {
     position:relative;
-    verflow:hidden
+    overflow:hidden
     width: 100%;
+    min-height: 720px;
     padding: 2% 2%;
 }
 
