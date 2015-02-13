@@ -144,8 +144,8 @@ public class AddCalendarBean implements Serializable {
         sendInfoMsg("Calendar has been added.");
 
         calendar = calendarManager.getCalendar(name); // Needed to get correct numeric ID
-        String outcome = "edit?cal=" + calendar.getNumericId(); //
-        System.out.println("Returning outcome" + outcome);
+        String outcome = "/admin/edit-calendar/index.xhtml?faces-redirect=true&amp;cal=" + calendar.getNumericId(); //
+        System.out.println("Returning outcome " + outcome);
         return outcome; // TODO: Update this to /admin/edit-calendar/ -- also need to pass parameter detailing which calendar
     }
 
