@@ -1,11 +1,10 @@
-package se.lnu.xmascal.inprogress;
+package se.lnu.xmascal;
 
 import org.primefaces.event.FileUploadEvent;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.*;
 import se.lnu.xmascal.model.Calendar;
 
-import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -18,7 +17,7 @@ import java.util.*;
 
 /**
  *
- * THIS CLASS WILL BE CLEARED UP! ;)
+ * This class handles the edit function of calenders and their windows.
  *
  * @author Johan Widén
  */
@@ -34,31 +33,6 @@ public class EditCalendarBean implements Serializable {
     private String oldName;
     private String text;
     private int day;
-
-    public void preRenderListen(ComponentSystemEvent event) throws AbortProcessingException {
-        if(calendar == null) {
-            Long cal = Long.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal"));
-            calendar = calendarManager.getCalendar(cal);
-            isPublic = !calendar.isPrivate();
-            oldName = calendar.getName();
-        }
-    }
-
-    public Long getId() {
-        return calendar.getNumericId();
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    // --------------------------------------
-    // WINDOW CONFIG RELATED --------------->
-    private int windowNumber;
     private byte[] windowContent = new byte[1];
     private Window.ContentType contentType = Window.ContentType.PICTURE;
     private static Map<String, Window.ContentType> contentTypeItems;
@@ -71,100 +45,159 @@ public class EditCalendarBean implements Serializable {
         contentTypeItems.put(Window.ContentType.TEXT.toString(), Window.ContentType.TEXT);
     }
 
+    /**
+     * A method that can be called before the page is rendered. Loads a calendar if it has not been done before.
+     * @param event that happens
+     * @throws AbortProcessingException if aborted
+     */
+    public void preRenderListen(ComponentSystemEvent event) throws AbortProcessingException {
+        if(calendar == null) {
+            Long cal = Long.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal"));
+            calendar = calendarManager.getCalendar(cal);
+            isPublic = !calendar.isPrivate();
+            oldName = calendar.getName();
+        }
+    }
+
+    /**
+     * @return calendar numeric id.
+     */
+    public Long getId() {
+        return calendar.getNumericId();
+    }
+
+    /**
+     * Method used for getting/setting input text for window contents.
+     * @return text for the window contents
+     */
+    public String getText() {
+        return text;
+    }
+
+    /**
+     * Method used for getting/setting input text for window contents.
+     * @param text for the window contents
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /**
+     * This method sets the day from a requested parameter of "win".
+     */
     public void updateDay() {
         day = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("win"));
-        System.out.println("UPDATE DAY: " + day);
     }
 
 
-
+    /**
+     * Saves the window content to the database.
+     */
     public void saveWindowContent() {
-        System.out.println(calendar.getName() + "  " + day + "  " + windowContent + "   " + contentType + "  " + text);
         Window window;
         if(contentType.equals(Window.ContentType.PICTURE) || contentType.equals(Window.ContentType.VIDEO) || contentType.equals(Window.ContentType.AUDIO)) {
             window = new Window(calendar.getName(), day, windowContent, contentType);
-        } else{
+        } else if(contentType.equals(Window.ContentType.URL)) {
+            String url;
+            if(text.startsWith("www")) {
+                url = "http://" + text;
+            } else if(text.startsWith("http://")) {
+                url = text;
+            } else {
+                url = "http://www." + text;
+            }
+            window = new Window(calendar.getName(), day, url.getBytes(), contentType);
+        } else {
             window = new Window(calendar.getName(), day, text.getBytes(), contentType);
         }
         calendarManager.updateWindow(window);
-        //calendar = calendarManager.update(calendar); // TODO: Does it matter if calendar is assigned the returned one? Returned calendar is detached?
+        sendInfoMsg("Window has been updated.");
     }
 
+    /**
+     * Set the window content from the uploaded event.
+     * @param event for the uploaded content window
+     */
     public void handleContentUpload(FileUploadEvent event) {
-        System.out.println("UploadedFile.getContentType(): " + event.getFile().getContentType());
         try {
             windowContent = getUploadedBytes(event.getFile().getInputstream());
         } catch (IOException e) {
-            e.printStackTrace(); // TODO: Send error message to client
+            sendErrorMsg("Unable to handle uploaded data");
         }
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public int getWindowNumber() {
-        return windowNumber;
-    }
-
-    public void setWindowNumber(int windowNumber) {
-        this.windowNumber = windowNumber;
-    }
-
-
+    /**
+     * @return content type of a window.
+     */
     public Window.ContentType getContentType() {
         return contentType;
     }
 
+    /**
+     * Set content type of a window.
+     * @param contentType for the window
+     */
     public void setContentType(Window.ContentType contentType) {
         this.contentType = contentType;
     }
 
+    /**
+     * @return all content type items
+     */
     public Map<String, Window.ContentType> getContentTypeItems() {
         return contentTypeItems;
     }
 
+    /**
+     * @return all windows of a calender
+     */
     public List<Window> getWindows() {
         return calendar.getWindows();
     }
 
     /**
-     *
-     * COPY FORM ADDCALENDARBEAN
-     *
+     * @return calendar name
      */
-
-
-
-    // TODO: Save Calendar in DB when next button is clicked (needed to get ID used for redirection to edit page).
-    // Set baseConfigured to true when save button is clicked. Add @PreDestroy method to this bean to remove calendar from DB if baseConfigured is false
-    private boolean baseConfigured = false;
-
-    @PreDestroy
-    private void cleanUp() { // TODO: Actually, this should be done when the save button is clicked?
-        if (!baseConfigured) { // Name, background, thumbnail weren't entered
-            // TODO: Remove from DB, set background/thumbnail to null
-        }
-    }
-
     public String getName() {
         return calendar.getName();
     }
 
+    /**
+     * Set calendar name
+     * @param name for the calendar
+     */
     public void setName(String name) {
         calendar.setName(name);
     }
 
+    /**
+     * @return true if calendar is public, else false.
+     */
     public boolean getPublic() {
         return isPublic;
     }
 
+    /**
+     * Set if calendar is public
+     * @param isPublic for the calendar
+     */
     public void setPublic(boolean isPublic) {
         this.isPublic = isPublic;
     }
 
+    /**
+     * @return pass phrase of a calendar
+     */
     public String getPassPhrase() {
         return calendar.getPassPhrase();
     }
 
+    /**
+     * Set pass phrase of a calendar
+     * @param passPhrase for the calendar
+     */
     public void setPassPhrase(String passPhrase) {
         calendar.setPassPhrase(passPhrase);
     }
@@ -190,8 +223,7 @@ public class EditCalendarBean implements Serializable {
      */
     public void handleThumbnailUpload(FileUploadEvent event) {
         try {
-            // event.getFile().getContents(); // TODO: Not needed?
-            calendar.setThumbnail(getUploadedBytes(event.getFile().getInputstream())); // TODO: Test what happens if Save is clicked while upload is being done
+            calendar.setThumbnail(getUploadedBytes(event.getFile().getInputstream()));
             sendInfoMsg(event.getFile().getFileName() + " has been uploaded.");
         } catch (IOException e) {
             sendErrorMsg("Unable to retrieve uploaded thumbnail data");
@@ -218,20 +250,14 @@ public class EditCalendarBean implements Serializable {
             calendar.setPassPhrase(null); // To make sure passPhrase is null in database
         }
         if (hasNullErrors()) {
-            System.out.println("errors");
+            // Prints out errors
         } else if (!calendar.getName().equals(oldName)) {
             if(calendarManager.exists(calendar.getName())) {
                 sendErrorMsg("A calendar named '" + calendar.getName() + "' already exists!");
             } else {
-<<<<<<< HEAD
-                // TODO CHANGE TO RENAME Method.
-                //calendarManager.renameCalendar(calendar.getNumericId(), calendar.getName());
-                calendarManager.rename2(calendar.getNumericId(), calendar.getName());
-=======
-                // TODO UPDATE AS WELL?.
                 calendarManager.renameCalendar(calendar.getNumericId(), calendar.getName());
-                sendInfoMsg("Calendar has been renamed.");
->>>>>>> 82e6ece13fab12ddbf8a093f92cbd7b1046ffde8
+                //TODO Fix so all other things are as well updated.
+                sendInfoMsg("Calendar name has been updated. Notice: Only name was updated.");
             }
         } else {
             calendarManager.update(calendar);

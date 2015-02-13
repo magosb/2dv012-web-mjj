@@ -160,7 +160,6 @@ public class CookieViewBean implements Serializable {
      * @param windowNr
      */
     public void setIsOpened(int windowNr) {
-        System.out.println("setIsOpened called");
         if (calendarCookie == null) {
 
             // If calendarCookie is null, user has chosen not to be remembered earlier -- do not store passphrase
