@@ -29,6 +29,22 @@ public class CalendarManager implements Serializable {
     }
 
     /**
+     * @param window the <code>Window</code> to add to the database
+     */
+    public void addWindow(Window window) {
+        em.persist(window);
+    }
+
+    /**
+     * Updates the window.
+     * @author Johan, the rest is Jerry! ;)
+     * @param window the <code>Window</code> to update in the database
+     */
+    public void updateWindow(Window window) {
+        em.merge(window);
+    }
+
+    /**
      * @return a <code>List</code> containing all <code>Calendars</code>s in the database
      */
     public List<Calendar> getAllCalendars() {
@@ -37,22 +53,22 @@ public class CalendarManager implements Serializable {
     }
 
     /**
-     * @param name the <code>Calendar</code> to retrieve from the database
+     * @param name the name of the <code>Calendar</code> to retrieve from the database
      * @return the <code>Calendar</code>with the given name, or <code>null</code> if no such <code>Calendar</code> exists
      */
     public Calendar getCalendar(String name) {
         return em.find(Calendar.class, name);
     }
 
+    /**
+     * @param numericId the numeric ID of the <code>Calendar</code> to retrieve from the database
+     * @return the <code>Calendar</code>with the given numeric ID, or <code>null</code> if no such <code>Calendar</code>
+     * exists
+     */
     public Calendar getCalendar(long numericId) {
         TypedQuery<Calendar> q = em.createQuery("SELECT c FROM Calendar c WHERE c.numericId = :cname", Calendar.class);
         q.setParameter("cname", numericId).setMaxResults(1);
-        Calendar result = null;
-        try {
-            result = q.getSingleResult();
-        } catch (Exception e) { // TODO: Narrow down
-        }
-        return result;
+        return q.getSingleResult();
     }
 
     /**
@@ -62,26 +78,15 @@ public class CalendarManager implements Serializable {
     public String getName(long numericId) {
         TypedQuery<String> q = em.createQuery("SELECT c.name FROM Calendar c WHERE c.numericId = :id", String.class);
         q.setParameter("id", numericId).setMaxResults(1);
-        String result = null;
-        try {
-            result = q.getSingleResult();
-        } catch (Exception e) { // TODO: Narrow down
-        }
-        return result;
+        return q.getSingleResult();
     }
 
-    // TODO: Remove?
-    public long getNumericId(String name) {
-        TypedQuery<Long> q = em.createQuery("SELECT c.numericId FROM Calendar c WHERE c.name = :name", Long.class);
-        q.setParameter("name", name).setMaxResults(1);
-        Long result = null;
-        try {
-            result = q.getSingleResult();
-        } catch (Exception e) { // TODO: Narrow down
-        }
-        return result;
-    }
-
+    /**
+     * @param numericId the numeric ID of the <code>Calendar</code> to rename
+     * @param newName the new name that the <code>Calendar</code> shall receive
+     * @throws UnsupportedOperationException if a <code>Calendar</code> with the given ID does not exist, or if the
+     * <code>Calendar</code> with the given numeric ID cannot be renamed.
+     */
     public void renameCalendar(long numericId, String newName) throws UnsupportedOperationException {
         if (exists(newName)) {
             throw new UnsupportedOperationException("A calendar with the name '" + newName + "' already exists");
@@ -105,22 +110,6 @@ public class CalendarManager implements Serializable {
     }
 
     /**
-     * @param window the <code>Window</code> to add to the database
-     */
-    public void addWindow(Window window) {
-        em.persist(window);
-    }
-
-    /**
-     * Updates the window.
-     * @author Johan, the rest is Jerry! ;)
-     * @param window the <code>Window</code> to update in the database
-     */
-    public void updateWindow(Window window) {
-        em.merge(window);
-    }
-
-    /**
      * Updates the given <code>Calendar</code> and all its <code>Window</code>s.<br />
      * <b>Note that if any of the <code>Window</code>s of this <code>Calendar</code> has not previously been added to
      * the database with addWindow(Window), then this method will throw an exception.</b>
@@ -129,19 +118,22 @@ public class CalendarManager implements Serializable {
      * @return the updated <code>Calendar</code>
      */
     public Calendar update(Calendar cal) {
-        return em.merge(cal); // TODO: How efficient is this? If some byte[] has not been changed, will it still be processed?
+        return em.merge(cal);
     }
 
     /**
      * @param cal the <code>Calendar</code> to be removed. This entity needs to be attached
      */
     public void remove(Calendar cal) {
-        // Checks if the entity is managed by EntityManager#contains() and if not, then make it managed by EntityManager#merge() //Johan
+        /*
+         * Checks if the entity is managed by EntityManager#contains() and if not, then make it managed by
+         * EntityManager#merge() //Johan
+         */
         em.remove(em.contains(cal) ? cal : em.merge(cal));
     }
 
     /**
-     * @param name the name of the <code>Calendar</code> to check for
+     * @param name the name of the <code>Calendar</code> to determine the existence of
      * @return <code>true</code> if a <code>Calendar</code> with the given name exists
      */
     public boolean exists(String name) {

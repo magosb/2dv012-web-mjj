@@ -1,4 +1,4 @@
-package se.lnu.xmascal.inprogress;
+package se.lnu.xmascal;
 
 import org.primefaces.event.FileUploadEvent;
 import se.lnu.xmascal.ejb.CalendarManager;

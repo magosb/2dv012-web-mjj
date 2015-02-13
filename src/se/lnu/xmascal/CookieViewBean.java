@@ -1,4 +1,4 @@
-package se.lnu.xmascal.inprogress;
+package se.lnu.xmascal;
 
 import se.lnu.xmascal.CalendarCookie;
 import se.lnu.xmascal.CookieManager;
