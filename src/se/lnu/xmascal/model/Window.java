@@ -18,7 +18,7 @@ public class Window implements Serializable {
     @Column(name = "calendar_name")
     private String calendarName;
 
-    @Id     // TODO: Both day and calendar_name make the key. Do two @Id work like this?
+    @Id
     @Column(name = "day")
     private int day;
 
@@ -28,21 +28,7 @@ public class Window implements Serializable {
     private byte[] content;
 
     @Column(name = "type")
-    private String type; // TODO: Change this to ContentType and see if translation to String happens automatically
-
-    /*
-    @ManyToOne
-    @JoinColumn(name="name")
-    private Calendar calendar;
-
-    public Calendar getCalendar() {
-        return calendar;
-    }
-
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
-    }
-    */
+    private String type;
 
     public Window() {
     }
@@ -55,40 +41,63 @@ public class Window implements Serializable {
      */
     public Window(String calendarName, int day, byte[] content, ContentType type) {
         this.calendarName = calendarName;
-        //this.calendar = new Calendar(); this.calendar.setName(calendarName); // TODO: Remove this after testing
         this.day = day;
         this.content = content;
         this.type = type.toString();
     }
 
+    /**
+     * @return the name of the <code>Calendar</code> that this <code>Window</code> belongs to
+     */
     public String getCalendarName() {
         return calendarName;
     }
 
+    /**
+     * @param calendarName the name of the <code>Calendar</code> that this <code>Window</code> shall belong to
+     */
     public void setCalendarName(String calendarName) {
         this.calendarName = calendarName;
     }
 
+    /**
+     * @return the day on which this <code>Window</code> will no longer be locked
+     */
     public int getDay() {
         return day;
     }
 
+    /**
+     * @return the day on which this <code>Window</code> shall no longer be locked
+     */
     public void setDay(int day) {
         this.day = day;
     }
 
+    /**
+     * @return binary content data of this <code>Window</code>
+     */
     public byte[] getContent() {
         return content;
     }
 
+    /**
+     * @param content binary content data that this <code>Window</code> shall contain
+     */
     public void setContent(byte[] content) {
         this.content = content;
     }
 
+    /**
+     * @return the type of content in this <code>Window</code>
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * @param type the type of content that this <code>Window</code> shall contain
+     */
     public void setType(String type) {
         this.type = type;
     }

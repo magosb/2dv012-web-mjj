@@ -39,8 +39,10 @@ public class Calendar implements Serializable {
     @Column(name = "pass_phrase")
     private String passPhrase;
 
-    // Add/update Window elements in List windows when this Calendar is added/updated. Note that EntityManager.persist
-    // CANNOT update a Calendar with a new Window. The Window needs to be persisted first!
+    /*
+     * Add/update Window elements in the List windows when this Calendar is added/updated. Note that
+     * EntityManager.persist CANNOT update a Calendar with a new Window. The Window needs to be persisted first!
+     */
     @OneToMany(mappedBy="calendarName", cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
                fetch=FetchType.LAZY)
     private List<Window> windows;
@@ -60,7 +62,7 @@ public class Calendar implements Serializable {
         this.thumbnail = thumbnail;
         this.passPhrase = passPhrase;
     }
-    // TODO: Add isPrivate() { private == null }
+
     /**
      * @return the name of this <code>Calendar</code>
      */
@@ -82,6 +84,9 @@ public class Calendar implements Serializable {
         return background;
     }
 
+    /**
+     * @return the numeric ID of this <code>Calendar</code>
+     */
     public long getNumericId() {
         return numericId;
     }
@@ -142,19 +147,4 @@ public class Calendar implements Serializable {
         this.windows = windows;
     }
 
-    /**
-     *
-     * @return
-     */
-    public StreamedContent getBackgroundContent() {
-        return new ByteArrayContent(background);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public StreamedContent getThumbnailContent() {
-        return new ByteArrayContent(thumbnail);
-    }
 }
