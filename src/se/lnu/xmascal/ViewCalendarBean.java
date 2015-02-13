@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * This
+ * This bean handles the viewing of calendars an their windows.
  *
  * @author Johan Widén
  */

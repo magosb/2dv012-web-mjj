@@ -61,10 +61,6 @@ public class AdminBean implements Serializable {
         HttpServletRequest request = (HttpServletRequest) external.getRequest();
         String username = request.getRemoteUser();
         admin = adminManager.getAdmin(username);
-
-        // Test whether the current user belongs to a given role:
-        // String role = "admin";
-        // boolean isAdmin = request.isUserInRole(role);
     }
 
     /**

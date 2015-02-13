@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * This class handles all thumbnails of calendars.
+ * This class handles all thumbnails of calendars used on the index page.
  * @author Johan Widén
  */
 @Named("thumbnails")
@@ -19,16 +19,6 @@ public class ThumbnailBean implements Serializable {
 
     @EJB
     private CalendarManager calendarManager;
-
-    /**
-     * This method get all names of the calendars.
-     *
-     * @return List with calendar names
-     */
-    @Deprecated
-    public synchronized List<String> getCalendarNames() {
-        return calendarManager.getAllCalendarNames();
-    }
 
     /**
      * @return a <code>List</code> of the numeric IDs of all <code>Calendar</code>s in the system
