@@ -76,23 +76,21 @@
                                             <h:outputText value="#{win.day}" styleClass="day_text"/>
 
                                             <p:media value="#{dataService.streamedContent}" styleClass="content_centered" player="flash"
-                                                     rendered="#{win.type == 'Picture' || win.type == 'Audio' || win.type == 'Video'}">
+                                                     rendered="#{win.type == 'Picture'}">
                                                 <f:param name="day" value="#{win.day}"/>
                                                 <f:param name="cal" value="#{viewCalendarBean.id}"/>
                                             </p:media>
 
-                                            <h:outputText value="Text: #{dataService.textContent}" styleClass="content_centered" rendered="#{win.type == 'Text'}">
+                                            <p:media value="#{dataService.streamedContent}" styleClass="content_centered" player="quicktime"
+                                                     rendered="#{win.type == 'Audio' || win.type == 'Video'}">
                                                 <f:param name="day" value="#{win.day}"/>
                                                 <f:param name="cal" value="#{viewCalendarBean.id}"/>
-                                            </h:outputText>
+                                            </p:media>
 
-                                            <h:outputLink value="#{dataService.textContent}" styleClass="content_centered" rendered="#{win.type == 'URL'}">
-                                                <h:outputText value="URL: #{dataService.textContent}">
-                                                    <f:param name="day" value="#{win.day}"/>
-                                                    <f:param name="cal" value="#{viewCalendarBean.id}"/>
-                                                </h:outputText>
-                                                <f:param name="day" value="#{win.day}"/>
-                                                <f:param name="cal" value="#{viewCalendarBean.id}"/>
+                                            <h:outputText value="#{dataService.getTextContent(viewCalendarBean.id, win.day)}" styleClass="content_centered" rendered="#{win.type == 'Text'}"/>
+
+                                            <h:outputLink value="#{dataService.getTextContent(viewCalendarBean.id, win.day)}" styleClass="content_centered" rendered="#{win.type == 'URL'}">
+                                                <h:outputText value="#{dataService.getTextContent(viewCalendarBean.id, win.day)}"/>
                                             </h:outputLink>
                                         </h:panelGroup>
                                     </f:facet>

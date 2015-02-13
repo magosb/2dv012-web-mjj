@@ -36,8 +36,11 @@
             </p:graphicImage>
         </h:column>
         <h:column>
-            <f:facet name="header">Window 1 text</f:facet>
-            <h:outputText value="Text: #{dataService.getTextContent(calendarName, 1)}"></h:outputText>
+            <f:facet name="header">Window 1 video</f:facet>
+            <p:media value="#{dataService.streamedContent}" styleClass="content_centered" player="flash">
+                <f:param name="day" value="2"/>
+                <f:param name="cal" value="#{calendarName}"/>
+            </p:media>
         </h:column>
         <h:column>
             <f:facet name="header">Background</f:facet>
