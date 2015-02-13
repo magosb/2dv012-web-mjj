@@ -135,7 +135,7 @@ public class AddCalendarBean implements Serializable {
         calendar = new Calendar(name, background, thumbnail, passPhrase);
         List<Window> windows = new ArrayList<>();
         byte[] defaultMessage = "No content has been added to this window.".getBytes();
-        for (int i = 0; i < 24; i++) {
+        for (int i = 1; i <= 24; i++) {
             windows.add(new Window(calendar.getName(), i, defaultMessage, Window.ContentType.TEXT));
         }
         calendar.setWindows(windows);
