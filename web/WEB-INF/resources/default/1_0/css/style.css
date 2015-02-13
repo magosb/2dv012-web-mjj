@@ -379,9 +379,9 @@ h2#date2 {
 
 .window_container {
     position:relative;
+    height: 1000px;
     max-width: 1000px;
     min-width: 500px;
-    min-height: 500px;
     /* For Firefox browser */
     -moz-width: 1000px;
 
@@ -393,6 +393,7 @@ h2#date2 {
 
     margin: 0 auto;
     margin-top: 50px;
+    padding: 20px;
 
 
 }
@@ -403,15 +404,22 @@ h2#date2 {
     left: 50%;
     transform: translate(-50%, -50%);
     /* The size of a calenders background image */
-    max-width: 75%;
+    border: solid black 10px;
+    background-color: white;
+    -webkit-background-size: auto 100%;
+    -moz-background-size: auto 100%;
+    -o-background-size: auto 100%;
+    background-size: auto 100%;
+    height: 100%;
+    max-width: 100%;
     /* For Firefox browser */
-    -moz-width: 75%;
+    -moz-width: 100%;
 
     /* For Chrome and Safari browser */
-    -webkit-width: 75%;
+    -webkit-width: 100%;
 
     /* For Opera browser */
-    -o-width: 75%;
+    -o-width: 100%;
 }
 
 .window_cmdLink:hover{
@@ -641,10 +649,16 @@ h2#date2 {
     float: left;
 }
 
-
 /*forms*/
 form {
     background-color: rgba(255, 255, 255, 0.00);
+    padding: 2% 2%;
+}
+
+form#content {
+    position:relative;
+    verflow:hidden
+    width: 100%;
     padding: 2% 2%;
 }
 
