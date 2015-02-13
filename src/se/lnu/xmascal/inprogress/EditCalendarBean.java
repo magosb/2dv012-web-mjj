@@ -18,7 +18,7 @@ import java.util.*;
 
 /**
  *
- * THIS CLASS WILL BE CLEARED UP! ;)
+ * This class handles the edit function of calenders and their windows.
  *
  * @author Johan Widén
  */
@@ -68,6 +68,9 @@ public class EditCalendarBean implements Serializable {
         this.text = text;
     }
 
+    /**
+     * This method changes the currently day.
+     */
     public void updateDay() {
         day = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("win"));
     }
@@ -95,6 +98,7 @@ public class EditCalendarBean implements Serializable {
         }
         calendarManager.updateWindow(window);
         sendInfoMsg("Window has been updated.");
+        System.out.println("Window updated");
     }
 
     public void handleContentUpload(FileUploadEvent event) {
@@ -115,7 +119,6 @@ public class EditCalendarBean implements Serializable {
         this.windowNumber = windowNumber;
     }
 
-
     public Window.ContentType getContentType() {
         return contentType;
     }
@@ -130,25 +133,6 @@ public class EditCalendarBean implements Serializable {
 
     public List<Window> getWindows() {
         return calendar.getWindows();
-    }
-
-    /**
-     *
-     * COPY FORM ADDCALENDARBEAN
-     *
-     */
-
-
-
-    // TODO: Save Calendar in DB when next button is clicked (needed to get ID used for redirection to edit page).
-    // Set baseConfigured to true when save button is clicked. Add @PreDestroy method to this bean to remove calendar from DB if baseConfigured is false
-    private boolean baseConfigured = false;
-
-    @PreDestroy
-    private void cleanUp() { // TODO: Actually, this should be done when the save button is clicked?
-        if (!baseConfigured) { // Name, background, thumbnail weren't entered
-            // TODO: Remove from DB, set background/thumbnail to null
-        }
     }
 
     public String getName() {
@@ -196,8 +180,7 @@ public class EditCalendarBean implements Serializable {
      */
     public void handleThumbnailUpload(FileUploadEvent event) {
         try {
-            // event.getFile().getContents(); // TODO: Not needed?
-            calendar.setThumbnail(getUploadedBytes(event.getFile().getInputstream())); // TODO: Test what happens if Save is clicked while upload is being done
+            calendar.setThumbnail(getUploadedBytes(event.getFile().getInputstream()));
             sendInfoMsg(event.getFile().getFileName() + " has been uploaded.");
         } catch (IOException e) {
             sendErrorMsg("Unable to retrieve uploaded thumbnail data");
@@ -229,9 +212,9 @@ public class EditCalendarBean implements Serializable {
             if(calendarManager.exists(calendar.getName())) {
                 sendErrorMsg("A calendar named '" + calendar.getName() + "' already exists!");
             } else {
-                // TODO CHANGE TO RENAME Method.
-                //calendarManager.renameCalendar(calendar.getNumericId(), calendar.getName());
                 calendarManager.renameCalendar(calendar.getNumericId(), calendar.getName());
+                //TODO Fix so all other things are as well updated.
+                sendInfoMsg("Calendar name has been updated. Notice: Only name was updated.");
             }
         } else {
             calendarManager.update(calendar);
