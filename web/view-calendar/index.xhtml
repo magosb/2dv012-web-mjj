@@ -42,7 +42,7 @@
                         <f:param name="cal" value="#{viewCalendarBean.id}"/>
                     </p:graphicImage>
 
-                    <h:panelGroup layout="block">
+                    <h:panelGroup layout="block" styleClass="window_panel_container">
                         <ui:repeat value="#{viewCalendarBean.windows}" var="win">
 
                             <h:panelGroup layout="block" class="window_panel">
@@ -101,13 +101,14 @@
                                 <h:outputText value="#{win.day}" styleClass="window_date_opened" rendered="#{win.day gt calendarBean.currentDay}"/>
                             </h:panelGroup>
                         </ui:repeat>
+                        <div style="clear:both"></div>
                     </h:panelGroup>
                     <div style="clear:both"></div>
                 </h:panelGroup>
                 <div style="clear:both"></div>
             </h:form>
         </h:form>
-        <br class="clear" />
+        <div style="clear:both"></div>
     </section>
     <ui:insert name="footer">
         <ui:include src="../footer.xhtml"/>
