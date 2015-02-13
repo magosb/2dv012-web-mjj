@@ -5,7 +5,6 @@ import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.*;
 import se.lnu.xmascal.model.Calendar;
 
-import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -34,7 +33,6 @@ public class EditCalendarBean implements Serializable {
     private String oldName;
     private String text;
     private int day;
-    private int windowNumber;
     private byte[] windowContent = new byte[1];
     private Window.ContentType contentType = Window.ContentType.PICTURE;
     private static Map<String, Window.ContentType> contentTypeItems;
@@ -47,6 +45,11 @@ public class EditCalendarBean implements Serializable {
         contentTypeItems.put(Window.ContentType.TEXT.toString(), Window.ContentType.TEXT);
     }
 
+    /**
+     * A method that can be called before the page is rendered. Loads a calendar if it has not been done before.
+     * @param event that happens
+     * @throws AbortProcessingException if aborted
+     */
     public void preRenderListen(ComponentSystemEvent event) throws AbortProcessingException {
         if(calendar == null) {
             Long cal = Long.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cal"));
@@ -56,20 +59,31 @@ public class EditCalendarBean implements Serializable {
         }
     }
 
+    /**
+     * @return calendar numeric id.
+     */
     public Long getId() {
         return calendar.getNumericId();
     }
 
+    /**
+     * Method used for getting/setting input text for window contents.
+     * @return text for the window contents
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * Method used for getting/setting input text for window contents.
+     * @param text for the window contents
+     */
     public void setText(String text) {
         this.text = text;
     }
 
     /**
-     * This method changes the currently day.
+     * This method sets the day from a requested parameter of "win".
      */
     public void updateDay() {
         day = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("win"));
@@ -77,7 +91,7 @@ public class EditCalendarBean implements Serializable {
 
 
     /**
-     * Saves the window content
+     * Saves the window content to the database.
      */
     public void saveWindowContent() {
         Window window;
@@ -98,63 +112,92 @@ public class EditCalendarBean implements Serializable {
         }
         calendarManager.updateWindow(window);
         sendInfoMsg("Window has been updated.");
-        System.out.println("Window updated");
     }
 
+    /**
+     * Set the window content from the uploaded event.
+     * @param event for the uploaded content window
+     */
     public void handleContentUpload(FileUploadEvent event) {
         try {
             windowContent = getUploadedBytes(event.getFile().getInputstream());
         } catch (IOException e) {
-            e.printStackTrace(); // TODO: Send error message to client
+            sendErrorMsg("Unable to handle uploaded data");
         }
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public int getWindowNumber() {
-        return windowNumber;
-    }
-
-    public void setWindowNumber(int windowNumber) {
-        this.windowNumber = windowNumber;
-    }
-
+    /**
+     * @return content type of a window.
+     */
     public Window.ContentType getContentType() {
         return contentType;
     }
 
+    /**
+     * Set content type of a window.
+     * @param contentType for the window
+     */
     public void setContentType(Window.ContentType contentType) {
         this.contentType = contentType;
     }
 
+    /**
+     * @return all content type items
+     */
     public Map<String, Window.ContentType> getContentTypeItems() {
         return contentTypeItems;
     }
 
+    /**
+     * @return all windows of a calender
+     */
     public List<Window> getWindows() {
         return calendar.getWindows();
     }
 
+    /**
+     * @return calendar name
+     */
     public String getName() {
         return calendar.getName();
     }
 
+    /**
+     * Set calendar name
+     * @param name for the calendar
+     */
     public void setName(String name) {
         calendar.setName(name);
     }
 
+    /**
+     * @return true if calendar is public, else false.
+     */
     public boolean getPublic() {
         return isPublic;
     }
 
+    /**
+     * Set if calendar is public
+     * @param isPublic for the calendar
+     */
     public void setPublic(boolean isPublic) {
         this.isPublic = isPublic;
     }
 
+    /**
+     * @return pass phrase of a calendar
+     */
     public String getPassPhrase() {
         return calendar.getPassPhrase();
     }
 
+    /**
+     * Set pass phrase of a calendar
+     * @param passPhrase for the calendar
+     */
     public void setPassPhrase(String passPhrase) {
         calendar.setPassPhrase(passPhrase);
     }
@@ -207,7 +250,7 @@ public class EditCalendarBean implements Serializable {
             calendar.setPassPhrase(null); // To make sure passPhrase is null in database
         }
         if (hasNullErrors()) {
-            System.out.println("errors");
+            // Prints out errors
         } else if (!calendar.getName().equals(oldName)) {
             if(calendarManager.exists(calendar.getName())) {
                 sendErrorMsg("A calendar named '" + calendar.getName() + "' already exists!");

@@ -81,8 +81,10 @@
                                                 <f:param name="cal" value="#{viewCalendarBean.id}"/>
                                             </p:graphicImage>
 
-                                            <p:media value="#{dataService.streamedContent}" styleClass="content_centered" player="quicktime"
-                                                     rendered="#{win.type == 'Audio' || win.type == 'Video'}">
+                                            <p:media value="http://www.youtube.com/v/Ezc4HdLGxg4" styleClass="content_centered" player="flash" rendered="#{win.type == 'Video'}"/>
+
+                                            <p:media value="#{dataService.streamedContent}" styleClass="content_centered" player="flash"
+                                                     rendered="#{win.type == 'Audio'}">
                                                 <f:param name="autoPlay" value="false" />
                                                 <f:param name="day" value="#{win.day}"/>
                                                 <f:param name="cal" value="#{viewCalendarBean.id}"/>
