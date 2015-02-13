@@ -87,9 +87,9 @@
                                                 <f:param name="cal" value="#{viewCalendarBean.id}"/>
                                             </p:media>
 
-                                            <h:outputText value="#{dataService.getTextContent(viewCalendarBean.id, win.day)}" styleClass="content_centered" rendered="#{win.type == 'Text'}"/>
+                                            <h:outputText value="#{dataService.getTextContent(viewCalendarBean.id, win.day)}" styleClass="content_text" rendered="#{win.type == 'Text'}"/>
 
-                                            <h:outputLink value="#{dataService.getTextContent(viewCalendarBean.id, win.day)}" styleClass="content_centered" rendered="#{win.type == 'URL'}">
+                                            <h:outputLink value="#{dataService.getTextContent(viewCalendarBean.id, win.day)}" styleClass="content_text" rendered="#{win.type == 'URL'}">
                                                 <h:outputText value="#{dataService.getTextContent(viewCalendarBean.id, win.day)}"/>
                                             </h:outputLink>
                                         </h:panelGroup>
