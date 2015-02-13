@@ -34,6 +34,18 @@ public class EditCalendarBean implements Serializable {
     private String oldName;
     private String text;
     private int day;
+    private int windowNumber;
+    private byte[] windowContent = new byte[1];
+    private Window.ContentType contentType = Window.ContentType.PICTURE;
+    private static Map<String, Window.ContentType> contentTypeItems;
+    static {
+        contentTypeItems = new LinkedHashMap<>();
+        contentTypeItems.put(Window.ContentType.PICTURE.toString(), Window.ContentType.PICTURE);
+        contentTypeItems.put(Window.ContentType.VIDEO.toString(), Window.ContentType.VIDEO);
+        contentTypeItems.put(Window.ContentType.AUDIO.toString(), Window.ContentType.AUDIO); // label, value
+        contentTypeItems.put(Window.ContentType.URL.toString(), Window.ContentType.URL);
+        contentTypeItems.put(Window.ContentType.TEXT.toString(), Window.ContentType.TEXT);
+    }
 
     public void preRenderListen(ComponentSystemEvent event) throws AbortProcessingException {
         if(calendar == null) {
@@ -56,24 +68,8 @@ public class EditCalendarBean implements Serializable {
         this.text = text;
     }
 
-    // --------------------------------------
-    // WINDOW CONFIG RELATED --------------->
-    private int windowNumber;
-    private byte[] windowContent = new byte[1];
-    private Window.ContentType contentType = Window.ContentType.PICTURE;
-    private static Map<String, Window.ContentType> contentTypeItems;
-    static {
-        contentTypeItems = new LinkedHashMap<>();
-        contentTypeItems.put(Window.ContentType.PICTURE.toString(), Window.ContentType.PICTURE);
-        contentTypeItems.put(Window.ContentType.VIDEO.toString(), Window.ContentType.VIDEO);
-        contentTypeItems.put(Window.ContentType.AUDIO.toString(), Window.ContentType.AUDIO); // label, value
-        contentTypeItems.put(Window.ContentType.URL.toString(), Window.ContentType.URL);
-        contentTypeItems.put(Window.ContentType.TEXT.toString(), Window.ContentType.TEXT);
-    }
-
     public void updateDay() {
         day = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("win"));
-        System.out.println("UPDATE DAY: " + day);
     }
 
 
@@ -98,10 +94,10 @@ public class EditCalendarBean implements Serializable {
             window = new Window(calendar.getName(), day, text.getBytes(), contentType);
         }
         calendarManager.updateWindow(window);
+        sendInfoMsg("Window has been updated.");
     }
 
     public void handleContentUpload(FileUploadEvent event) {
-        System.out.println("UploadedFile.getContentType(): " + event.getFile().getContentType());
         try {
             windowContent = getUploadedBytes(event.getFile().getInputstream());
         } catch (IOException e) {

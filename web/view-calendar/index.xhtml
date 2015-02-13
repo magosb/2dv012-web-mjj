@@ -76,7 +76,13 @@
                                             <h:outputText value="#{win.day}" styleClass="day_text"/>
 
                                             <p:media value="#{dataService.streamedContent}" styleClass="content_centered" player="flash"
-                                                     rendered="#{win.type == 'Picture' || win.type == 'Audio' || win.type == 'Video'}">
+                                                     rendered="#{win.type == 'Picture'}">
+                                                <f:param name="day" value="#{win.day}"/>
+                                                <f:param name="cal" value="#{viewCalendarBean.id}"/>
+                                            </p:media>
+
+                                            <p:media value="#{dataService.streamedContent}" styleClass="content_centered" player="quicktime"
+                                                     rendered="#{win.type == 'Audio' || win.type == 'Video'}">
                                                 <f:param name="day" value="#{win.day}"/>
                                                 <f:param name="cal" value="#{viewCalendarBean.id}"/>
                                             </p:media>

@@ -79,13 +79,10 @@
 
                 <p:commandButton value="#{msgs.buttonSave}" action="#{editCalendar.save}">
                     <f:ajax event="click" render="@form"/>
-
                 </p:commandButton>
                 <!--  update="growl" process="@this" -->
             </p:panel>
-        </h:form>
 
-        <h:form id="view" prependId="false">
             <h1><h:outputLabel value="#{editCalendar.name}"/></h1>
             <h:panelGroup layout="block" class="window_container">
 
@@ -114,8 +111,7 @@
                             </p:commandLink>
 
                             <p:dialog header="Edit window" widgetVar="dlg" resizable="false">
-                                <h:form enctype="multipart/form-data">
-
+                                <h:form enctype="multipart/form-data" prependId="false">
                                     <h:panelGrid id="editWindow" columns="2" cellpadding="5">
 
                                         <h:outputLabel for="contentType" value="Content Type:"/>
@@ -127,10 +123,10 @@
 
                                         <h:outputLabel for="contentUploader" value="Audio, Video or Picture:"/>
                                         <p:fileUpload id="contentUploader"  fileUploadListener="#{editCalendar.handleContentUpload}"
-                                                      mode="advanced" sizeLimit="100000000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac|txt)$/"/>
+                                                      mode="advanced" sizeLimit="10000000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png|mp4|vp8|vp9|Theora|mp3|ogg|aac|txt)$/"/>
 
                                         <h:commandButton value="#{msgs.buttonSave}" action="#{editCalendar.saveWindowContent}" onComplete="PF('dlg').hide();">
-                                            <f:ajax execute="@form" render="@form"/>
+                                            <f:ajax event="click" render="@form"/>
                                         </h:commandButton>
                                     </h:panelGrid>
                                 </h:form>

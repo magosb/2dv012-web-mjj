@@ -41,6 +41,15 @@ body {
     font: 1.4rem Courier New, Courier, Monospaced;
     text-align: center;
     width: 90%;
+    max-width: 1300px;
+    -moz-width: 1300px;
+
+    /* For Chrome and Safari browser */
+    -webkit-width: 1300px;
+
+    /* For Opera browser */
+    -o-width: 1300px;
+
     margin: 0 auto; /* center */
     padding: 0;
     border-radius: 15px;
@@ -369,41 +378,40 @@ h2#date2 {
 }
 
 .window_container {
-    /* The size of a calenders background image */
-    height: 720px;
-    width: 900px;
-    position: relative;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position:relative;
+    max-width: 1000px;
+    min-width: 500px;
+    min-height: 500px;
+    /* For Firefox browser */
+    -moz-width: 1000px;
 
-    margin: auto;
+    /* For Chrome and Safari browser */
+    -webkit-width: 1000px;
+
+    /* For Opera browser */
+    -o-width: 1000px;
+
+    margin: 0 auto;
+    margin-top: 50px;
+
 
 }
 
 .window_background {
-    max-height: 720px;
-    max-width: 900px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* The size of a calenders background image */
+    max-width: 75%;
     /* For Firefox browser */
-    -moz-width: 900px;
-    -moz-height:720px;
+    -moz-width: 75%;
 
     /* For Chrome and Safari browser */
-    -webkit-width: 900px;
-    -webkit-height:720px;
+    -webkit-width: 75%;
 
     /* For Opera browser */
-    -o-width: 900px;
-    -o-height:720px;
-
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    margin: auto;
+    -o-width: 75%;
 }
 
 .window_cmdLink:hover{
@@ -561,7 +569,15 @@ h2#date2 {
 
 }
 
-.content_wrapper {
+.content_text {
+    position: absolute;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    min-height: 100px;
+    min-width: 300px;
     max-height: 80%;
     max-width: 80%;
     /* For Firefox browser */
@@ -575,6 +591,8 @@ h2#date2 {
     /* For Opera browser */
     -o-width: 80%;
     -o-height:80%;
+
+    padding: 20px;
 
 }
 
