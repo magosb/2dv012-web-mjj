@@ -101,8 +101,8 @@
         <from-view-id>/admin/add-calendar/index.xhtml</from-view-id>
         <navigation-case>
             <description>For admin to view a calendar.</description>
-            <from-outcome>view</from-outcome>
-            <to-view-id>/view-calendar/index.xhtml/</to-view-id>
+            <from-outcome>edit</from-outcome>
+            <to-view-id>/admin/edit-calendar/index.xhtml/</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
