@@ -22,19 +22,19 @@
 
     <section>
         <h:form id="content">
-            <h:form id="notAuth" rendered="#{!cookieViewBean.authorized}" prependId="false">
+            <h:form id="notAuth" rendered="#{!cookieBean.authorized}" prependId="false">
                 <h2>Enter the passphrase for <h:outputLabel value="#{viewCalendarBean.name}"/> to view it</h2>
-                <h:inputSecret id="passphrase" value="#{cookieViewBean.passphrase}" required="true"/>
+                <h:inputSecret id="passphrase" value="#{cookieBean.passphrase}" required="true"/>
                 <h:message for="passphrase" errorClass="errorMessage" showDetail="false" showSummary="true"/>
                 <br/>
-                <h:commandButton value="#{msgs.buttonView}" action="#{cookieViewBean.validatePassphrase()}">
+                <h:commandButton value="#{msgs.buttonView}" action="#{cookieBean.validatePassphrase()}">
                     <f:ajax execute="passphrase remember" render=":content"/>
                 </h:commandButton>
-                <h:selectBooleanCheckbox id="remember" value="#{cookieViewBean.remember}"/>
+                <h:selectBooleanCheckbox id="remember" value="#{cookieBean.remember}"/>
                 <h:outputLabel for="remember" value="#{msgs.savePassphraseCookie}"/>
             </h:form>
 
-            <h:form id="auth" rendered="#{cookieViewBean.authorized}" prependId="false">
+            <h:form id="auth" rendered="#{cookieBean.authorized}" prependId="false">
                 <h1><h:outputLabel value="#{viewCalendarBean.name}"/></h1>
                 <h:panelGroup layout="block" class="window_container">
 
@@ -48,7 +48,7 @@
                             <h:panelGroup layout="block" class="window_panel">
                                 <p:lightBox id="lb" rendered="#{win.day le calendarBean.currentDay}">
 
-                                    <p:commandLink action="#{cookieViewBean.setIsOpened(win.day)}" styleClass="window_cmdLink" rendered="#{!cookieViewBean.getIsOpened(win.day)}">
+                                    <p:commandLink action="#{cookieBean.setIsOpened(win.day)}" styleClass="window_cmdLink" rendered="#{!cookieBean.getIsOpened(win.day)}">
                                         <div class="back">
                                             <p:graphicImage class="window" id="imagewindow" name="/default/1_0/images/#{win.type}_icon.png"/>
                                             <h:outputText value="#{win.day}" styleClass="window_date_opened"/>
@@ -60,7 +60,7 @@
                                         <f:ajax event="click"/>
                                     </p:commandLink>
 
-                                   <p:commandLink styleClass="window_cmdLink" rendered="#{cookieViewBean.getIsOpened(win.day)}">
+                                   <p:commandLink styleClass="window_cmdLink" rendered="#{cookieBean.getIsOpened(win.day)}">
                                         <div class="back">
                                             <p:graphicImage class="window" id="imagewindowopen" name="/default/1_0/images/#{win.type}_icon.png"/>
                                             <h:outputText value="#{win.day}" styleClass="window_date_opened"/>

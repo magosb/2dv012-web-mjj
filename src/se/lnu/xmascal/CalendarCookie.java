@@ -17,8 +17,9 @@ public class CalendarCookie {
     private boolean[] windows;
 
     /**
-     * @param calendarId the calendar ID that this cookie represents
-     * @param passphrase the passphrase of the calendar represented by this cookie, or <code>null</code> if it has no passphrase
+     * @param calendarId the numeric calendar ID of the calendar that this cookie represents
+     * @param passphrase the passphrase of the calendar represented by this cookie, or <code>null</code> if it has no
+     *                   passphrase
      * @param windows an array of exactly 24 boolean values that represent whether a certain window has been opened
      *                by the user or not. The windows are numerated in ascending order and <code>true</code> represents
      *                an opened window while <code>false</code> represents a closed window. If this parameter is
@@ -81,26 +82,46 @@ public class CalendarCookie {
         }
     }
 
+    /**
+     * @return the numeric calendar ID of the calendar that this cookie represents
+     */
     public long getCalendarId() {
         return calendarId;
     }
 
+    /**
+     * @param calendarId the numeric ID of the calendar that this cookie represents
+     */
     public void setCalendarId(long calendarId) {
         this.calendarId = calendarId;
     }
 
+    /**
+     * @return the passphrase of the calendar that this cookie represents, or <code>null</code> if it does not have one
+     */
     public String getPassphrase() {
         return passphrase;
     }
 
+    /**
+     * @param passphrase the passphrase of the calendar that this cookie represents
+     */
     public void setPassphrase(String passphrase) {
         this.passphrase = passphrase;
     }
 
+    /**
+     * @return an array of 24 <code>boolean</code> values, in which <code>true</code> at index X represents window on
+     * day X+1 that as been opened, and <code>false</code> represents a window on day X+1 that has not been opened
+     */
     public boolean[] getWindows() {
         return windows;
     }
 
+    /**
+     * @param windows the opened/closed status of the windows of the calendar that this cookie represents.
+     *                See {@link #getWindows() getWindows()} for specifics
+     */
     public void setWindows(boolean[] windows) {
         this.windows = windows;
     }

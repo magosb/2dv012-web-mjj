@@ -1,7 +1,5 @@
 package se.lnu.xmascal;
 
-import se.lnu.xmascal.CalendarCookie;
-import se.lnu.xmascal.CookieManager;
 import se.lnu.xmascal.ejb.CalendarManager;
 import se.lnu.xmascal.model.Calendar;
 
@@ -18,7 +16,7 @@ import java.io.Serializable;
  */
 @Named
 @ViewScoped
-public class CookieViewBean implements Serializable {
+public class CookieBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final String CAL_REQ_PARAM_NAME = "cal";
     private String passphrase = null;

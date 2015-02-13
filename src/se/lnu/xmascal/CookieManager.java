@@ -26,7 +26,8 @@ public class CookieManager implements Serializable {
      *
      * @param name the name of the cookie
      * @param value the value of the cookie
-     * @param maxAge the maximum age, specified as number of seconds into the future, starting from when the browser received the cookie
+     * @param maxAge the maximum age, specified as number of seconds into the future, starting from when the browser
+     *               receives the cookie
      */
     private void setCookie(String name, String value, int maxAge) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -73,19 +74,17 @@ public class CookieManager implements Serializable {
     private Cookie getCookie(String name) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-        Cookie cookie = null;
 
         // Cookies sent in this request by the client
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie c : cookies) {
                 if (c.getName().equals(name)) {
-                    cookie = c;
-                    return cookie;
+                    return c;
                 }
             }
         }
-        return null;
+        return null; // No cookie found
     }
 
     /**
